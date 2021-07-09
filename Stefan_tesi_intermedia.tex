@@ -41,11 +41,20 @@
 				\begin{center}
 					\includegraphics[width=0.95 \textwidth]{IMG/Move_IT_logo.PNG}
 				\end{center}
-		\end{columns}	
+		\end{columns}
+	\vspace{1 cm}
+	MoVe\_IT = \textbf{M}odeling and \textbf{V}erification for \textbf{I}on beam \textbf{T}reatment planning	
 	\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\section{Hadron therapy}
+	
+	\begin{frame}
+	\frametitle{Hadron therapy, sensor and ASICs}
+	\begin{center}
+		{\Huge \fontfamily{qtm}\selectfont \color{blue} \textbf{Hadron therapy, sensor and ASICs}}
+	\end{center}
+\end{frame}
 	
 	\begin{frame}
 	\frametitle{Hadron therapy}
@@ -66,6 +75,11 @@
 			\end{itemize}
 		\end{center}
 	\end{columns}
+	\begin{center}
+		\begin{equation}
+			-\dfrac{\mathrm dE}{\mathrm dx} = 2 \pi N_{a} r_{e}^{2} m_{e} c^{2} \rho \dfrac{Z}{A}  \dfrac{z^{2}}{\beta^{2}}\left[\ln\left(\dfrac{2m_{e} \gamma ^{2} v^{2} W_{max}}{I^{2}}\right) - 2\beta^{2} - \delta 2\frac{C}{Z}\right]
+		\end{equation}
+	\end{center}
 	
 	\end{frame}
 
@@ -77,6 +91,7 @@
 		\begin{center}
 			\includegraphics[width=0.9 \textwidth]{IMG/LGAD_image.PNG}
 		\end{center}
+	\textbf{L}ow \textbf{G}ain \textbf{A}valanche \textbf{D}etectors
 		\begin{itemize}
 			\item 1-1.5cm long strips with 200$\mu$m pitch
 			\item 50$\mu$m sensor thickness
@@ -155,16 +170,16 @@
 	\frametitle{FPGA}
 	{\Large 
 		\begin{itemize}
-			\item FPGA = \textbf{F}ield \textbf{P}rogrammable \textbf{G} \textbf{A}rray
+			\item FPGA = \textbf{F}ield \textbf{P}rogrammable \textbf{G}ate \textbf{A}rray
 			\begin{itemize}
 				\item gate array : \textbf{array of "logic cells"} that can be programmed to implement \textbf{any desired logic functionality}
-				\item field programmable : \textbf{device not committed to do something} until effectively programmed according to the field application
+				\item field programmable: \textbf{device not committed to do something} until effectively programmed according to the field application
 			\end{itemize}
 		\item in principle, \textbf{programmable infinite times} with no limitations
-		\item \textbf{high flexibility} : it can be implemented \textbf{any digital function}
+		\item \textbf{high flexibility}: it can be implemented \textbf{any digital function}
 		\item \textbf{fast} and \textbf{cheap} prototyping cycle
 		\begin{itemize}
-			\item \textbf{out of the box} solution : no layout, masks or other manufacturing steps needed
+			\item \textbf{out of the box} solution: no layout, masks or other manufacturing steps needed
 		\end{itemize}
 		\item {\color{orange} power hungry, slow compared to \textbf{ASICs} and expensive on large-scales}
 		\end{itemize}
@@ -192,22 +207,22 @@
 	\begin{frame}
 	\frametitle{FPGA board }
 	\begin{center}
-		Kintex7 kc705 board
-		%\includegraphics[width=0.85 \textwidth]{IMG/Kintex7_board.PNG}
+		\textbf{Kintex7 kc705 board}
 		\includegraphics[width=0.85 \textwidth]{IMG/KC705.PNG}
 	\end{center}
 	\end{frame}
 
 	\begin{frame}
 	\frametitle{VHDL}
-	{\Large
+	{\LARGE
 	\begin{itemize}
 		\item \textbf{VHDL}: \textbf{V}HSIC \textbf{H}ardware \textbf{D}escription \textbf{L}anguage 
 		\begin{itemize}
 			\item \textbf{VHSIC}: \textbf{V}ery \textbf{H}igh \textbf{S}peed \textbf{I}ntegrated \textbf{C}ircuits
 			\item is a hardware description language (\textbf{HDL}) that can model the behavior and structure of digital systems at multiple levels of abstraction
-			\item Since 1987, VHDL has been standardized by the Institute of Electrical and Electronics Engineers (\textbf{IEEE})
+			\item since \textbf{1987}, VHDL has been standardized by the Institute of Electrical and Electronics Engineers (\textbf{IEEE})
 			\item in February 2008, Accellera approved \textbf{VHDL 4.0}, also informally known as VHDL 2008
+			\item {\color{orange} VHDL is not a programming language!}
 		\end{itemize}
 	\end{itemize}
 	}
@@ -242,8 +257,13 @@
 	\begin{frame}
 	\frametitle{LabView Software}
 	\begin{center}
-		\includegraphics[width=0.8 \textwidth]{IMG/LabVIEWBaselineDac.PNG}
+		\includegraphics[width=0.7 \textwidth]{IMG/LabVIEWBaselineDac.PNG}
 	\end{center}
+	The LabView software written by Emanuele Data can:
+	\begin{itemize}
+		\item write or read one channel at the time
+		\item write or read all 24 channels
+	\end{itemize}
 	
 	\end{frame}
 
@@ -251,16 +271,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\section{Firmware}
 	
-	\begin{frame}
-	\frametitle{Firmware and waveforms}
-	\begin{center}
-		{\Huge \fontfamily{qtm}\selectfont \color{blue} \textbf{Firmware and Waveforms}}
-	\end{center}
-	\end{frame}
 	
 	
 	\begin{frame}[fragile]
 	\frametitle{Debug Tool}
+	Debug tool to verify the working condition of every \textbf{FMC}(\textbf{HPC}/\textbf{LPC}) output
 	\begin{center}
 		{\small \color{blue} Step1: Signal names and identification.}
 	\end{center}
@@ -293,129 +308,159 @@
 		\end{verbatim} }
 	\end{frame}
 
+	\begin{frame}
+	\frametitle{Firmware and waveforms}
+	\begin{center}
+		{\Huge \fontfamily{qtm}\selectfont \color{blue} \textbf{Firmware and Waveforms}}
+	\end{center}
+	\end{frame}
+
+
 	\begin{frame}[fragile]
 	\frametitle{Writing Baseline DACs $\rightarrow$ code}
+	\begin{itemize}
+		\item the \textbf{FPGA} communicates with the pc using UDP (\textbf{U}ser \textbf{D}atagram \textbf{P}rotocol) implemented in the \textbf{GBphy} project
+		\item each UDP packet is \textbf{64} bit long $\rightarrow$ \textbf{32} bit used by GBphy and \textbf{32} bit of data
+		\item \textbf{32} bit data =
+		\begin{itemize}
+			\item \textbf{4} bit $\rightarrow$ firmware target
+			\item \textbf{8} bit $\rightarrow$ firmware command
+			\item \textbf{20} bit $\rightarrow$ firmware data
+		\end{itemize}
+		\item \textbf{20} bit firmware data =
+		\begin{itemize}
+			\item \textbf{3} bit not used
+			\item \textbf{2} bit baseline dac command
+			\item \textbf{6} bit baseline dac address
+			\item \textbf{8} bit baseline dac data
+			\item \textbf{1} bit baseline dac selecet (each FPGA can control 2 chips)
+		\end{itemize}
+		\item To perform a Read/write operation the initialization sequence must be sent first\newline every time
+	\end{itemize}
+	\end{frame}
+
+	\begin{frame}[fragile]
+		\frametitle{Writing Baseline DACs $\rightarrow$ code}
+		FSM (\textbf{F}inite \textbf{S}tate \textbf{M}achine): states for the serial data communication 
+		{\tiny
+		\begin{columns}
+		\column{0.5 \textwidth}
+		
+		\begin{center}
+			\includegraphics[width=0.95 \textwidth]{IMG/SetbaselineDac.png}
+			
+			\vspace{1 cm}
+			\includegraphics[width=0.85 \textwidth]{IMG/EndCommunication.png}
+		\end{center}
+		
+	
+		\column{0.5 \textwidth}
+		\begin{center}
+			\includegraphics[width=0.85 \textwidth]{IMG/EndCommunication.png}
+			
+			\vspace{1 cm}
+			\includegraphics[width=0.85 \textwidth]{IMG/EndCommunication2.png}
+		\end{center}
+	
+		\end{columns}
+	}
+	\end{frame}
+
+	\begin{frame}[fragile]
+	\frametitle{Writing Baseline DACs $\rightarrow$ code}
+	\begin{center}
+		FSM: \textbf{setData} state
+	\end{center}
 	{\tiny
-	\begin{columns}
-	\column{0.33 \textwidth}
-		\begin{center}
-			\begin{verbatim}
-			when setClock =>
-			if (baseline_spi_clk_div = '1') then
-			baseline_dac_sck_i <= '1';
-			baseline_dac_state <= clearClock;
-			else
-			baseline_dac_state <= setClock;
-			end if;
+		\begin{columns}
+			\column{0.1 \textwidth}		
 			
-			when clearClock =>
-			if (baseline_spi_clk_div = '1') then
-			baseline_dac_sck_i <= '0';
-			baseline_dac_state <= nextBitOrNextChannel;
-			else
-			baseline_dac_state <= clearClock;
-			end if;
+			\column{0.4 \textwidth}
+			\begin{center}
+				\begin{verbatim}
+				when setData =>
+				if (baseline_spi_clk_div = '1') then
+				case baseline_dac_bit_ctr is
+				when "000000" =>
+				baseline_dac_mosi_i <= '1';
+				when "000001" =>
+				baseline_dac_mosi_i <= '0';
+				when "000010" =>
+				baseline_dac_mosi_i <= '1';
+				when "000011" => 
+				baseline_dac_mosi_i <= '0';		
+				when "000100" =>
+				baseline_dac_mosi_i <= '0';
+				when "000101" =>
+				baseline_dac_mosi_i <= '1';
+				when "000110" =>
+				baseline_dac_mosi_i <= '0';
+				when "000111" =>
+				baseline_dac_mosi_i <= '1';		
+				when "001000" =>
+				baseline_dac_mosi_i <= '1';
+				when "001001" =>
+				baseline_dac_mosi_i <= '0';
+				when "001010" =>
+				baseline_dac_mosi_i <= '1';
+				          .
+				          .
+				          .
+				\end{verbatim}
+			\end{center}
 			
-			when nextBitOrNextChannel =>
-			if (baseline_dac_bit_ctr = to_unsigned(32, 6)) then
-			baseline_dac_bit_ctr <= to_unsigned(0, 6);
-			--baseline_dac_state <= nextChannel;
-			--baseline_dac_state <= idle;
-			baseline_dac_state <= EndCommunication;
-			else
-			baseline_dac_bit_ctr <= baseline_dac_bit_ctr + 1;
-			baseline_dac_state <= setData;
-			end if;
-			\end{verbatim}
-		\end{center}
-	
-		\column{0.33 \textwidth}
-		\begin{center}
-			\begin{verbatim}
-			when setData =>
-			if (baseline_spi_clk_div = '1') then
-			case baseline_dac_bit_ctr is
-			when "000000" =>
-			baseline_dac_mosi_i <= '1';
-			when "000001" =>
-			baseline_dac_mosi_i <= '0';
-			when "000010" =>
-			baseline_dac_mosi_i <= '1';
-			when "000011" => 
-			baseline_dac_mosi_i <= '0';		
-			when "000100" =>
-			baseline_dac_mosi_i <= '0';
-			when "000101" =>
-			baseline_dac_mosi_i <= '1';
-			when "000110" =>
-			baseline_dac_mosi_i <= '0';
-			when "000111" =>
-			baseline_dac_mosi_i <= '1';		
-			when "001000" =>
-			baseline_dac_mosi_i <= '1';
-			when "001001" =>
-			baseline_dac_mosi_i <= '0';
-			when "001010" =>
-			baseline_dac_mosi_i <= '1';
-			when "001011" =>
-			baseline_dac_mosi_i <= '0';			
-			when "001100" =>
-			baseline_dac_mosi_i <= '0';
-			when "001101" =>
-			baseline_dac_mosi_i <= '1';
-			when "001110" =>
-			baseline_dac_mosi_i <= '0';
-			when "001111" =>
-			baseline_dac_mosi_i <= '1';
-			\end{verbatim}
-		\end{center}
-	
-		\column{0.33 \textwidth}
-		\begin{center}
-			\begin{verbatim}
-			--command
-			when "010000" =>
-			baseline_dac_mosi_i <= fifo_data(16);  --17
-			when "010001" =>
-			baseline_dac_mosi_i <= fifo_data(15);  --16
-			--address
-			when "010010" =>
-			baseline_dac_mosi_i <= fifo_data(14);  --15
-			when "010011" =>
-			baseline_dac_mosi_i <= fifo_data(13);  --14
-			when "010100" =>
-			baseline_dac_mosi_i <= fifo_data(12);  --13
-			when "010101" =>
-			baseline_dac_mosi_i <= fifo_data(11);  --12
-			when "010110" =>
-			baseline_dac_mosi_i <= fifo_data(10);  --11
-			when "010111" =>
-			baseline_dac_mosi_i <= fifo_data(9);  --10
-			--data
-			when "011000" =>
-			baseline_dac_mosi_i <= fifo_data(8);  --9
-			when "011001" =>
-			baseline_dac_mosi_i <= fifo_data(7);  --8
-			when "011010" =>
-			baseline_dac_mosi_i <= fifo_data(6);  --7
-			when "011011" =>
-			baseline_dac_mosi_i <= fifo_data(5);  --6
-			when "011100" =>
-			baseline_dac_mosi_i <= fifo_data(4);  --5
-			when "011101" =>
-			baseline_dac_mosi_i <= fifo_data(3);  --4
-			when "011110" =>
-			baseline_dac_mosi_i <= fifo_data(2);  --3
-			when "011111" =>
-			baseline_dac_mosi_i <= fifo_data(1);  --2
-			\end{verbatim}
-		\end{center}
+			\column{0.4 \textwidth}
+			\begin{center}
+				\begin{verbatim}
+				--command
+				when "010000" =>
+				baseline_dac_mosi_i <= fifo_data(16); 
+				when "010001" =>
+				baseline_dac_mosi_i <= fifo_data(15); 
+				--address
+				when "010010" =>
+				baseline_dac_mosi_i <= fifo_data(14); 
+				when "010011" =>
+				baseline_dac_mosi_i <= fifo_data(13); 
+				when "010100" =>
+				baseline_dac_mosi_i <= fifo_data(12); 
+				when "010101" =>
+				baseline_dac_mosi_i <= fifo_data(11); 
+				when "010110" =>
+				baseline_dac_mosi_i <= fifo_data(10); 
+				when "010111" =>
+				baseline_dac_mosi_i <= fifo_data(9);  
+				--data
+				when "011000" =>
+				baseline_dac_mosi_i <= fifo_data(8);  
+				when "011001" =>
+				baseline_dac_mosi_i <= fifo_data(7);  
+				when "011010" =>
+				baseline_dac_mosi_i <= fifo_data(6);  
+				          .
+				          .
+				          .
+				\end{verbatim}
+			\end{center}
+		\column{0.1 \textwidth}
 		\end{columns} 
 	}
 	\end{frame}
 
 	\begin{frame}
+	\frametitle{Vivado simulation}
+		\begin{center}
+			\includegraphics[width=0.85 \textwidth]{IMG/TotalSimulation.png}
+		\end{center}
+	In order to reduce the simulation time the clock was reduced to $\approx1.5\mu s$
+	\end{frame}
+
+	\begin{frame}
 	\frametitle{Writing Baseline DACs $\rightarrow$ clock stats}
+	\begin{itemize}
+		\item clock period of \textbf{98.44} $\mu$s measured with oscilloscope
+		\item the signal amplitude is reduced to \textbf{1.2}V from \textbf{2.5}V with a resistive voltage divider 
+	\end{itemize}
 	\begin{center}
 		\includegraphics[width=0.65 \textwidth]{IMG/probe/09-08-2021_clock-specks.png}
 	\end{center}
@@ -423,13 +468,15 @@
 
 	\begin{frame}
 	\frametitle{Writing Baseline DACs $\rightarrow$ clock stats}
+	\begin{itemize}
+		\item \textbf{6.29}ms / \textbf{98.44}  $\mu$s $\approx$ \textbf{64} = Number of clock in a data packet
+		\item \textbf{32} clock periods for the data transmission + \textbf{32} clock periods waiting for a response
+		
+	\end{itemize}
 	\begin{center}
 		\begin{figure}
 			\includegraphics[width=0.65 \textwidth]{IMG/probe/09-08-2021_packet-time.png}
-			\caption{{\small packet time}}
-		\end{figure}
-		
-		
+		\end{figure}	
 	\end{center}
 	\end{frame}
 
@@ -464,7 +511,9 @@
 
 	\begin{frame}
 	\frametitle{Reading Baseline DACs $\rightarrow$ code}
-
+		\begin{center}
+			\includegraphics[width=0.6 \textwidth]{IMG/FSM_Read_States.png}
+		\end{center}
 	\end{frame}
 
 	\begin{frame}

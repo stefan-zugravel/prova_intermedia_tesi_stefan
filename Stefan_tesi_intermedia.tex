@@ -93,21 +93,41 @@
 	\frametitle{ABACUS2-1}
 		\begin{columns}
 			\column{0.5 \textwidth}
+			\begin{center}
+				\includegraphics[width=0.8 \textwidth]{IMG/TableLSB.PNG}
+				\newline
+				The threshold can be fine-tuned at the channel level with a \textbf{6-bits} DAC. The DACs can linearly increase the threshold with a nominal LSB value of \textbf{0.94mV}. The LSB value can be tuned via the Vref LSB input.
+			\end{center}
 			\begin{itemize}
 				\item \textbf{24} channels
 				\item UMC \textbf{110nm} technology
 				\item Die size 4.95 x 1.935 mm$^2$
 				\item Internal Dacs \textbf{1.2V single ended} serial signal
+			\end{itemize}
+			\column{0.5 \textwidth}
+			\begin{itemize}
 				\item Initialization sequence \textbf{A5A5}= 
 				\newline
 				1010-0101-1010-0101
+				\item \textbf{16bit words} 2bit command + 6bit address + 8bit data
+				\begin{itemize}
+					\item \textbf{command}
+					\begin{itemize}
+						\item \textbf{11} = write
+						\item \textbf{10} = read
+					\end{itemize}
+					\item \textbf{address}
+					\begin{itemize}
+						\item \textbf{5bit} address from \textbf{0} to \textbf{23}
+						\item \textbf{LSB} is Vth+- (not used for now)
+					\end{itemize}
+					\item \textbf{data}
+					\begin{itemize}
+						\item \textbf{2MSB} not used
+						\item \textbf{6LSB} data for the internal DAC \newline from \textbf{0} to \textbf{63}
+					\end{itemize}
+				\end{itemize} 
 			\end{itemize}
-			\column{0.5 \textwidth}
-			\begin{center}
-				\includegraphics[width=0.8 \textwidth]{IMG/TableLSB.PNG}
-				\newline
-				The threshold can be fine-tuned at the channel level with a 6-bits DAC. The DACs can linearly increase the threshold with a nominal LSB value of \textbf{0.94mV}. The LSB value can be tuned via the Vref LSB input.
-			\end{center}
 		\end{columns}
 	\end{frame}
 
@@ -161,9 +181,9 @@
 		\end{center}
 		\column{0.5 \textwidth}
 		\begin{itemize}
-			\item \textbf{PSM}
-			\item \textbf{IOB}
-			\item \textbf{CLB}
+			\item \textbf{PSM}: \textbf{P}rogrammable \textbf{S}witch \textbf{M}atrix = Whenever a vertical and a horizontal channel intersect, there is a switch box. When a wire enters a switch box there are programmable switches that allow it to connect to other wires in adjacent channel segments
+			\item \textbf{IOB}: \textbf{I}/\textbf{O} \textbf{B}lock = collection or grouping of basic elements that implement the input and output functions of an FPGA device
+			\item \textbf{CLB}: \textbf{C}onfigurable \textbf{L}ogic \textbf{B}lock = A typical cell consists of a 4-input LUT, a Full adder (FA) and a D-type flip-flop
 		\end{itemize}
 	\end{columns}
 	\end{frame}
@@ -176,6 +196,21 @@
 		%\includegraphics[width=0.85 \textwidth]{IMG/Kintex7_board.PNG}
 		\includegraphics[width=0.85 \textwidth]{IMG/KC705.PNG}
 	\end{center}
+	\end{frame}
+
+	\begin{frame}
+	\frametitle{VHDL}
+	{\Large
+	\begin{itemize}
+		\item \textbf{VHDL}: \textbf{V}HSIC \textbf{H}ardware \textbf{D}escription \textbf{L}anguage 
+		\begin{itemize}
+			\item \textbf{VHSIC}: \textbf{V}ery \textbf{H}igh \textbf{S}peed \textbf{I}ntegrated \textbf{C}ircuits
+			\item is a hardware description language (\textbf{HDL}) that can model the behavior and structure of digital systems at multiple levels of abstraction
+			\item Since 1987, VHDL has been standardized by the Institute of Electrical and Electronics Engineers (\textbf{IEEE})
+			\item in February 2008, Accellera approved \textbf{VHDL 4.0}, also informally known as VHDL 2008
+		\end{itemize}
+	\end{itemize}
+	}
 	\end{frame}
 
 

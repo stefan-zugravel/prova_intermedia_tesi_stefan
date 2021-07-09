@@ -59,7 +59,7 @@
 		\begin{center}
 			\includegraphics[width=0.3 \textwidth]{IMG/HadroTherapy.PNG}
 			\newline
-			The typical particle rate for a therapeutical beam is :
+			Typical particle rate for a therapeutical beam is :
 			\begin{itemize}
 				\item $10^6 \:- \: 10^8 \: \frac{cm^2}{s}$ for carbon ions
 				\item $10^8 \:- \: 10^{10} \: \frac{cm^2}{s}$ for protons
@@ -80,46 +80,112 @@
 		\begin{itemize}
 			\item 1-1.5cm long strips with 200$\mu$m pitch
 			\item 50$\mu$m sensor thickness
-			\item Internal gain of 10-15 
-			\item Trapezoidal signal of $\approx$1.2ns
+			\item Internal gain of \textbf{10-15} 
+			\item Trapezoidal signal of $\approx$\textbf{1.2ns}
 		\end{itemize}
 	\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\section{ABACUS2 ASIC}
 	
-	\begin{frame}
-	\frametitle{ABACUS2}
-		\begin{center}
-			\includegraphics[width=0.6 \textwidth]{IMG/ABACUS.PNG}
-			\includegraphics[width=0.6 \textwidth]{IMG/ABACUS_channel.PNG}
-		\end{center}
-	\end{frame}
 
 	\begin{frame}
-	\frametitle{ABACUS2}
+	\frametitle{ABACUS2-1}
 		\begin{columns}
 			\column{0.5 \textwidth}
 			\begin{itemize}
-				\item 24 channels
+				\item \textbf{24} channels
+				\item UMC \textbf{110nm} technology
+				\item Die size 4.95 x 1.935 mm$^2$
+				\item Internal Dacs \textbf{1.2V single ended} serial signal
+				\item Initialization sequence \textbf{A5A5}= 
+				\newline
+				1010-0101-1010-0101
 			\end{itemize}
 			\column{0.5 \textwidth}
 			\begin{center}
-				contenuto...
+				\includegraphics[width=0.8 \textwidth]{IMG/TableLSB.PNG}
+				\newline
+				The threshold can be fine-tuned at the channel level with a 6-bits DAC. The DACs can linearly increase the threshold with a nominal LSB value of \textbf{0.94mV}. The LSB value can be tuned via the Vref LSB input.
 			\end{center}
 		\end{columns}
+	\end{frame}
+
+	
+	\begin{frame}
+	\frametitle{ABACUS2-2}
+	\begin{center}
+		\includegraphics[width=0.6 \textwidth]{IMG/ABACUS.PNG}
+		\includegraphics[width=0.6 \textwidth]{IMG/ABACUS_channel.PNG}
+	\end{center}
 	\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\section{FPGA}
 	
+		
+	\begin{frame}
+	\frametitle{FPGA \& VHDL}
+	\begin{center}
+		{\Huge \fontfamily{qtm}\selectfont \color{blue} \textbf{FPGA \& VHDL}}
+	\end{center}
+	\end{frame}
+	
+	\begin{frame}
+	\frametitle{FPGA}
+	{\Large 
+		\begin{itemize}
+			\item FPGA = \textbf{F}ield \textbf{P}rogrammable \textbf{G} \textbf{A}rray
+			\begin{itemize}
+				\item gate array : \textbf{array of "logic cells"} that can be programmed to implement \textbf{any desired logic functionality}
+				\item field programmable : \textbf{device not committed to do something} until effectively programmed according to the field application
+			\end{itemize}
+		\item in principle, \textbf{programmable infinite times} with no limitations
+		\item \textbf{high flexibility} : it can be implemented \textbf{any digital function}
+		\item \textbf{fast} and \textbf{cheap} prototyping cycle
+		\begin{itemize}
+			\item \textbf{out of the box} solution : no layout, masks or other manufacturing steps needed
+		\end{itemize}
+		\item {\color{orange} power hungry, slow compared to \textbf{ASICs} and expensive on large-scales}
+		\end{itemize}
+	}
+	\end{frame}
+
+	\begin{frame}
+	\frametitle{FPGA}
+	\begin{columns}
+		\column{0.5 \textwidth}
+		\begin{center}
+			\includegraphics[width=0.75 \textwidth]{IMG/FPGA_PARTS.PNG}
+			\includegraphics[width=0.65 \textwidth]{IMG/DesignFlow.PNG}
+		\end{center}
+		\column{0.5 \textwidth}
+		\begin{itemize}
+			\item \textbf{PSM}
+			\item \textbf{IOB}
+			\item \textbf{CLB}
+		\end{itemize}
+	\end{columns}
+	\end{frame}
+
+	
 	\begin{frame}
 	\frametitle{FPGA board }
 	\begin{center}
 		Kintex7 kc705 board
-		\includegraphics[width=0.85 \textwidth]{IMG/Kintex7_board.PNG}
+		%\includegraphics[width=0.85 \textwidth]{IMG/Kintex7_board.PNG}
+		\includegraphics[width=0.85 \textwidth]{IMG/KC705.PNG}
 	\end{center}
 	\end{frame}
+
+
+	\begin{frame}
+	\frametitle{Test bench, Test board and Debug Tool}
+	\begin{center}
+		{\Huge \fontfamily{qtm}\selectfont \color{blue} \textbf{Test bench, Test board and Debug Tool}}
+	\end{center}
+	\end{frame}
+
 
 	\begin{frame}
 	\frametitle{Test bench}
@@ -131,9 +197,11 @@
 	\begin{frame}
 	\frametitle{Test board}
 	\begin{center}
-		Test board with ABACUS2 ASIC
-		%\includegraphics[width=0.85 \textwidth]{IMG/Kintex7_board.PNG}
+		\includegraphics[width=0.7 \textwidth]{IMG/TestBoard.pdf}
 	\end{center}
+	\begin{itemize}
+		\item 3.3V power supply
+	\end{itemize}
 	\end{frame}
 
 	\begin{frame}
@@ -147,6 +215,14 @@
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\section{Firmware}
+	
+	\begin{frame}
+	\frametitle{Firmware and waveforms}
+	\begin{center}
+		{\Huge \fontfamily{qtm}\selectfont \color{blue} \textbf{Firmware and Waveforms}}
+	\end{center}
+	\end{frame}
+	
 	
 	\begin{frame}[fragile]
 	\frametitle{Debug Tool}
@@ -182,9 +258,125 @@
 		\end{verbatim} }
 	\end{frame}
 
-	\begin{frame}
+	\begin{frame}[fragile]
 	\frametitle{Writing Baseline DACs $\rightarrow$ code}
+	{\tiny
+	\begin{columns}
+	\column{0.33 \textwidth}
+		\begin{center}
+			\begin{verbatim}
+			when setClock =>
+			if (baseline_spi_clk_div = '1') then
+			baseline_dac_sck_i <= '1';
+			baseline_dac_state <= clearClock;
+			else
+			baseline_dac_state <= setClock;
+			end if;
+			
+			when clearClock =>
+			if (baseline_spi_clk_div = '1') then
+			baseline_dac_sck_i <= '0';
+			baseline_dac_state <= nextBitOrNextChannel;
+			else
+			baseline_dac_state <= clearClock;
+			end if;
+			
+			when nextBitOrNextChannel =>
+			if (baseline_dac_bit_ctr = to_unsigned(32, 6)) then
+			baseline_dac_bit_ctr <= to_unsigned(0, 6);
+			--baseline_dac_state <= nextChannel;
+			--baseline_dac_state <= idle;
+			baseline_dac_state <= EndCommunication;
+			else
+			baseline_dac_bit_ctr <= baseline_dac_bit_ctr + 1;
+			baseline_dac_state <= setData;
+			end if;
+			\end{verbatim}
+		\end{center}
 	
+		\column{0.33 \textwidth}
+		\begin{center}
+			\begin{verbatim}
+			when setData =>
+			if (baseline_spi_clk_div = '1') then
+			case baseline_dac_bit_ctr is
+			when "000000" =>
+			baseline_dac_mosi_i <= '1';
+			when "000001" =>
+			baseline_dac_mosi_i <= '0';
+			when "000010" =>
+			baseline_dac_mosi_i <= '1';
+			when "000011" => 
+			baseline_dac_mosi_i <= '0';		
+			when "000100" =>
+			baseline_dac_mosi_i <= '0';
+			when "000101" =>
+			baseline_dac_mosi_i <= '1';
+			when "000110" =>
+			baseline_dac_mosi_i <= '0';
+			when "000111" =>
+			baseline_dac_mosi_i <= '1';		
+			when "001000" =>
+			baseline_dac_mosi_i <= '1';
+			when "001001" =>
+			baseline_dac_mosi_i <= '0';
+			when "001010" =>
+			baseline_dac_mosi_i <= '1';
+			when "001011" =>
+			baseline_dac_mosi_i <= '0';			
+			when "001100" =>
+			baseline_dac_mosi_i <= '0';
+			when "001101" =>
+			baseline_dac_mosi_i <= '1';
+			when "001110" =>
+			baseline_dac_mosi_i <= '0';
+			when "001111" =>
+			baseline_dac_mosi_i <= '1';
+			\end{verbatim}
+		\end{center}
+	
+		\column{0.33 \textwidth}
+		\begin{center}
+			\begin{verbatim}
+			--command
+			when "010000" =>
+			baseline_dac_mosi_i <= fifo_data(16);  --17
+			when "010001" =>
+			baseline_dac_mosi_i <= fifo_data(15);  --16
+			--address
+			when "010010" =>
+			baseline_dac_mosi_i <= fifo_data(14);  --15
+			when "010011" =>
+			baseline_dac_mosi_i <= fifo_data(13);  --14
+			when "010100" =>
+			baseline_dac_mosi_i <= fifo_data(12);  --13
+			when "010101" =>
+			baseline_dac_mosi_i <= fifo_data(11);  --12
+			when "010110" =>
+			baseline_dac_mosi_i <= fifo_data(10);  --11
+			when "010111" =>
+			baseline_dac_mosi_i <= fifo_data(9);  --10
+			--data
+			when "011000" =>
+			baseline_dac_mosi_i <= fifo_data(8);  --9
+			when "011001" =>
+			baseline_dac_mosi_i <= fifo_data(7);  --8
+			when "011010" =>
+			baseline_dac_mosi_i <= fifo_data(6);  --7
+			when "011011" =>
+			baseline_dac_mosi_i <= fifo_data(5);  --6
+			when "011100" =>
+			baseline_dac_mosi_i <= fifo_data(4);  --5
+			when "011101" =>
+			baseline_dac_mosi_i <= fifo_data(3);  --4
+			when "011110" =>
+			baseline_dac_mosi_i <= fifo_data(2);  --3
+			when "011111" =>
+			baseline_dac_mosi_i <= fifo_data(1);  --2
+			\end{verbatim}
+		\end{center}
+		\end{columns} 
+	}
 	\end{frame}
 
 	\begin{frame}
@@ -213,11 +405,11 @@
 		\begin{center}
 			\begin{figure}
 				\includegraphics[width=0.55 \textwidth]{IMG/probe/09-08-2021_ch05-write01-baselinedac1.png}
-				\caption{\centering{\tiny 11-001010-00000001 ch05-write01-baselinedac1}}
+				\caption{\centering{\tiny 11-001010-00000001 ch05-write01}}
 			\end{figure}
 			\begin{figure}
 				\includegraphics[width=0.55 \textwidth]{IMG/probe/09-08-2021_ch05-write63-baselinedac1.png}
-				\caption{\centering{\tiny 11-001010-00111111 ch05-write63-baselinedac1}}
+				\caption{\centering{\tiny 11-001010-00111111 ch05-write63}}
 			\end{figure}		
 		\end{center}
 		\column{0.50 \textwidth}
@@ -225,11 +417,11 @@
 		\begin{center}
 			\begin{figure}
 				\includegraphics[width=0.55 \textwidth]{IMG/probe/09-08-2021_ch17-write01-baselinedac1.png}
-				\caption{\centering{\tiny 11-100010-00000001 ch17-write01-baselinedac1}}
+				\caption{\centering{\tiny 11-100010-00000001 ch17-write01}}
 			\end{figure}
 			\begin{figure}
 				\includegraphics[width=0.55 \textwidth]{IMG/probe/09-08-2021_ch17-write63-baselinedac1.png}
-				\caption{\centering{\tiny 11-100010-00111111 ch17-write63-baselinedac1}}
+				\caption{\centering{\tiny 11-100010-00111111 ch17-write63}}
 			\end{figure}	
 		\end{center}
 	\end{columns}
@@ -242,6 +434,28 @@
 
 	\begin{frame}
 	\frametitle{Level translator}
+	\begin{columns}
+		\column{0.35 \textwidth}
+		\begin{center}
+			\begin{figure}
+				\includegraphics[width=0.8 \textwidth]{IMG/level_translator_back-min.jpg}
+			\end{figure}
+			\begin{figure}
+				\includegraphics[width=0.8 \textwidth]{IMG/level_translator_front-min.jpg}
+			\end{figure}
+		\end{center}
+		\column{0.65 \textwidth}
+		\begin{itemize}
+			\item 2x 2N2222 NPN transistor in TO-18 package
+			\item 3x 1k$\Omega$ resistor 1/8W
+			\item 2x connectors 
+		\end{itemize}
+		\begin{figure}
+			\includegraphics[width=0.6 \textwidth]{IMG/Diagram_cropped.pdf}
+		\end{figure}
+	\end{columns}
+				
+	
 	
 	\end{frame}
 
@@ -252,11 +466,11 @@
 		\begin{center}
 			\begin{figure}
 				\includegraphics[width=0.55 \textwidth]{IMG/probe/09-08-2021_ch05-read53-baselinedac1.png}
-				\caption{\centering{\tiny 10-001010-00000000 ch05-read53-baselinedac1}}
+				\caption{\centering{\tiny 10-001010-00000000 ch05-read53}}
 			\end{figure}
 			\begin{figure}
 				\includegraphics[width=0.55 \textwidth]{IMG/probe/09-08-2021_ch05-read54-baselinedac1.png}
-				\caption{\centering{\tiny 10-001010-00000000 ch05-read54-baselinedac1}}
+				\caption{\centering{\tiny 10-001010-00000000 ch05-read54}}
 			\end{figure}		
 		\end{center}
 		\column{0.50 \textwidth}
@@ -264,11 +478,11 @@
 		\begin{center}
 			\begin{figure}
 				\includegraphics[width=0.55 \textwidth]{IMG/probe/09-08-2021_ch07-read53-baselinedac1.png}
-				\caption{\centering{\tiny 10-001110-00000000 ch07-read53-baselinedac1}}
+				\caption{\centering{\tiny 10-001110-00000000 ch07-read53}}
 			\end{figure}
 			\begin{figure}
 				\includegraphics[width=0.55 \textwidth]{IMG/probe/09-08-2021_ch07-read54-baselinedac1.png}
-				\caption{\centering{\tiny 10-001110-00000000 ch07-read54-baselinedac1}}
+				\caption{\centering{\tiny 10-001110-00000000 ch07-read54}}
 			\end{figure}	
 		\end{center}
 	\end{columns}
@@ -305,6 +519,13 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\section{Results}
+	
+	\begin{frame}
+	\frametitle{results}
+	\begin{center}
+		{\Huge \fontfamily{qtm}\selectfont \color{blue} \textbf{Results}}
+	\end{center}
+	\end{frame}
 	
 	\begin{frame}
 	\frametitle{7 }
@@ -366,7 +587,41 @@
 	
 	\begin{frame}
 	\frametitle{Additional Graphs}
+	\begin{columns}
+		\column{0.3 \textwidth}
+		\begin{center}
+			\begin{figure}
+				\includegraphics[width=0.95 \textwidth]{IMG/probe/09-08-2021_ch05-read55-baselinedac1.png}
+				\caption{\centering{\tiny ch05-read55}}
+			\end{figure}
+			\begin{figure}
+				\includegraphics[width=0.95 \textwidth]{IMG/probe/09-08-2021_ch05-read56-baselinedac1.png}
+				\caption{\centering{\tiny ch05-read56}}
+			\end{figure}		
+		\end{center}
+		\column{0.3 \textwidth}
+		\begin{center}
+			\begin{figure}
+				\includegraphics[width=0.95 \textwidth]{IMG/probe/09-08-2021_ch05-read57-baselinedac1.png}
+				\caption{\centering{\tiny ch07-read57}}
+			\end{figure}
+			\begin{figure}
+				\includegraphics[width=0.95 \textwidth]{IMG/probe/09-08-2021_ch05-read58-baselinedac1.png}
+				\caption{\centering{\tiny ch07-read58}}
+			\end{figure}	
+		\end{center}
+		\column{0.3 \textwidth}
+		\begin{center}
+			\begin{figure}
+				\includegraphics[width=0.95 \textwidth]{IMG/probe/09-08-2021_ch05-read59-baselinedac1.png}
+				\caption{\centering{\tiny ch07-read59}}
+			\end{figure}
+			\begin{figure}
+				\includegraphics[width=0.95 \textwidth]{IMG/probe/09-08-2021_ch05-read60-baselinedac1.png}
+				\caption{\centering{\tiny ch07-read60}}
+			\end{figure}	
+		\end{center}
+	\end{columns}
+		\end{frame}
 	
-	\end{frame}
-
 \end{document}

@@ -1,0 +1,179 @@
+***SLIDE---->1
+In questa presentazione esporrò il mio lavoro al progetto MoVe_IT dell'INFN
+per l'update del firmware FPGA per il readout del chip ABACUS per monitoraggio
+in applicazioni di adroterapia.
+***SLIDE---->2
+***SLIDE---->3
+***SLIDE---->4
+L’adroterapia è una forma di radioterapia per il trattamento e la cura di 
+tumori spesso inoperabili o resistenti ai tradizionali trattamenti 
+radioterapici.
+A differenza della radioterapia tradizionale, che si basa sull’utilizzo di 
+raggi X, l’adroterapia prevede l’uso di protoni e ioni carbonio. 
+Queste particelle cariche (definite “adroni”, hanno il vantaggio di essere 
+più pesanti e dotate di maggior energia rispetto agli elettroni e di 
+conseguenza di essere ancora più efficaci nel distruggere le cellule tumorali.
+Grazie alle particolari proprietà fisiche delle particelle utilizzate (ioni 
+carbonio e protoni), l’adroterapia offre alcuni significativi vantaggi 
+rispetto alla radioterapia convenzionale. 
+1--Possibilità di trattare tumori radioresistenti.
+2--Precisione del trattamento e conservazione dei tessuti sani. Grazie alla 
+elevata collimazione del fascio e grazie al rilascio massimo di energia
+in uno spot di dimensione millimetrica (Picco di BRAGG) di cui possiamo vedere
+la formula in diapositiva. I rate tipici di particelle per questo tipo di
+applicazioni varia a seconda della particella accellerata, ma si va da 10^6
+nuclei*cm^2/s per ioni carbonio dino a 10^10 nuclei*cm^2/s per protoni, cioè
+nuclei di idrogeno.
+***SLIDE---->5
+Per rilevare e quindi contare queste particelle si uttilizzano sensori al 
+silicio di tipo LGAD (Low Gain Avalanche Detectors).Si parte da un rivelatore
+al silicio di tipo PN che si va a polarizzare inversamente.
+Generlmente se il rivelatore è troppo sottile il segnale che esce e troppo
+piccolo e il rivelatore non riesce a vederlo. Si utilizza quindi uno
+strato di guadagno di tipo p (acettori). Un accurato dopaggio dello
+strato p+ (layer di moltiplicazione) permette di ottenere un guadagno di circa
+10/20. Questo aumenta notevolmente la risoluzione temporale e permette la 
+rivelazione di singola particella. Il segnale in uscita ha forma trapeziodale 
+di durata di circa 1.2ns
+***SLIDE---->6 and 7
+Il segnale in uscita dal sensore viene elaborato da un chip Full Custom ABACUS
+che amplifica i deboli segnali in corrente del sensore in segnali in uscita
+CML. Ogni chip è stato realizzato con tecnologia UMC 110nm e ha un area di
+circa 5x2mm e 24 canali. Ogni canale ha un comparatore/discriminatore che
+può essere settato mediante l'utilizzo di due DAC(Digital to Analog Converter)
+uno esterno che è comune a tutti i canali e uno interno al chip che può essere
+settato canale per canale.
+Per settare i dac interni si invia uno stream seriale di dati single ended a 
+1.2V ogni pacchetto è composto da 16 bit, 2 bit per il comando, 6 bit per
+l'address e 8 bit per il dati. Prima di qualsiasi comando si deve inviare 
+la sequenza di inizializzazione A5A5.
+***SLIDE---->7
+***SLIDE---->8
+***SLIDE---->9
+Per interfacciarsi con il chip si usa una scheda FPGA (Field Programmable Gate 
+Array), questi sono dei circuiti logici programmabili che possono essere
+applicati a moltissime applicazioni diverse, possono essere programmate un
+numero teoricamente illimitato di volte e sono facili e veloci da programmare.
+Tuttavia a parità di applicazione consumano molto rispetto a un circuito full
+custom asic, sono più lenti e per applicazioni su larga scala posso diventare
+molto costose.
+***SLIDE---->10
+Un FPGA è generalmente composta da 3 tipi di blocchi:
+-CLM(Configurale Logic Block) che generalmente consiste in una look-up table, 
+un full adder e UN D-flip-flop.
+-PSM(Programmable Switch Matrix) è fondamentalmente uno scatola con degli 
+interruttori che possono collegare diverse CLM fra di loro.
+-IOB(Input/Output Block) è un insieme di elementi base che implementano le
+funzioni di input e output dell'FPGA.
+In basso a sinistra possiamo vedere uno schema del design flow di progettazione
+FPGA.
+***SLIDE---->11
+Le schede che abbiamo usato sono delle Kintex7 kc705 development board che
+di interfacciano con la test board che vedremo in seguito attraverso i due 
+connettori proprietari FMC(High, Low Pin Count)
+***SLIDE---->12
+Per il design del firmware si utilizza il VHDL che sta per Very High Speed
+Integrated Circuit Hardware Description Language, che è un linguaggio di
+descrizione dell'hardware che può modellizzare strutture digitali a diversi
+livelli si astrazione. è stato sviluppato nel 1987 dall'instituto di
+Ingegenria Elettrica e Elettronica. E' importante ricordarsi che il VHDL 
+non è un linguaggio di programmazione e che ogni riga di codice corrisponde
+a dei componendi nel DIE dell'FPGA.
+***SLIDE---->13
+***SLIDE---->14
+Al quarto piano a Torino è presente il laboratorio in cui viene testato il
+firmware e la test board. Possiamo notare l'uso di un Oscilloscopio, un 
+power supply per alimentare la test board, la scheda FPGA e il pc con il 
+programma LabView per il controllo del firmware.
+***SLIDE---->15
+Questa è la test board su cui è montato il chip ABACUS, fra i componenti
+possiamo notare un ricevitore LVDS, i connettori per il power supply, il chip
+stesso, un rivelatore a strip, il dac esterno, diversi trimmer per il
+settaggio di tensioni interne, i pin di input e di output per la programmazione
+dei dac interni.
+E' da notare che, visto che il chip funziona a livello logico 1.2V e l'FPGA
+ha output 2.5V è stato saldato sul retro della board un partitore di tensione
+resistivo in modo da ottenere il livello desiderato. 
+***SLIDE---->16
+I pacchetti inviati e ricevuti vengono spediti e letti tramite un programma 
+scritto in LabView da Emanuele Data che può controllare sia un canale alla 
+volta sia tutti e 24 i canali in serie.
+***SLIDE---->17
+La mia prima aggiunta al firmware è stato un tool per il debug di canali
+mal funzionanti nella board. Impostando tutte le porte come delgli output
+è possibile misurare con un multimetro la corretta tensione sulla FMC
+breakboard.
+***SLIDE---->18
+***SLIDE---->19
+Per communicare con la scheda si utilizza protocollo UDP attraverso il 
+progetto GBphy, ogni pacchetto inviato è lungo 64 bit, i primi 32 vengono
+utilizzati da GBphy, mentre i restanti 32 sono utilizati dal firmware. 
+Questi 32 bit vengono divisi in tre parti. I primi 4 bit indicano il 
+firmware target, i successivi 8 sono il firmware command e i restanti
+20 sono i firmware data. Dei 20 bit a disposizione ne servolo sono 17, i 3
+più significativi vengono quindi ignorati, i seguenti 2 sono il comando per 
+il dac interno, i successivi 6 sono l'indirizzo, gli 8 dopo sono 
+l'informazione e l'ultmio e il dac, dato che ogni FPGA può controllare 2 
+chip serve un comando per indicare a quale chip si vuole mandare l'informazione.
+Degli 8 bit di dati i due più significativi vengono ignorati, infatti il DAC
+è a 6 bit e va da un valore di 0 a 63.
+***SLIDE---->20
+Per inviare i dati ho implementato una macchina a stati finiti seguendo
+lo stile di Richard Weadon che ha inizialmente creato il firmware. La 
+logica genera quindi il clock da inviare al dac partendo da un contatore a 
+12 bit e contenporaneamente invia il pacchetto di dati.
+***SLIDE---->21
+***SLIDE---->22
+Prima di testare le modifiche su FPGA sono state eseguite delle simulazioni su 
+Vivado; per ridurre i tempi di simulazione il contatore del generatore di clock
+è stato ridotto a 6 bit (corrisponde a 1.5us). Il funzionamento del DAC è
+simulato da un modulo in Verilog che fa parte della simulazione.
+***SLIDE---->23
+Possiamo ora concentrarci sulle forme d'onda osservate all'oscilloscopio;
+per prima cosa anallizziamo il clock, ha un periodo di circa 98.44 us e un 
+ampiezza di 1.2V, quindi va benissimo per il chip.
+***SLIDE---->24
+l'invio di un intero pacchetto di dati dura circa 6.3ms, 32 colpi di clock per
+l'invio della sequenza di inizializzazione e i dati più 32 colpi di clock per
+l'attesa di una risposta.
+***SLIDE---->25
+Possiamo ora osservare la scrittura su due canali (05 e 07) del valore 01
+e 63 più la sequenza di inizializzazione che è presente in ogni caso.
+***SLIDE---->26
+Per la Lettura ho implementato due processi, uno shift register e un sequence
+detector
+***SLIDE---->27
+Dato che gli output del chip sono a livello logico 1.2V ho assemblato un
+semplicissimo level translator con due transistor 2N222 e 3 resistenze in 
+modo da poter far 'leggere' all'FPGA il segnale in uscita dal chip.
+Nella prossima slide si può osservare che il segnale in uscita dal circuito
+è un po' rumoroso, questo non sembra essere un problema per l'FPGA, ma forse 
+sarebbe meglio aggiungere qualche condensatore di filtraggio al dispositivo.
+***SLIDE---->28
+Ora possiamo osservare il clock, il comando di lettura, e la risposta sia a 
+2.5V sia a 1.2V, è da notare che il segnale in rosso, quello a 2.5V presenta
+delle transizioni meno pulite, quindi, come prima, non sembra dare fastidio
+all'FPGA, ma è indice di una non perfetta traslazione.
+***SLIDE---->29
+I segnali che comandato i dac interni sono tutti single ended, questo va
+specificato nei constraints in fase di implementazione. In questo caso si
+utilizza segnale LVCMOS25
+***SLIDE---->30
+***SLIDE---->31
+Possiamo ora osservare due threshold scan ottenuti impulsando il canale 1
+con baseline dac a 0 e successivamente a 63. possiamo quindi notare la
+traslazione della S, il punto in cui la soglia supera il segnale.
+***SLIDE---->32
+Qua invece si può osservare il valore di tensione quando la soglia incontra il
+segnale con dac a 0 e a 63 per tutti i canali dispari
+***SLIDE---->33
+Questo è ciò che è stato fatto fino ad ora, senza dubbio si continuerà ad
+andare avanti sulla caratterizzazione dei dac interni, sulla loro linearità
+e sullo studio del lavore dell'LSB.
+Fatto questo il prossimo passo è quello di implementare un latch per salvare 
+lo stato dei contatori in un registro e l'aggiunta di in time stamp in modo 
+da ottenere un calcolo più accurato del rate di conteggi.
+Per finire si può implementare una maschera in modo da calcolare via firmware
+la somma di solo alcuni canali.
+***SLIDE---->34
+***SLIDE---->35

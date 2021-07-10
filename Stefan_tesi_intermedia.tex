@@ -43,7 +43,7 @@
 				\end{center}
 		\end{columns}
 	\vspace{1 cm}
-	MoVe\_IT = \textbf{M}odeling and \textbf{V}erification for \textbf{I}on beam \textbf{T}reatment planning	
+	MoVe\_IT = \textbf{Mo}deling and \textbf{Ve}rification for \textbf{I}on beam \textbf{T}reatment planning	
 	\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -246,25 +246,26 @@
 
 	\begin{frame}
 	\frametitle{Test board}
+	\begin{itemize}
+		\item 3.3V power supply
+		\item 1 ABACUS ASIC chip
+		\item Resistive voltage divider to translate signal amplitude
+	\end{itemize}
 	\begin{center}
 		\includegraphics[width=0.7 \textwidth]{IMG/TestBoard.pdf}
 	\end{center}
-	\begin{itemize}
-		\item 3.3V power supply
-	\end{itemize}
 	\end{frame}
 
 	\begin{frame}
 	\frametitle{LabView Software}
-	\begin{center}
-		\includegraphics[width=0.7 \textwidth]{IMG/LabVIEWBaselineDac.PNG}
-	\end{center}
-	The LabView software written by Emanuele Data can:
 	\begin{itemize}
+		\item LabView software written by Emanuele Data
 		\item write or read one channel at the time
 		\item write or read all 24 channels
 	\end{itemize}
-	
+	\begin{center}
+		\includegraphics[width=0.7 \textwidth]{IMG/LabVIEWBaselineDac.PNG}
+	\end{center}
 	\end{frame}
 
 	
@@ -275,7 +276,9 @@
 	
 	\begin{frame}[fragile]
 	\frametitle{Debug Tool}
-	Debug tool to verify the working condition of every \textbf{FMC}(\textbf{HPC}/\textbf{LPC}) output
+	\begin{itemize}
+		\item Debug tool to verify the working condition of every \textbf{FMC}(\textbf{HPC}/\textbf{LPC}) output
+	\end{itemize}
 	\begin{center}
 		{\small \color{blue} Step1: Signal names and identification.}
 	\end{center}
@@ -341,7 +344,9 @@
 
 	\begin{frame}[fragile]
 		\frametitle{Writing Baseline DACs $\rightarrow$ code}
-		FSM (\textbf{F}inite \textbf{S}tate \textbf{M}achine): states for the serial data communication 
+		\begin{itemize}
+			\item FSM (\textbf{F}inite \textbf{S}tate \textbf{M}achine): states for the serial data communication
+		\end{itemize}
 		{\tiny
 		\begin{columns}
 		\column{0.5 \textwidth}
@@ -368,9 +373,9 @@
 
 	\begin{frame}[fragile]
 	\frametitle{Writing Baseline DACs $\rightarrow$ code}
-	\begin{center}
-		FSM: \textbf{setData} state
-	\end{center}
+	\begin{itemize}
+		\item FSM: \textbf{setData} state
+	\end{itemize}
 	{\tiny
 		\begin{columns}
 			\column{0.1 \textwidth}		
@@ -449,10 +454,12 @@
 
 	\begin{frame}
 	\frametitle{Vivado simulation}
+	\begin{itemize}
+		\item In order to reduce the simulation time the clock was reduced to $\approx1.5\mu s$
+	\end{itemize}
 		\begin{center}
 			\includegraphics[width=0.85 \textwidth]{IMG/TotalSimulation.png}
 		\end{center}
-	In order to reduce the simulation time the clock was reduced to $\approx1.5\mu s$
 	\end{frame}
 
 	\begin{frame}
@@ -482,6 +489,9 @@
 
 	\begin{frame}
 	\frametitle{Writing Baseline DACs $\rightarrow$ data}
+	\begin{itemize}
+		\item writing sequence for channels \textbf{05} and \textbf{17}
+	\end{itemize}
 	\begin{columns}
 		\column{0.50 \textwidth}
 		\begin{center}
@@ -511,6 +521,13 @@
 
 	\begin{frame}
 	\frametitle{Reading Baseline DACs $\rightarrow$ code}
+	\begin{itemize}
+		\item \textbf{reading} procedure for 1 dac consist of \textbf{2 processes}=
+		\begin{itemize}
+			\item \textbf{16}bit shift register
+			\item sequence detector 
+		\end{itemize}
+	\end{itemize}
 		\begin{center}
 			\includegraphics[width=0.6 \textwidth]{IMG/FSM_Read_States.png}
 		\end{center}
@@ -530,9 +547,11 @@
 		\end{center}
 		\column{0.65 \textwidth}
 		\begin{itemize}
-			\item 2x 2N2222 NPN transistor in TO-18 package
-			\item 3x 1k$\Omega$ resistor 1/8W
-			\item 2x connectors 
+			\item ABACUS output = \textbf{1.2}V single-ended
+			\item FPGA input = \textbf{2.5}V single-ended
+			\item 2x \textbf{2N2222} NPN transistor in TO-18 package
+			\item 3x \textbf{1}k$\Omega$ resistor 1/8W
+			\item 2x connectors \& wire
 		\end{itemize}
 		\begin{figure}
 			\includegraphics[width=0.6 \textwidth]{IMG/Diagram_cropped.pdf}
@@ -545,6 +564,9 @@
 
 	\begin{frame}
 	\frametitle{Reading Baseline DACs $\rightarrow$ data}
+	\begin{itemize}
+		\item reading sequence for channels \textbf{05} and \textbf{07}
+	\end{itemize}
 	\begin{columns}
 		\column{0.50 \textwidth}
 		\begin{center}
@@ -577,6 +599,10 @@
 	
 	\begin{frame}[fragile]
 	\frametitle{Constraints}
+	\begin{itemize}
+		\item single-ended constraints \textbf{LVCMOS25} = \textbf{L}ow \textbf{V}oltage \textbf{C}omplementary \textbf{M}etal \textbf{O}xide \textbf{S}emiconductor $\bf{2.5 \pm 0.2}$V
+		\item LVCMOS25 $\neq $ LVDS25
+	\end{itemize}
 	{\tiny 
 		\begin{verbatim}
 			##Single-ended signal for baseline dac1#######################################
@@ -596,9 +622,7 @@
 			set_property -dict { PACKAGE_PIN F30	IOSTANDARD LVCMOS25 DIFF_TERM TRUE}	[get_ports gnd_12]
 				
 		\end{verbatim} 
-	}
-
-		\color{red} Da aggiungere spiegazione
+						}
 	\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -612,24 +636,28 @@
 	\end{frame}
 	
 	\begin{frame}
-	\frametitle{7 }
-	
+	\frametitle{threshold scan}
+		\begin{itemize}
+			\item channel 1 threshold scan with \textbf{600}mV \textbf{10}KHz impulses
+			\item {\color{blue}blue} curve with baseline dac=\textbf{0}
+			\item {\color{green}green} curve with baseline dac=\textbf{63}  
+		\end{itemize}	
 		\begin{center}
-			\includegraphics[width=0.75 \textwidth]{IMG/ThScan_ch0.pdf}
+			\includegraphics[width=0.65 \textwidth]{IMG/ThScan_ch0.pdf}
 		\end{center}
-	
-	\color{red}  qua spiego il grafico e cosa rappresenta
-	
+		
 	\end{frame}
 
 	\begin{frame}
-	\frametitle{8 }
-	
+	\frametitle{Pedestal distribution}
+	\begin{itemize}
+		\item pedestal voltage value for odd channels
+		\item {\color{blue}blue} dots with baseline dac=\textbf{0}
+		\item {\color{red}red} dots with baseline dac=\textbf{63}
+	\end{itemize}
 	\begin{center}
-		\includegraphics[width=0.75 \textwidth]{IMG/TB1-DAC0-DAC63.pdf}
+		\includegraphics[width=0.65 \textwidth]{IMG/TB1-DAC0-DAC63.pdf}
 	\end{center}
-	
-	\color{red}  qua spiego il grafico e cosa rappresenta
 	
 	\end{frame}
 
@@ -642,12 +670,15 @@
 		\textbf{Future additions to the FPGA firmware}
 	\end{center}
 		\begin{itemize}
-			\item timestamp
-			\item latched counters
+			\item addition of a \textbf{latch} in order to save into a \textbf{register} the current state of every counter 
+			\item addition of a \textbf{timestamp} in order to obtain a more accurate rate calculation 
+			\item addition of a configurable \textbf{mask} to calculate via firmware the \textbf{sum} of only certain selected channels 
 			
 		\end{itemize}
+	
+	\vspace{1 cm}
 		\begin{center}
-			Thanks for the attention
+			\textbf{Thanks for the attention!!}
 		\end{center}
 		
 	\end{frame}

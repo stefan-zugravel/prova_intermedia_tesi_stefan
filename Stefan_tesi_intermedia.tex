@@ -4,34 +4,30 @@
 \usepackage[utf8]{inputenc}
 \usepackage{cite}
 \usepackage{tikz}
-%\usetikzlibrary{shapes,arrows,fit,calc,positioning,automata}
+\usetikzlibrary{shapes,arrows,fit,calc,positioning,automata}
 \usepackage{eurosym}
 \usepackage{caption}
 \captionsetup[figure]{labelformat=empty}
 \usepackage{microtype}
 
-%\setbeamertemplate{navigation symbols}{}
-%\usepackage{beamerthemeshadow}
 
 
-\title{Development and test of FPGA firmware for the readout of the ABACUS chip for beam monitoring applications in hadron therapy}
-\author[Stefan Zugravel]{Candidate: \\ Stefan Cristi Zugravel \\ --------------------------------- \\ Supervisor: \\ Prof. Luca Pacher\\ ---------------------------------  \\ Co-Supervisor: \\ Prof. Vincenzo Monaco}
+\title{Development and test of FPGA firmware for the readout of the ABACUS\_v2 chip for beam monitoring applications in hadron therapy}
+\author[Stefan Zugravel]{Candidate: \\ Stefan Cristi Zugravel \\ --------------------------------- \\ Supervisor: \\ Dott. Luca Pacher\\ ---------------------------------  \\ Co-Supervisor: \\ Prof. Vincenzo Monaco}
 \date{\today}
 \institute[UniTo]{University of Turin}
 \logo{\includegraphics[width=10mm]{IMG/Unito.png}}
-%\usetheme{Antibes}
 \usetheme{Madrid}
 %\setbeamercovered{dynamic}
 \setbeamertemplate{footline}[frame number]
-%\beamertemplatenavigationsymbolsempty
 \setbeamertemplate{navigation symbols}{}
 \begin{document}
 	
-	\begin{frame}		
+	\begin{frame}[noframenumbering]		
 		\maketitle
 	\end{frame}
 
-	\begin{frame}
+	\begin{frame}[noframenumbering]
 	\frametitle{Table of contents}
 		\begin{columns}
 			\column{0.3 \textwidth}
@@ -43,292 +39,407 @@
 					\includegraphics[width=0.95 \textwidth]{IMG/Move_IT_logo.PNG}
 				\end{center}
 		\end{columns}
-	\vspace{1 cm}
-	\begin{itemize}
-		\item MoVe\_IT = \textbf{Mo}deling and \textbf{Ve}rification for \textbf{I}on beam \textbf{T}reatment planning
-	\end{itemize}
 	\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\section{Hadron therapy}
 	
-	\begin{frame}
-	\frametitle{Hadron therapy, sensor and ASICs}
+	\begin{frame}[plain, noframenumbering]
+	%\frametitle{Hadron therapy, sensor and ASICs}
 	\begin{center}
 		{\Huge \fontfamily{qtm}\selectfont \color{blue} \textbf{Hadron therapy, sensor and ASICs}}
 	\end{center}
-\end{frame}
+	\end{frame}
 	
 	\begin{frame}
 	\frametitle{Hadron therapy}
-	\begin{columns}
+		\begin{columns}
 		\column{0.40 \textwidth}
 		\begin{center}
-			\includegraphics[width=0.75 \textwidth]{IMG/Bragg_Peak.PNG}
-			\includegraphics[width=0.65 \textwidth]{IMG/Bragg_Peak2.PNG}
+			\textbf{Hadron therapy} uses heavy charged particles (p, ${}^{12}$C ions) to administer a lethal dose to the tumor target minimizing the energy deposited in the surrounding healthy tissues.
+			\includegraphics[width=0.95 \textwidth]{IMG/Bragg_Peak.PNG}
 		\end{center}
 		\column{0.60 \textwidth}
-		\begin{center}
-			\includegraphics[width=0.3 \textwidth]{IMG/HadroTherapy.PNG}
-			\newline
-			Typical particle rate for a therapeutical beam is :
+		
+			{\color{blue} Advantages compared to x-ray radiotherapy:}
 			\begin{itemize}
-				\item $10^6 \:- \: 10^8 \: \frac{cm^2}{s}$ for carbon ions
-				\item $10^8 \:- \: 10^{10} \: \frac{cm^2}{s}$ for protons
-				\item \textbf{Dose} = energy absorbed / body mass
+				\item Maximum dose delivered deep into tissue (Bragg peak)
+				\item Greater conformation of the dose to the tumor
 			\end{itemize}
-		\end{center}
-	\end{columns}
-	\begin{center}
-		\begin{equation}
-			-\dfrac{\mathrm dE}{\mathrm dx} = 2 \pi N_{a} r_{e}^{2} m_{e} c^{2} \rho \dfrac{Z}{A}  \dfrac{z^{2}}{\beta^{2}}\left[\ln\left(\dfrac{2m_{e} \gamma ^{2} v^{2} W_{max}}{I^{2}}\right) - 2\beta^{2} - \delta 2\frac{C}{Z}\right]
-		\end{equation}
-	\end{center}
-	
+		\vspace{1 cm}
+			{\color{blue} Typical Proton Beam Parameters:}
+			\begin{itemize}
+				\item FWHM 3-7 mm
+				\item Beam rates $10^6-10^{10}$ p/s
+				\item Current  1-320 nA
+				\item Energy  70-228 MeV
+			\end{itemize}
+		
+		\end{columns}
 	\end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	\section{LGAD sensors}
-	
 	\begin{frame}
-	\frametitle{LGAD sensors}
-		\begin{center}
-			\includegraphics[width=0.9 \textwidth]{IMG/LGAD_image.PNG}
-		\end{center}
-	\textbf{L}ow \textbf{G}ain \textbf{A}valanche \textbf{D}etectors
-		\begin{itemize}
-			\item 1-1.5cm long strips with 200$\mu$m pitch
-			\item 50$\mu$m sensor thickness
-			\item Internal gain of \textbf{10-15} 
-			\item Trapezoidal signal of $\approx$\textbf{1.2ns}
-		\end{itemize}
-	\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	\section{ABACUS2 ASIC}
-	
-
-	\begin{frame}
-	\frametitle{ABACUS2-1}
+		\frametitle{Treatment Planning System (TPS)}
 		\begin{columns}
 			\column{0.5 \textwidth}
-			\begin{center}
-				\includegraphics[width=0.8 \textwidth]{IMG/TableLSB.PNG}
-				\newline
-				The threshold can be fine-tuned at the channel level with a \textbf{6-bits} DAC. The DACs can linearly increase the threshold with a nominal LSB value of \textbf{0.94mV}. The LSB value can be tuned via the Vref LSB input.
-			\end{center}
-			\begin{itemize}
-				\item \textbf{24} channels
-				\item UMC \textbf{110nm} technology
-				\item Die size 4.95 x 1.935 mm$^2$
-				\item Internal Dacs \textbf{1.2V single ended} serial signal
-			\end{itemize}
+			\includegraphics[width=0.95 \textwidth]{IMG/Beam_Monitoring.PNG}
 			\column{0.5 \textwidth}
 			\begin{itemize}
-				\item Initialization sequence \textbf{A5A5}= 
-				\newline
-				1010-0101-1010-0101
-				\item \textbf{16bit words} 2bit command + 6bit address + 8bit data
-				\begin{itemize}
-					\item \textbf{command}
-					\begin{itemize}
-						\item \textbf{11} = write
-						\item \textbf{10} = read
-					\end{itemize}
-					\item \textbf{address}
-					\begin{itemize}
-						\item \textbf{5bit} address from \textbf{0} to \textbf{23}
-						\item \textbf{LSB} is Vth+- (not used for now)
-					\end{itemize}
-					\item \textbf{data}
-					\begin{itemize}
-						\item \textbf{2MSB} not used
-						\item \textbf{6LSB} data for the internal DAC \newline from \textbf{0} to \textbf{63}
-					\end{itemize}
-				\end{itemize} 
+				\item Acquisition of morphological data by CT (\textbf{C}omputed \textbf{T}omography) and tumor volume identification
+				\item Subdivision of the tumor into spots organized in layers of different depths corresponding to different beam energies
+				\item Transverse scanning by deflecting the pencil beam via a pair of magnets
+				\item Longitudinal scan by varying the energy of the beam
+			\end{itemize}
+		\end{columns}
+	\vspace{0.2 cm}
+	{\color{blue} Real-time beam detection parameters (direction and number of particles delivered) \newline is extremely important in order to distribute the dose accurately.}
+	\end{frame}
+	%I rivelatori controllano il trattamento, sulla base di queste informazioni viene controllata la posizione, la direzione e l'energia del fascio in tempo reale
+	%Come si comportano dei rivelatori al silicio?
+
+	\begin{frame}
+		\frametitle{Beam monitoring}
+		\begin{columns}
+			\column{0.04 \textwidth}
+			\column{0.2 \textwidth}
+			\begin{center}
+				\includegraphics[width=0.95 \textwidth]{IMG/Ionization_Chamber.PNG}
+			\end{center}
+			\begin{center}
+				\includegraphics[width=0.95 \textwidth]{IMG/Solid_State_Detector.PNG}
+			\end{center}
+			\column{0.38 \textwidth}
+			{\color{blue} Ionization chambers}
+			\newline
+			\textbf{Advantages}
+			\begin{itemize}
+				\item Structural integrity
+				\item Radiation resistance
+			\end{itemize}
+			\textbf{Disadvantages}
+			\begin{itemize}
+				\item Slow response times $\approx 10^2\:\mu s$
+				\item Limited sensitivity
+				\item Indirect measurement of the number of particles
+			\end{itemize}
+			\column{0.38 \textwidth}
+			{\color{blue} Solid state detectors}
+			\newline
+			\textbf{Advantages}
+			\begin{itemize}
+				\item Fast response times $\approx 1-2$ ns
+				\item High spatio-temporal resolution
+				\item Ideally, sensitive to the single particle
+			\end{itemize}
+			\textbf{Disadvantages}
+			\begin{itemize}
+				\item Complex and fast readout electronics
+				\item Damage from radiation
 			\end{itemize}
 		\end{columns}
 	\end{frame}
 
-	
-	\begin{frame}
-	\frametitle{ABACUS2-2}
-	\begin{center}
-		\includegraphics[width=0.6 \textwidth]{IMG/ABACUS.PNG}
-		\includegraphics[width=0.6 \textwidth]{IMG/ABACUS_channel.PNG}
-	\end{center}
-	\end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	\section{FPGA}
 	
-		
 	\begin{frame}
-	\frametitle{FPGA \& VHDL}
+	\frametitle{LGAD sensors}
+	\begin{columns}
+	\column{0.35 \textwidth}
+		\begin{center}	
+			\includegraphics[width=0.9 \textwidth]{IMG/LGAD_Signal.PNG}
+		\end{center}
+	\column{0.65 \textwidth}
 	\begin{center}
-		{\Huge \fontfamily{qtm}\selectfont \color{blue} \textbf{FPGA \& VHDL}}
+		\includegraphics[width=0.4 \textwidth]{IMG/UFSDLGAD.PNG}
 	\end{center}
-	\end{frame}
-	
-	\begin{frame}
-	\frametitle{FPGA}
-	{\Large 
 		\begin{itemize}
-			\item FPGA = \textbf{F}ield \textbf{P}rogrammable \textbf{G}ate \textbf{A}rray
+			\item \textbf{L}ow \textbf{G}ain \textbf{A}valanche \textbf{D}etector
+			\item 50$\mu$m sensor thickness
+			\item Internal gain of \textbf{10-15} 
+			\item Trapezoidal signal of $\approx$\textbf{1.5ns}\newline
+				{\color{blue} Capable of detecting single particle }
+			\item LGAD allows to increase SNR 
+		\end{itemize}
+	\end{columns}
+	\end{frame}
+	%mettere figura delle strip che usiamo noi
+	%Per spessori piccoli il segnale è piccolo
+	%Abbiamo bisogno di sensori piccoli perché la frequenza massima a cui possiamo contare dipende dalla durata del segnale
+	%Servono spessori piccoli per avere segnali veloci 
+	%Idealmente dovremmo usare i pixel
+	%LGAD mi permette di aumentare il rapporto segnale-su-rumore
+	%Aggiungere segnale dell'LGAD
+
+
+	\begin{frame}
+	\frametitle{ABACUS\_v2}
+	\begin{columns}
+		\column{0.25 \textwidth}
+		\begin{center}
+				\includegraphics[width=1.85 \textwidth, angle=90]{IMG/ABACUS.PNG}
+		\end{center}
+		\column{0.75 \textwidth}
+		\begin{center}
+			{\color{blue} \textbf{ABACUS\_v2}}={\tiny \textbf{A}synchronous-logic-\textbf{B}ased \textbf{A}nalog \textbf{C}ounter for \textbf{U}ltra fast \textbf{S}ilicon strips}
+		\end{center}
+		\begin{columns}
+			\column{0.5 \textwidth}
+			\includegraphics[width=0.99 \textwidth]{IMG/ABACUS_channel.PNG}
+			\column{0.5 \textwidth}
 			\begin{itemize}
-				\item gate array : \textbf{array of "logic cells"} that can be programmed to implement \textbf{any desired logic functionality}
-				\item field programmable: \textbf{device not committed to do something} until effectively programmed according to the field application
+				\item 110 nm technology
+				\item 24 channels
+				\item I2C controller for digital configuration
+				\item Die size 4.95 x 1.935 mm$^2$
+				%Dead time <10ns
+				%SNR>10
+				%possibilità di simulare segnali mandando impulsi su canali pari o dispari
+				%range di carica in ingresso 3fC-140fC
 			\end{itemize}
-		\item in principle, \textbf{programmable infinite times} with no limitations
-		\item \textbf{high flexibility}: it can be implemented \textbf{any digital function}
-		\item \textbf{fast} and \textbf{cheap} prototyping cycle
+		\end{columns}
+		{\color{blue} Channel structure }
 		\begin{itemize}
-			\item \textbf{out of the box} solution: no layout, masks or other manufacturing steps needed
-		\end{itemize}
-		\item {\color{orange} power hungry, slow compared to \textbf{ASICs} and expensive on large-scales}
-		\end{itemize}
-	}
+			\item Charge sensitive amplifier
+			\item Discriminator controlled by two DACs
+			\begin{itemize}
+				\item External DAC (common for all channel)
+				\item Programmable internal DAC (6 bit) for each channel
+			\end{itemize}
+			\item Fast reset signal to discharge capacitive feedback
+		\item CML converter  
+		\end{itemize} 
+	\end{columns}
 	\end{frame}
 
-	\begin{frame}
-	\frametitle{FPGA}
+		\begin{frame}
+	\frametitle{ABACUS\_v2 internal DACs setup}	
 	\begin{columns}
 		\column{0.5 \textwidth}
 		\begin{center}
-			\includegraphics[width=0.75 \textwidth]{IMG/FPGA_PARTS.PNG}
-			\includegraphics[width=0.65 \textwidth]{IMG/DesignFlow.PNG}
+			\includegraphics[width=0.7 \textwidth]{IMG/InternalDAC.pdf}
+			\includegraphics[width=0.7 \textwidth]{IMG/TableLSB.PNG}
 		\end{center}
+		\textbf{LSB} value $\approx$0.94 mV for \textbf{Vref\_LSB}=600 mV
 		\column{0.5 \textwidth}
+		{\color{blue} Internal DAC setup}
 		\begin{itemize}
-			\item \textbf{PSM}: \textbf{P}rogrammable \textbf{S}witch \textbf{M}atrix = Whenever a vertical and a horizontal channel intersect, there is a switch box. When a wire enters a switch box there are programmable switches that allow it to connect to other wires in adjacent channel segments
-			\item \textbf{IOB}: \textbf{I}/\textbf{O} \textbf{B}lock = collection or grouping of basic elements that implement the input and output functions of an FPGA device
-			\item \textbf{CLB}: \textbf{C}onfigurable \textbf{L}ogic \textbf{B}lock = A typical cell consists of a 4-input LUT, a Full adder (FA) and a D-type flip-flop
+			\item Initialization sequence \textbf{A5A5}= 
+			\newline
+			1010-0101-1010-0101
+			\item \textbf{16bit words}= \newline 2bit command + 6bit address + 8bit data
+			\begin{itemize}
+				\item \textbf{command}
+				\begin{itemize}
+					\item \textbf{11} = write
+					\item \textbf{10} = read
+				\end{itemize}
+				\item \textbf{address}
+				\begin{itemize}
+					\item \textbf{5bit} address from \textbf{0} to \textbf{23}
+					\item \textbf{LSB} is Vth+- (not used for now)
+				\end{itemize}
+				\item \textbf{data}
+				\begin{itemize}
+					\item \textbf{2MSB} not used
+					\item \textbf{6LSB} data for the internal DAC \newline from \textbf{0} to \textbf{63}
+				\end{itemize}
+			\end{itemize} 
 		\end{itemize}
 	\end{columns}
 	\end{frame}
 
-	
-	\begin{frame}
-	\frametitle{FPGA board }
+		\begin{frame}
+	\frametitle{FPGA}
 	\begin{center}
-		\textbf{Kintex7 kc705 board}
-		\includegraphics[width=0.85 \textwidth]{IMG/KC705.PNG}
+		\includegraphics[width=0.7 \textwidth]{IMG/Block_Diagram.pdf}
 	\end{center}
-	\end{frame}
-
-	\begin{frame}
-	\frametitle{VHDL}
-	{\LARGE
-	\begin{itemize}
-		\item \textbf{VHDL}: \textbf{V}HSIC \textbf{H}ardware \textbf{D}escription \textbf{L}anguage 
 		\begin{itemize}
-			\item \textbf{VHSIC}: \textbf{V}ery \textbf{H}igh \textbf{S}peed \textbf{I}ntegrated \textbf{C}ircuits
-			\item is a hardware description language (\textbf{HDL}) that can model the behavior and structure of digital systems at multiple levels of abstraction
-			\item since \textbf{1987}, VHDL has been standardized by the Institute of Electrical and Electronics Engineers (\textbf{IEEE})
-			\item in February 2008, Accellera approved \textbf{VHDL 4.0}, also informally known as VHDL 2008
-			\item {\color{orange} VHDL is not a programming language!}
+			\item FPGA = \textbf{F}ield \textbf{P}rogrammable \textbf{G}ate \textbf{A}rray
+			\begin{itemize}
+				\item Gate array : \textbf{array of "logic cells"} that can be programmed to implement \textbf{any desired logic functionality}
+				\item Field programmable: \textbf{device not committed to do something} until effectively programmed according to the field application
+			\end{itemize}
+			\item In principle, \textbf{programmable infinite times} with no limitations
+			\item \textbf{High flexibility}: it can be implemented \textbf{any digital function}
+			\item \textbf{Fast} and \textbf{cheap} prototyping: \textbf{out of the box} solution: no layout or masks
+			\item {\color{orange} Power hungry, slow compared to \textbf{ASICs} and expensive on large-scales}
 		\end{itemize}
-	\end{itemize}
-	}
 	\end{frame}
 
+\section{Move\_IT}
 
 	\begin{frame}
-	\frametitle{Test bench, Test board and Debug Tool}
+	\frametitle{MoVe\_IT project}
 	\begin{center}
-		{\Huge \fontfamily{qtm}\selectfont \color{blue} \textbf{Test bench, Test board and Debug Tool}}
+		{\color{blue} MoVe\_IT = \textbf{Mo}deling and \textbf{Ve}rification for \textbf{I}on beam \textbf{T}reatment planning }
+		\newline
+		Prove the ability of LGAD detectors to discriminate individual protons and to count their number up to fluxes of 100 MHz / cm2 with an uncertainty of {\color{blue}less than 1\%}, (clinical tolerance required)
 	\end{center}
+	\begin{columns}
+		\column{0.6 \textwidth}
+		\begin{itemize}
+			\item Single proton counting:
+			\item Area 3x3 cm${}^2$ with 144 Strips;
+			\item Max rates= $10^8$ p/s cm2 ({\color{blue} Error < 1\%})
+			\item Two orthogonal directions
+		\end{itemize}
+		\column{0.4 \textwidth}
+		\begin{center}
+			\includegraphics[width=0.7 \textwidth]{IMG/Detector.PNG}
+		\end{center}
+	\end{columns}
 	\end{frame}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Experimental setup}
+
+\begin{frame}[plain, noframenumbering]
+\begin{center}
+	{\Huge \fontfamily{qtm}\selectfont \color{blue} \textbf{Experimental setup}}
+\end{center}
+\end{frame}
 
 
-	\begin{frame}
-	\frametitle{Test bench}
-	\begin{center}
-		\includegraphics[width=0.65 \textwidth]{IMG/TestBench.pdf}
-	\end{center}
-	\end{frame}
 
 	\begin{frame}
 	\frametitle{Test board}
-	\begin{itemize}
-		\item 3.3V power supply
-		\item 1 ABACUS ASIC chip
-		\item Resistive voltage divider to translate signal amplitude
-	\end{itemize}
-	\begin{center}
-		\includegraphics[width=0.7 \textwidth]{IMG/TestBoard.pdf}
-	\end{center}
+		\begin{columns}
+			\column{0.5 \textwidth}
+			\begin{center}
+				\includegraphics[width=0.8 \textwidth]{IMG/TestBoard.pdf}
+				\includegraphics[width=0.8 \textwidth]{IMG/EsaAbacus.png}
+			\end{center}
+			\column{0.5 \textwidth}
+			{\color{blue}ABACUS\_v2 test board}
+			\begin{itemize}
+				\item 1 ABACUS ASIC chip
+				\item CML output to FPGA
+				\item I2C input to internal DACs
+				\item \textbf{TP\_even} and \textbf{TP\_odd}
+			\end{itemize}
+			{\color{blue}Esa-ABACUS}
+			\begin{itemize}
+				\item 6 ABACUS chips
+				\item Able to read 144 strips
+				\item 3 FPGA needed
+			\end{itemize}
+		\end{columns}	
 	\end{frame}
 
 	\begin{frame}
-	\frametitle{LabView Software}
-	\begin{itemize}
-		\item LabView software written by Emanuele Data
-		\item write or read one channel at the time
-		\item write or read all 24 channels
-	\end{itemize}
-	\begin{center}
-		\includegraphics[width=0.7 \textwidth]{IMG/LabVIEWBaselineDac.PNG}
-	\end{center}
+	\frametitle{Experimental setup}
+		\begin{columns}
+			\column{0.65 \textwidth}
+			\begin{center}
+				\includegraphics[width=0.95 \textwidth]{IMG/TestBench.pdf}
+			\end{center}
+			\column{0.35 \textwidth}
+			\begin{itemize}
+				\item Impulsator
+				\item Oscilloscope
+				\item Power Supply
+				\item FPGA
+				\item Test Board
+				\item PC
+			\end{itemize}
+		\end{columns}
+		
 	\end{frame}
 
-	
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	\section{Firmware}
+
+	\section{Personal Contribution}
 	
-		\begin{frame}
-	\frametitle{Firmware and waveforms}
-	\begin{center}
-		{\Huge \fontfamily{qtm}\selectfont \color{blue} \textbf{Firmware and Waveforms}}
-	\end{center}
+	\begin{frame}[plain, noframenumbering]
+		\begin{center}
+			{\Huge \fontfamily{qtm}\selectfont \color{blue} \textbf{Personal contribution to the project}}
+		\end{center}
 	\end{frame}
 	
 	
-	\begin{frame}[fragile]
-	\frametitle{Debug Tool}
+	\begin{frame}
+	\frametitle{Personal Contribution}
 	\begin{itemize}
-		\item Debug tool to verify the working condition of every \textbf{FMC}(\textbf{HPC}/\textbf{LPC}) output
+		\item {\color{green} Creation of a \textbf{debug} tool for the FMC connectors}
+		\item {\color{green} Firmware implementation of the read/write logic for the \textbf{ABACUS} chip}
+		\item {\color{green} Creation of the level translation device for communication with the \textbf{FPGA}}
+		\item {\color{orange} Addition of a \textbf{latch} in order to save into a \textbf{register} the current state of every counter}
+		\item {\color{orange} Addition of a \textbf{timestamp} in order to obtain a more accurate rate calculation}
+		\item {\color{orange} Addition of a configurable \textbf{mask} to calculate via firmware the \textbf{sum} of only certain selected channels}
 	\end{itemize}
-	\begin{center}
-		{\small \color{blue} Step1: Signal names and identification.}
-	\end{center}
-	{\tiny
-		\begin{verbatim}
-			pin68				: out std_logic;--H4  FMC_HPC_CLK0_M2C_P    LVDS D27         -P3 + v
-			pin69				: out std_logic;--H5  FMC_HPC_CLK0_M2C_N    LVDS C27         -P4 - v 
-		\end{verbatim} }
-	\begin{center}
-		{\small \color{blue} Step2: Differential Signalling output buffer.}
-	\end{center}
-	{\tiny
-		\begin{verbatim}
-		attribute IOSTANDARD of pin68_OBUFDS : label is "LVDS_25";	
-		pin68_OBUFDS : unisim.vcomponents.OBUFDS
-		port map (
-		I		=> pin68_int,
-		O		=> pin68,
-		OB		=> pin69);		
-		\end{verbatim} }
-	\begin{center}
-		{\small \color{blue} Step3: Constraints settings.}
-	\end{center}
-	{\tiny
-		\begin{verbatim}
-		# FMC_HPC_CLK0_M2C_P
-		# FMC_HPC_CLK0_M2C_N
-		set_property -dict { PACKAGE_PIN D27	IOSTANDARD LVDS_25 DIFF_TERM TRUE }	[get_ports pin68]
-		set_property -dict { PACKAGE_PIN C27	IOSTANDARD LVDS_25 DIFF_TERM TRUE }	[get_ports pin69]
-		\end{verbatim} }
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{Debug Tool}
+		\begin{columns}
+			\column{0.5 \textwidth}
+			\begin{center}
+				{\color{blue} KINTEX7 KC705}
+				\includegraphics[width=1.0 \textwidth]{IMG/KC705.PNG}
+			\end{center}
+			\column{0.5 \textwidth}
+			\textbf{FMC} connector
+			\begin{itemize}
+				\item \textbf{LPC}= \textbf{L}ow \textbf{P}in \textbf{C}ount
+				\item \textbf{HPC}= \textbf{H}igh \textbf{P}in \textbf{C}ount
+				\item \textbf{LVDS} output 
+			\end{itemize}
+			\textbf{Debug}
+			\begin{itemize}
+				\item Set every pin as an \textbf{output}
+				\item Switch state with a button
+				\item Measure voltages with multimeter
+			\end{itemize}
+		\end{columns}
+	\end{frame}
+
+	\begin{frame}
+	\frametitle{Level translator}
+	\begin{columns}
+		\column{0.35 \textwidth}
+		\begin{center}
+			\includegraphics[width=0.8 \textwidth]{IMG/level_translator_front-min.jpg}
+			\includegraphics[width=0.8 \textwidth]{IMG/Diagram_cropped.pdf}
+		\end{center}
+		\column{0.65 \textwidth}
+		\begin{itemize}
+			\item ABACUS output = \textbf{1.2}V single-ended
+			\item FPGA input = \textbf{2.5}V single-ended
+			\item 2x \textbf{2N2222} NPN transistor in TO-18 package
+			\item 3x \textbf{1}k$\Omega$ resistor 1/8W
+			\item 2x connectors \& wire
+		\end{itemize}
+		\begin{center}
+			\includegraphics[width=0.5 \textwidth]{IMG/probe/09-08-2021_clock-specks.png}
+		\end{center}
+	\end{columns}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Firmware}
+		\begin{columns}
+			\column{0.5 \textwidth}
+			\begin{center}
+				\includegraphics[width=1.0 \textwidth]{IMG/Tera10kc705.pdf}
+			\end{center}
+			\column{0.5 \textwidth}
+			\begin{itemize}
+				\item GbPhy = Custom \textbf{UDP} Protocol
+				\item LCD Controller = display informations
+				\item Tera10 IO = Input setup and counters
+				\item Tera10 controller
+				\item Hardware controller = setup internal and external Dacs
+			\end{itemize}
+		\end{columns}
 	\end{frame}
 
 
-
-
-	\begin{frame}[fragile]
-	\frametitle{Writing Baseline DACs $\rightarrow$ code}
+	\begin{frame}
+	\frametitle{Firmware - DATA}
 	\begin{itemize}
-		\item the \textbf{FPGA} communicates with the pc using UDP (\textbf{U}ser \textbf{D}atagram \textbf{P}rotocol) implemented in the \textbf{GBphy} project
-		\item each UDP packet is \textbf{64} bit long $\rightarrow$ \textbf{32} bit used by GBphy and \textbf{32} bit of data
+		\item The \textbf{FPGA} communicates with the pc using UDP (\textbf{U}ser \textbf{D}atagram \textbf{P}rotocol) implemented in the \textbf{GbPhy} project
+		\item Each UDP packet is \textbf{64} bit long $\rightarrow$ \textbf{32} bit used by GbPhy and \textbf{32} bit of data
 		\item \textbf{32} bit data =
 		\begin{itemize}
 			\item \textbf{4} bit $\rightarrow$ firmware target
@@ -348,293 +459,97 @@
 	\end{frame}
 
 	\begin{frame}[fragile]
-		\frametitle{Writing Baseline DACs $\rightarrow$ code}
+		\frametitle{Firmware - FSM}
 		\begin{itemize}
 			\item FSM (\textbf{F}inite \textbf{S}tate \textbf{M}achine): states for the serial data communication
 		\end{itemize}
-		{\tiny
-		\begin{columns}
-		\column{0.5 \textwidth}
-		
 		\begin{center}
-			\includegraphics[width=0.95 \textwidth]{IMG/SetbaselineDac.png}
-			
-			\vspace{1 cm}
-			\includegraphics[width=0.85 \textwidth]{IMG/EndCommunication.png}
+			\includegraphics[width=0.45 \textwidth]{IMG/FSM.pdf}
 		\end{center}
-		
-	
-		\column{0.5 \textwidth}
-		\begin{center}
-			\includegraphics[width=0.85 \textwidth]{IMG/EndCommunication.png}
-			
-			\vspace{1 cm}
-			\includegraphics[width=0.85 \textwidth]{IMG/EndCommunication2.png}
-		\end{center}
-	
-		\end{columns}
-	}
 	\end{frame}
 
-	\begin{frame}[fragile]
-	\frametitle{Writing Baseline DACs $\rightarrow$ code}
-	\begin{itemize}
-		\item FSM: \textbf{setData} state
-	\end{itemize}
-	{\tiny
-		\begin{columns}
-			\column{0.1 \textwidth}		
-			
-			\column{0.4 \textwidth}
-			\begin{center}
-				\begin{verbatim}
-				when setData =>
-				if (baseline_spi_clk_div = '1') then
-				case baseline_dac_bit_ctr is
-				when "000000" =>
-				baseline_dac_mosi_i <= '1';
-				when "000001" =>
-				baseline_dac_mosi_i <= '0';
-				when "000010" =>
-				baseline_dac_mosi_i <= '1';
-				when "000011" => 
-				baseline_dac_mosi_i <= '0';		
-				when "000100" =>
-				baseline_dac_mosi_i <= '0';
-				when "000101" =>
-				baseline_dac_mosi_i <= '1';
-				when "000110" =>
-				baseline_dac_mosi_i <= '0';
-				when "000111" =>
-				baseline_dac_mosi_i <= '1';		
-				when "001000" =>
-				baseline_dac_mosi_i <= '1';
-				when "001001" =>
-				baseline_dac_mosi_i <= '0';
-				when "001010" =>
-				baseline_dac_mosi_i <= '1';
-				          .
-				          .
-				          .
-				\end{verbatim}
-			\end{center}
-			
-			\column{0.4 \textwidth}
-			\begin{center}
-				\begin{verbatim}
-				--command
-				when "010000" =>
-				baseline_dac_mosi_i <= fifo_data(16); 
-				when "010001" =>
-				baseline_dac_mosi_i <= fifo_data(15); 
-				--address
-				when "010010" =>
-				baseline_dac_mosi_i <= fifo_data(14); 
-				when "010011" =>
-				baseline_dac_mosi_i <= fifo_data(13); 
-				when "010100" =>
-				baseline_dac_mosi_i <= fifo_data(12); 
-				when "010101" =>
-				baseline_dac_mosi_i <= fifo_data(11); 
-				when "010110" =>
-				baseline_dac_mosi_i <= fifo_data(10); 
-				when "010111" =>
-				baseline_dac_mosi_i <= fifo_data(9);  
-				--data
-				when "011000" =>
-				baseline_dac_mosi_i <= fifo_data(8);  
-				when "011001" =>
-				baseline_dac_mosi_i <= fifo_data(7);  
-				when "011010" =>
-				baseline_dac_mosi_i <= fifo_data(6);  
-				          .
-				          .
-				          .
-				\end{verbatim}
-			\end{center}
-		\column{0.1 \textwidth}
-		\end{columns} 
-	}
-	\end{frame}
 
 	\begin{frame}
 	\frametitle{Vivado simulation}
-	\begin{itemize}
-		\item In order to reduce the simulation time the clock was reduced to $\approx1.5\mu s$
-	\end{itemize}
 		\begin{center}
-			\includegraphics[width=0.85 \textwidth]{IMG/TotalSimulation.png}
+			Finite State Machine
+			\includegraphics[width=0.9 \textwidth]{IMG/Simulation1.png}
+			\newline
+			write internal DAC channel 4
+			\includegraphics[width=0.9 \textwidth]{IMG/Simulation3.png}
+			\newline
+			read internal DAC channel 4
+			\includegraphics[width=0.9 \textwidth]{IMG/Simulation4.png}
 		\end{center}
+	The DAC behaviour is simulated by a Verilog module
 	\end{frame}
 
+	
 	\begin{frame}
-	\frametitle{Writing Baseline DACs $\rightarrow$ clock stats}
+	\frametitle{Writing Baseline DACs}
+	\begin{columns}
+		\column{0.5 \textwidth}
+	{\color{blue} Input}
 	\begin{itemize}
-		\item clock period of \textbf{98.44} $\mu$s measured with oscilloscope
-		\item the signal amplitude is reduced to \textbf{1.2}V from \textbf{2.5}V with a resistive voltage divider 
+		\item Initialization sequence = A5A5
+		\item Command = 11 = write
+		\item Address = 100010 = 10001-0 = channel 17
+		\item Data    = 00111111 = 63
 	\end{itemize}
+	\column{0.5 \textwidth}
+	{\color{blue} Clock Stats}
+	\begin{itemize}
+		\item Period = \textbf{98.44} $\mu$s
+		\item Duty cycle \textbf{33}\%
+		\item Packet duration $\approx$ \textbf{6.4} ms
+	\end{itemize}
+	\end{columns}
 	\begin{center}
-		\includegraphics[width=0.65 \textwidth]{IMG/probe/09-08-2021_clock-specks.png}
+		{\color{green} clock signal}
+		{\color{yellow} input data}
+	\end{center}
+	\begin{center}
+		\includegraphics[width=0.5 \textwidth]{IMG/probe/09-08-2021_ch17-write63-baselinedac1.png}
 	\end{center}
 	\end{frame}
 
-	\begin{frame}
-	\frametitle{Writing Baseline DACs $\rightarrow$ clock stats}
-	\begin{itemize}
-		\item \textbf{6.29}ms / \textbf{98.44}  $\mu$s $\approx$ \textbf{64} = Number of clock in a data packet
-		\item \textbf{32} clock periods for the data transmission + \textbf{32} clock periods waiting for a response
-		
-	\end{itemize}
-	\begin{center}
-		\begin{figure}
-			\includegraphics[width=0.65 \textwidth]{IMG/probe/09-08-2021_packet-time.png}
-		\end{figure}	
-	\end{center}
-	\end{frame}
-
-	\begin{frame}
-	\frametitle{Writing Baseline DACs $\rightarrow$ data}
-	\begin{itemize}
-		\item writing sequence for channels \textbf{05} and \textbf{17}
-	\end{itemize}
-	\begin{columns}
-		\column{0.50 \textwidth}
-		\begin{center}
-			\begin{figure}
-				\includegraphics[width=0.55 \textwidth]{IMG/probe/09-08-2021_ch05-write01-baselinedac1.png}
-				\caption{\centering{\tiny 11-001010-00000001 ch05-write01}}
-			\end{figure}
-			\begin{figure}
-				\includegraphics[width=0.55 \textwidth]{IMG/probe/09-08-2021_ch05-write63-baselinedac1.png}
-				\caption{\centering{\tiny 11-001010-00111111 ch05-write63}}
-			\end{figure}		
-		\end{center}
-		\column{0.50 \textwidth}
-		
-		\begin{center}
-			\begin{figure}
-				\includegraphics[width=0.55 \textwidth]{IMG/probe/09-08-2021_ch17-write01-baselinedac1.png}
-				\caption{\centering{\tiny 11-100010-00000001 ch17-write01}}
-			\end{figure}
-			\begin{figure}
-				\includegraphics[width=0.55 \textwidth]{IMG/probe/09-08-2021_ch17-write63-baselinedac1.png}
-				\caption{\centering{\tiny 11-100010-00111111 ch17-write63}}
-			\end{figure}	
-		\end{center}
-	\end{columns}
-	\end{frame}
-
-	\begin{frame}
-	\frametitle{Reading Baseline DACs $\rightarrow$ code}
-	\begin{itemize}
-		\item \textbf{reading} procedure for 1 dac consist of \textbf{2 processes}=
-		\begin{itemize}
-			\item \textbf{16}bit shift register
-			\item sequence detector 
-		\end{itemize}
-	\end{itemize}
-		\begin{center}
-			\includegraphics[width=0.6 \textwidth]{IMG/FSM_Read_States.png}
-		\end{center}
-	\end{frame}
-
-	\begin{frame}
-	\frametitle{Level translator}
-	\begin{columns}
-		\column{0.35 \textwidth}
-		\begin{center}
-			\begin{figure}
-				\includegraphics[width=0.8 \textwidth]{IMG/level_translator_back-min.jpg}
-			\end{figure}
-			\begin{figure}
-				\includegraphics[width=0.8 \textwidth]{IMG/level_translator_front-min.jpg}
-			\end{figure}
-		\end{center}
-		\column{0.65 \textwidth}
-		\begin{itemize}
-			\item ABACUS output = \textbf{1.2}V single-ended
-			\item FPGA input = \textbf{2.5}V single-ended
-			\item 2x \textbf{2N2222} NPN transistor in TO-18 package
-			\item 3x \textbf{1}k$\Omega$ resistor 1/8W
-			\item 2x connectors \& wire
-		\end{itemize}
-		\begin{figure}
-			\includegraphics[width=0.6 \textwidth]{IMG/Diagram_cropped.pdf}
-		\end{figure}
-	\end{columns}
-				
 	
-	
-	\end{frame}
-
 	\begin{frame}
-	\frametitle{Reading Baseline DACs $\rightarrow$ data}
-	\begin{itemize}
-		\item reading sequence for channels \textbf{05} and \textbf{07}
-	\end{itemize}
+	\frametitle{Reading Baseline DACs}
 	\begin{columns}
-		\column{0.50 \textwidth}
-		\begin{center}
-			\begin{figure}
-				\includegraphics[width=0.55 \textwidth]{IMG/probe/09-08-2021_ch05-read53-baselinedac1.png}
-				\caption{\centering{\tiny 10-001010-00000000 ch05-read53}}
-			\end{figure}
-			\begin{figure}
-				\includegraphics[width=0.55 \textwidth]{IMG/probe/09-08-2021_ch05-read54-baselinedac1.png}
-				\caption{\centering{\tiny 10-001010-00000000 ch05-read54}}
-			\end{figure}		
-		\end{center}
-		\column{0.50 \textwidth}
-		
-		\begin{center}
-			\begin{figure}
-				\includegraphics[width=0.55 \textwidth]{IMG/probe/09-08-2021_ch07-read53-baselinedac1.png}
-				\caption{\centering{\tiny 10-001110-00000000 ch07-read53}}
-			\end{figure}
-			\begin{figure}
-				\includegraphics[width=0.55 \textwidth]{IMG/probe/09-08-2021_ch07-read54-baselinedac1.png}
-				\caption{\centering{\tiny 10-001110-00000000 ch07-read54}}
-			\end{figure}	
-		\end{center}
+		\column{0.5 \textwidth}
+		{\color{blue} Input}
+		\begin{itemize}
+			\item Initialization sequence = A5A5
+			\item Command = 10 = read
+			\item Address = 001010 = 00101-0 = channel 05
+			\item Data    = 00000000
+		\end{itemize}
+		\column{0.5 \textwidth}
+		{\color{blue} Output}
+		\begin{itemize}
+			\item 11 = read
+			\item 001010 = 00101-0 = channel 05
+			\item 00110101 = 53
+		\end{itemize}
 	\end{columns}
+		\begin{center}
+			{\color{green} clock signal}
+			{\color{yellow} input data}
+			{\color{red} output data 2.5V}
+			{\color{blue} output data 1.2V}
+			\includegraphics[width=0.5 \textwidth]{IMG/probe/09-08-2021_ch05-read53-baselinedac1.png}
+		\end{center}
 	\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	\section{Constraints}
-	
-	\begin{frame}[fragile]
-	\frametitle{Constraints}
-	\begin{itemize}
-		\item single-ended constraints \textbf{LVCMOS25} = \textbf{L}ow \textbf{V}oltage \textbf{C}omplementary \textbf{M}etal \textbf{O}xide \textbf{S}emiconductor $\bf{2.5 \pm 0.2}$V
-		\item LVCMOS25 $\neq $ LVDS25
-	\end{itemize}
-	{\tiny 
-		\begin{verbatim}
-			##Single-ended signal for baseline dac1#######################################
-			# FMC_HPC_LA01_CC_P
-			set_property -dict { PACKAGE_PIN D26	IOSTANDARD LVCMOS25 DIFF_TERM TRUE}	[get_ports baseline_dac1_sck]
-			# FMC_HPC_LA01_CC_N
-			set_property -dict { PACKAGE_PIN C26	IOSTANDARD LVCMOS25 DIFF_TERM TRUE}	[get_ports gnd_10]
-			#
-			# FMC_HPC_LA06_P
-			set_property -dict { PACKAGE_PIN H30	IOSTANDARD LVCMOS25 DIFF_TERM TRUE}	[get_ports baseline_dac1_mosi]
-			# FMC_HPC_LA06_N
-			set_property -dict { PACKAGE_PIN G30	IOSTANDARD LVCMOS25 DIFF_TERM TRUE}	[get_ports gnd_11]
-			#
-			# FMC_HPC_LA05_P
-			set_property -dict { PACKAGE_PIN G29	IOSTANDARD LVCMOS25 DIFF_TERM TRUE}	[get_ports baseline_dac1_miso]
-			# FMC_HPC_LA05_N
-			set_property -dict { PACKAGE_PIN F30	IOSTANDARD LVCMOS25 DIFF_TERM TRUE}	[get_ports gnd_12]
-				
-		\end{verbatim} 
-						}
-	\end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 	\section{Results}
 	
-	\begin{frame}
-	\frametitle{results}
+	\begin{frame}[plain, noframenumbering]
+	%\frametitle{results}
 	\begin{center}
 		{\Huge \fontfamily{qtm}\selectfont \color{blue} \textbf{Results}}
 	\end{center}
@@ -643,9 +558,9 @@
 	\begin{frame}
 	\frametitle{threshold scan}
 		\begin{itemize}
-			\item channel 1 threshold scan with \textbf{600}mV \textbf{10}KHz impulses
-			\item {\color{blue}blue} curve with baseline dac=\textbf{0}
-			\item {\color{green}green} curve with baseline dac=\textbf{63}  
+			\item Channel 1 threshold scan with \textbf{600}mV \textbf{10}KHz impulses
+			\item {\color{blue}Blue} curve with baseline dac=\textbf{0}
+			\item {\color{green}Green} curve with baseline dac=\textbf{63}  
 		\end{itemize}	
 		\begin{center}
 			\includegraphics[width=0.65 \textwidth]{IMG/ThScan_ch0.pdf}
@@ -656,9 +571,9 @@
 	\begin{frame}
 	\frametitle{Pedestal distribution}
 	\begin{itemize}
-		\item pedestal voltage value for odd channels
-		\item {\color{blue}blue} dots with baseline dac=\textbf{0}
-		\item {\color{red}red} dots with baseline dac=\textbf{63}
+		\item Pedestal voltage value for odd channels
+		\item {\color{blue}Blue} dots with baseline dac=\textbf{0}
+		\item {\color{red}Red} dots with baseline dac=\textbf{63}
 	\end{itemize}
 	\begin{center}
 		\includegraphics[width=0.65 \textwidth]{IMG/TB1-DAC0-DAC63.pdf}
@@ -672,23 +587,21 @@
 	\begin{frame}
 	\frametitle{Conclusions }
 	\begin{center}
-		\textbf{Future additions to the FPGA firmware}
+		{\color{blue}\textbf{Future additions to the FPGA firmware}}
 	\end{center}
 		\begin{itemize}
-			\item addition of a \textbf{latch} in order to save into a \textbf{register} the current state of every counter 
-			\item addition of a \textbf{timestamp} in order to obtain a more accurate rate calculation 
-			\item addition of a configurable \textbf{mask} to calculate via firmware the \textbf{sum} of only certain selected channels 
-			
+			\item DACs \textbf{characterization} and verification of their \textbf{linearity}
+			\item Addition of a \textbf{latch} in order to save into a \textbf{register} the current state of every counter 
+			\item Addition of a \textbf{timestamp} in order to obtain a more accurate rate calculation 
+			\item Addition of a configurable \textbf{mask} to calculate via firmware the \textbf{sum} of only certain selected channels 		
 		\end{itemize}
-	
-	\vspace{1 cm}
+			\vspace{1 cm}
 		\begin{center}
 			\textbf{Thanks for the attention!!}
-		\end{center}
-		
+		\end{center}	
 	\end{frame}
 
-	\begin{frame}
+	\begin{frame}[noframenumbering]
 	\frametitle{Bibliography}
 	{\scriptsize 
 	\begin{thebibliography}{00}
@@ -705,9 +618,15 @@
 	\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	\section{Auxiliary images}
+	\section{Backup}
 	
-	\begin{frame}
+	\begin{frame}[plain, noframenumbering]
+	\begin{center}
+		{\Huge \fontfamily{qtm}\selectfont \color{blue} \textbf{Backup}}
+	\end{center}
+	\end{frame}
+	
+	\begin{frame}[noframenumbering]
 	\frametitle{Additional Graphs}
 	\begin{columns}
 		\column{0.3 \textwidth}
@@ -745,5 +664,55 @@
 		\end{center}
 	\end{columns}
 		\end{frame}
+	
+	\begin{frame}[noframenumbering]
+		\frametitle{I2C}
+	\end{frame}
+
+	\begin{frame}[noframenumbering]
+		\frametitle{CML}
+	\end{frame}
+
+	\begin{frame}[noframenumbering]
+		\frametitle{LVDS}
+	\end{frame}
+
+	\begin{frame}[noframenumbering]
+		\frametitle{Constraints}
+	\end{frame}
+
+	\begin{frame}[noframenumbering]
+		\frametitle{UDP}
+	\end{frame}
+
+	\begin{frame}[noframenumbering]
+	\frametitle{Reading Baseline DACs $\rightarrow$ code}
+	\begin{itemize}
+		\item \textbf{reading} procedure for 1 dac consist of \textbf{2 processes}=
+		\begin{itemize}
+			\item \textbf{16}bit shift register
+			\item sequence detector 
+		\end{itemize}
+	\end{itemize}
+	\begin{center}
+		\includegraphics[width=0.6 \textwidth]{IMG/FSM_Read_States.png}
+	\end{center}
+	\end{frame}
+
+		\begin{frame}[noframenumbering]
+	\frametitle{VHDL}
+	{\LARGE
+		\begin{itemize}
+			\item \textbf{VHDL}: \textbf{V}HSIC \textbf{H}ardware \textbf{D}escription \textbf{L}anguage 
+			\begin{itemize}
+				\item \textbf{VHSIC}: \textbf{V}ery \textbf{H}igh \textbf{S}peed \textbf{I}ntegrated \textbf{C}ircuits
+				\item Is a hardware description language (\textbf{HDL}) that can model the behavior and structure of digital systems at multiple levels of abstraction
+				\item Since \textbf{1987}, VHDL has been standardized by the Institute of Electrical and Electronics Engineers (\textbf{IEEE})
+				\item In February 2008, Accellera approved \textbf{VHDL 4.0}, also informally known as VHDL 2008
+				\item {\color{orange} VHDL is not a programming language!}
+			\end{itemize}
+		\end{itemize}
+	}
+\end{frame}
 	
 \end{document}

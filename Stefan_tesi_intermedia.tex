@@ -481,12 +481,23 @@
 
 	\begin{frame}[fragile]
 		\frametitle{Firmware - FSM}
-		\begin{itemize}
-			\item FSM (\textbf{F}inite \textbf{S}tate \textbf{M}achine): states for the serial data communication
-		\end{itemize}
-		\begin{center}
-			\includegraphics[width=0.45 \textwidth]{IMG/FSM.pdf}
-		\end{center}
+		\begin{columns}
+			\column{0.5 \textwidth}
+			\begin{center}
+				\includegraphics[width=0.95 \textwidth]{IMG/FSM.pdf}
+			\end{center}
+			\column{0.5 \textwidth}
+			\begin{itemize}
+				\item FSM (\textbf{F}inite \textbf{S}tate \textbf{M}achine): states for the serial data communication
+				\item \textbf{32} clock pulses sending data=
+				\begin{itemize}
+					\item \textbf{16} bit = initialization sequence
+					\item \textbf{16} bit = data
+				\end{itemize}
+				\item \textbf{32} bit waiting the response
+				\item Set Data End Communication is always zero
+			\end{itemize}
+		\end{columns}
 	\end{frame}
 
 
@@ -502,7 +513,9 @@
 			read internal DAC channel 4
 			\includegraphics[width=0.9 \textwidth]{IMG/Simulation4.png}
 		\end{center}
-	The DAC behaviour is simulated by a Verilog module
+	\begin{itemize}
+		\item The DAC behaviour is \textbf{simulated} by a \textbf{Verilog} module
+	\end{itemize}
 	\end{frame}
 
 	
@@ -727,16 +740,16 @@
 		\end{columns}
 	\end{frame}
 
-	\begin{frame}[noframenumbering]
-		\frametitle{Constraints}
-		\begin{columns}
-			\column{0.5 \textwidth}
-			\column{0.5 \textwidth}
-			\begin{itemize}
-				\item
-			\end{itemize}
-		\end{columns}
-	\end{frame}
+	%\begin{frame}[noframenumbering]
+	%	\frametitle{Constraints}
+	%	\begin{columns}
+	%		\column{0.5 \textwidth}
+	%		\column{0.5 \textwidth}
+	%		\begin{itemize}
+	%			\item
+	%		\end{itemize}
+	%	\end{columns}
+	%\end{frame}
 
 	\begin{frame}[noframenumbering]
 		\frametitle{UDP}

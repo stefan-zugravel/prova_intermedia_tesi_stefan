@@ -272,5 +272,7 @@ TSWLatexianTemp*
 # standalone packages
 *.sta
 
+./MATERIALE/*
+
 # Makeindex log files
 *.lpz

@@ -65,6 +65,7 @@
 			\begin{itemize}
 				\item Maximum dose delivered deep into tissue (Bragg peak)
 				\item Greater conformation of the dose to the tumor
+				\item Conservation of the healthy tissues 
 			\end{itemize}
 		\vspace{1 cm}
 			{\color{blue} Typical Proton Beam Parameters:}
@@ -79,7 +80,7 @@
 	\end{frame}
 
 	\begin{frame}
-		\frametitle{Treatment Planning System (TPS)}
+		\frametitle{Dose delivery system}
 		\begin{columns}
 			\column{0.5 \textwidth}
 			\includegraphics[width=0.95 \textwidth]{IMG/Beam_Monitoring.PNG}
@@ -118,8 +119,8 @@
 			\end{itemize}
 			\textbf{Disadvantages}
 			\begin{itemize}
-				\item Slow response times $\approx 10^2\:\mu s$
-				\item Limited sensitivity
+				\item Slow response times $\approx 100\:\mu s$
+				\item Limited sensitivity (>$10^4$ p)
 				\item Indirect measurement of the number of particles
 			\end{itemize}
 			\column{0.38 \textwidth}
@@ -135,6 +136,7 @@
 			\begin{itemize}
 				\item Complex and fast readout electronics
 				\item Damage from radiation
+				\item pile-up effects at high\newline rates
 			\end{itemize}
 		\end{columns}
 	\end{frame}
@@ -142,18 +144,26 @@
 
 	
 	\begin{frame}
-	\frametitle{LGAD sensors}
+	\frametitle{UFSD LGAD sensors}
 	\begin{columns}
 	\column{0.35 \textwidth}
 		\begin{center}	
 			\includegraphics[width=0.9 \textwidth]{IMG/LGAD_Signal.PNG}
 		\end{center}
 	\column{0.65 \textwidth}
-	\begin{center}
-		\includegraphics[width=0.4 \textwidth]{IMG/UFSDLGAD.PNG}
-	\end{center}
+	\begin{columns}
+		\column{0.4 \textwidth}
+			\begin{center}
+				\includegraphics[width=1 \textwidth]{IMG/UFSDLGAD.PNG}
+			\end{center}
+		\column{0.6 \textwidth}
+		\begin{center}
+			We need \textbf{thin} detectors to have \textbf{fast} signals, but thin detectors also have low \textbf{SNR}
+		\end{center}
+	\end{columns}
 		\begin{itemize}
-			\item \textbf{L}ow \textbf{G}ain \textbf{A}valanche \textbf{D}etector
+			\item \textbf{U}ltra \textbf{F}ast \textbf{S}ilicon \textbf{D}etector \textbf{L}ow \textbf{G}ain \textbf{A}valanche \textbf{D}iode
+			\item Charge multiplication in $p^+ / n^{++}$ junction 
 			\item 50$\mu$m sensor thickness
 			\item Internal gain of \textbf{10-15} 
 			\item Trapezoidal signal of $\approx$\textbf{1.5ns}\newline
@@ -170,13 +180,36 @@
 	%LGAD mi permette di aumentare il rapporto segnale-su-rumore
 	%Aggiungere segnale dell'LGAD
 
+	\section{Move\_IT}
+	
+	\begin{frame}
+	\frametitle{MoVe\_IT project}
+	\begin{center}
+		{\Large \color{blue} MoVe\_IT = \textbf{Mo}deling and \textbf{Ve}rification for \textbf{I}on beam \textbf{T}reatment planning }
+		\newline
+		Prove the ability of \textbf{LGAD} detectors to discriminate individual protons and to count their number up to fluxes of \textbf{100} MHz/cm2 with an uncertainty of {\color{blue}less than \textbf{1}\%}, (\underline{clinical tolerance required})
+	\end{center}
+	\begin{columns}
+		\column{0.6 \textwidth}
+		\begin{itemize}
+			\item Single proton counting:
+			\item Area \textbf{3x3} cm${}^2$ with \textbf{144} Strips;
+			\item Max rates= $10^8$ p/s cm2 ({\color{blue} Error < \textbf{1}\%})
+			\item Two orthogonal directions
+		\end{itemize}
+		\column{0.4 \textwidth}
+		\begin{center}
+			\includegraphics[width=0.7 \textwidth]{IMG/Detector.PNG}
+		\end{center}
+	\end{columns}
+	\end{frame}
 
 	\begin{frame}
 	\frametitle{ABACUS\_v2}
 	\begin{columns}
 		\column{0.25 \textwidth}
 		\begin{center}
-				\includegraphics[width=1.85 \textwidth, angle=90]{IMG/ABACUS.PNG}
+				\includegraphics[width=1.85 \textwidth, angle=90]{IMG/ABACUS2.png}
 		\end{center}
 		\column{0.75 \textwidth}
 		\begin{center}
@@ -185,29 +218,31 @@
 		\begin{columns}
 			\column{0.5 \textwidth}
 			\includegraphics[width=0.99 \textwidth]{IMG/ABACUS_channel.PNG}
+			{\color{blue} Channel structure }
+			{\small 
+			\begin{itemize}
+				\item \textbf{Charge} sensitive amplifier
+				\item Discriminator driven by \textbf{2 DACs}
+				\begin{itemize}
+					\item Programmable internal DAC
+					\item External DAC 
+				\end{itemize}
+				\item \textbf{CML} converter 
+				\item \textbf{Fast} reset signal
+			\end{itemize} }
 			\column{0.5 \textwidth}
 			\begin{itemize}
-				\item 110 nm technology
-				\item 24 channels
-				\item I2C controller for digital configuration
-				\item Die size 4.95 x 1.935 mm$^2$
-				%Dead time <10ns
-				%SNR>10
-				%possibilità di simulare segnali mandando impulsi su canali pari o dispari
-				%range di carica in ingresso 3fC-140fC
+				\item \textbf{110} nm technology
+				\item \textbf{24} channels
+				\item \textbf{I2C} controller for digital configuration
+				\item Die size \textbf{4.95 }x \textbf{1.935} mm$^2$
+				\item Max frequency >\textbf{100} MHz
+				\item Input capacitance \textbf{3-140} fC
+				\item Dead time <\textbf{10}ns
+				\item SNR>\textbf{10}
 			\end{itemize}
 		\end{columns}
-		{\color{blue} Channel structure }
-		\begin{itemize}
-			\item Charge sensitive amplifier
-			\item Discriminator controlled by two DACs
-			\begin{itemize}
-				\item External DAC (common for all channel)
-				\item Programmable internal DAC (6 bit) for each channel
-			\end{itemize}
-			\item Fast reset signal to discharge capacitive feedback
-		\item CML converter  
-		\end{itemize} 
+		
 	\end{columns}
 	\end{frame}
 
@@ -266,29 +301,6 @@
 		\end{itemize}
 	\end{frame}
 
-\section{Move\_IT}
-
-	\begin{frame}
-	\frametitle{MoVe\_IT project}
-	\begin{center}
-		{\color{blue} MoVe\_IT = \textbf{Mo}deling and \textbf{Ve}rification for \textbf{I}on beam \textbf{T}reatment planning }
-		\newline
-		Prove the ability of LGAD detectors to discriminate individual protons and to count their number up to fluxes of 100 MHz / cm2 with an uncertainty of {\color{blue}less than 1\%}, (clinical tolerance required)
-	\end{center}
-	\begin{columns}
-		\column{0.6 \textwidth}
-		\begin{itemize}
-			\item Single proton counting:
-			\item Area 3x3 cm${}^2$ with 144 Strips;
-			\item Max rates= $10^8$ p/s cm2 ({\color{blue} Error < 1\%})
-			\item Two orthogonal directions
-		\end{itemize}
-		\column{0.4 \textwidth}
-		\begin{center}
-			\includegraphics[width=0.7 \textwidth]{IMG/Detector.PNG}
-		\end{center}
-	\end{columns}
-	\end{frame}
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Experimental setup}
@@ -312,16 +324,17 @@
 			\column{0.5 \textwidth}
 			{\color{blue}ABACUS\_v2 test board}
 			\begin{itemize}
-				\item 1 ABACUS ASIC chip
-				\item CML output to FPGA
-				\item I2C input to internal DACs
-				\item \textbf{TP\_even} and \textbf{TP\_odd}
+				\item 1 \textbf{ABACUS} ASIC chip
+				\item \textbf{CML} output to \textbf{FPGA}
+				\item \textbf{I2C} input to internal DACs
+				\item Possibility to \textbf{simulate} signals sending pulses to even or odd channels
+				\item \textbf{TP\_even} and \textbf{TP\_odd} \newline {\tiny \textbf{TP}=\textbf{T}est \textbf{P}ulse}
 			\end{itemize}
-			{\color{blue}Esa-ABACUS}
+			{\color{blue}ESA-ABACUS}
 			\begin{itemize}
-				\item 6 ABACUS chips
-				\item Able to read 144 strips
-				\item 3 FPGA needed
+				\item \textbf{6 ABACUS} chips
+				\item Able to read \textbf{144} strips
+				\item \textbf{3} FPGA needed
 			\end{itemize}
 		\end{columns}	
 	\end{frame}
@@ -335,12 +348,13 @@
 			\end{center}
 			\column{0.35 \textwidth}
 			\begin{itemize}
-				\item Impulsator
+				\item Fast Pulse Generator
 				\item Oscilloscope
 				\item Power Supply
-				\item FPGA
+				\item Kintez 7 FPGA
 				\item Test Board
-				\item PC
+				\item PC with LabView
+				\item Level translator
 			\end{itemize}
 		\end{columns}
 		
@@ -379,7 +393,7 @@
 				\includegraphics[width=1.0 \textwidth]{IMG/KC705.PNG}
 			\end{center}
 			\column{0.5 \textwidth}
-			\textbf{FMC} connector
+			\textbf{FMC}{\tiny =\textbf{F}PGA \textbf{M}ezzanine \textbf{C}ard} connector
 			\begin{itemize}
 				\item \textbf{LPC}= \textbf{L}ow \textbf{P}in \textbf{C}ount
 				\item \textbf{HPC}= \textbf{H}igh \textbf{P}in \textbf{C}ount
@@ -388,8 +402,9 @@
 			\textbf{Debug}
 			\begin{itemize}
 				\item Set every pin as an \textbf{output}
-				\item Switch state with a button
+				\item Switch state (0/1) with a button
 				\item Measure voltages with multimeter
+				\item Levels: high$\approx$\textbf{1.5}V --- low$\approx$\textbf{0.7}V
 			\end{itemize}
 		\end{columns}
 	\end{frame}
@@ -403,16 +418,16 @@
 			\includegraphics[width=0.8 \textwidth]{IMG/Diagram_cropped.pdf}
 		\end{center}
 		\column{0.65 \textwidth}
-		\begin{itemize}
-			\item ABACUS output = \textbf{1.2}V single-ended
-			\item FPGA input = \textbf{2.5}V single-ended
-			\item 2x \textbf{2N2222} NPN transistor in TO-18 package
-			\item 3x \textbf{1}k$\Omega$ resistor 1/8W
-			\item 2x connectors \& wire
-		\end{itemize}
 		\begin{center}
 			\includegraphics[width=0.5 \textwidth]{IMG/probe/09-08-2021_clock-specks.png}
 		\end{center}
+		\begin{itemize}
+			\item ABACUS output = \textbf{1.2}V single-ended
+			\item FPGA input = \textbf{2.5}V single-ended
+			\item Resistive \textbf{voltage divider}
+			\item 2x \textbf{2N2222} NPN transistor in TO-18 package
+			\item 3x \textbf{1}k$\Omega$ resistor 1/8W
+		\end{itemize}
 	\end{columns}
 	\end{frame}
 
@@ -425,11 +440,17 @@
 			\end{center}
 			\column{0.5 \textwidth}
 			\begin{itemize}
+				\item Firmware written in \textbf{VHDL}
 				\item GbPhy = Custom \textbf{UDP} Protocol
-				\item LCD Controller = display informations
-				\item Tera10 IO = Input setup and counters
-				\item Tera10 controller
-				\item Hardware controller = setup internal and external Dacs
+				\item LCD-Controller = display informations such as:
+					\begin{itemize}
+						\item Firmware version
+						\item Board number
+						\item Project name
+					\end{itemize}
+				\item Tera10-I/O = Input setup and counters
+				\item Tera10-Controller = controls for reading and activate channels
+				\item Hardware-Controller = setup internal and external DACs
 			\end{itemize}
 		\end{columns}
 	\end{frame}
@@ -666,23 +687,71 @@
 		\end{frame}
 	
 	\begin{frame}[noframenumbering]
-		\frametitle{I2C}
+		\frametitle{CML}
+		\begin{columns}
+			\column{0.5 \textwidth}
+			\begin{center}
+				\includegraphics[width=0.95 \textwidth]{IMG/CML_line.png}
+			\end{center}
+			\column{0.5 \textwidth}
+			CML (\textbf{C}urrent \textbf{M}ode \textbf{L}ogic), is a digital design style used both for logic gates and for board-level digital signalling of digital data.
+			\begin{itemize}
+				\item speeds between 312.5 Mbit/s and 3.125 Gbit/s
+				\item DVI and HDMI video links use CML
+				\item 50 $\Omega$ termination
+			\end{itemize}
+		\end{columns}
 	\end{frame}
 
 	\begin{frame}[noframenumbering]
-		\frametitle{CML}
+		\frametitle{I2C}
+		\begin{center}
+			\includegraphics[width=0.8 \textwidth]{IMG/I2C.png}
+		\end{center}
+		The Inter-Integrated Circuit (I2C) bus is a two wire serial interface originally developed by the Phillips Corporation for use in consumer products. It is a bi-directional bus that is easily implemented in any IC process (NMOS, CMOS, bipolar) and allows for simple inter-IC communication. Connections are minimized by using a serial data line (SDA), a serial clock line (SCL) and a common ground to carry all communications.
 	\end{frame}
 
 	\begin{frame}[noframenumbering]
 		\frametitle{LVDS}
+		\begin{columns}
+			\column{0.5 \textwidth}
+			\begin{center}
+				\includegraphics[width=0.95 \textwidth]{IMG/LVDS.png}
+			\end{center}
+			\column{0.5 \textwidth}
+			\begin{itemize}
+				\item Low-voltage differential signaling, or LVDS is a technical standard that specifies electrical characteristics of a differential serial signaling standard.
+				\item The transmitter injects a constant current of 3.5 mA into the wires
+				\item 100 $\Omega$ termination
+			\end{itemize}
+		\end{columns}
 	\end{frame}
 
 	\begin{frame}[noframenumbering]
 		\frametitle{Constraints}
+		\begin{columns}
+			\column{0.5 \textwidth}
+			\column{0.5 \textwidth}
+			\begin{itemize}
+				\item
+			\end{itemize}
+		\end{columns}
 	\end{frame}
 
 	\begin{frame}[noframenumbering]
 		\frametitle{UDP}
+		\begin{columns}
+			\column{0.5 \textwidth}
+				\begin{center}
+					\includegraphics[width=0.95 \textwidth]{IMG/UDP.png}
+				\end{center}
+			\column{0.5 \textwidth}
+			\begin{itemize}
+				\item \textbf{UDP}= \textbf{U}ser \textbf{D}atagram \textbf{P}rotocol is one of the core members of the Internet protocol suite. With UDP, computer applications can send messages, in this case referred to as datagrams.
+				\item UDP uses a simple connectionless communication model. 
+				\item UDP is suitable for purposes where error checking and correction are either not necessary or are performed in the application.
+			\end{itemize}
+		\end{columns}
 	\end{frame}
 
 	\begin{frame}[noframenumbering]

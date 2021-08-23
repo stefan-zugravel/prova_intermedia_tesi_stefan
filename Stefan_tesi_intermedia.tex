@@ -158,7 +158,7 @@
 			\end{center}
 		\column{0.6 \textwidth}
 		\begin{center}
-			We need \textbf{thin} detectors to have \textbf{fast} signals, but thin detectors also have low \textbf{SNR}
+			We need \textbf{thin} detectors to have \textbf{short} signals (pile-up reduction), but thin detectors also have low \textbf{SNR}
 		\end{center}
 	\end{columns}
 		\begin{itemize}
@@ -375,12 +375,12 @@
 	\begin{frame}
 	\frametitle{Personal Contribution}
 	\begin{itemize}
-		\item {\color{green} Creation of a \textbf{debug} tool for the FMC connectors}
-		\item {\color{green} Firmware implementation of the read/write logic for the \textbf{ABACUS} chip}
-		\item {\color{green} Creation of the level translation device for communication with the \textbf{FPGA}}
-		\item {\color{orange} Addition of a \textbf{latch} in order to save into a \textbf{register} the current state of every counter}
-		\item {\color{orange} Addition of a \textbf{timestamp} in order to obtain a more accurate rate calculation}
-		\item {\color{orange} Addition of a configurable \textbf{mask} to calculate via firmware the \textbf{sum} of only certain selected channels}
+		\item {\color{teal} Creation of a \textbf{debug} tool for the FMC connectors}
+		\item {\color{teal} Firmware implementation of the read/write logic for DAC configuration in the \textbf{ABACUS} chip}
+		\item {\color{teal} Creation of the level translation device for communication with the \textbf{FPGA}}
+		\item {\color{red} Addition of a \textbf{latch} in order to save into a \textbf{register} the current state of every counter}
+		\item {\color{red} Addition of a \textbf{timestamp} in order to obtain a more accurate rate calculation}
+		\item {\color{red} Addition of a configurable \textbf{mask} to calculate via firmware the \textbf{sum} of only certain selected channels}
 	\end{itemize}
 	\end{frame}
 	
@@ -620,7 +620,7 @@
 	\begin{itemize}
 		\item Pedestal voltage value for odd channels
 		\item {\color{green}Green} dots with baseline dac=\textbf{63}
-		\item {\color{red}Red} dots with baseline dac=\textbf{0}
+		\item {\color{blue}Blue} dots with baseline dac=\textbf{0}
 		\item Average $\Delta V\approx$22 mV
 	\end{itemize}
 	\begin{center}

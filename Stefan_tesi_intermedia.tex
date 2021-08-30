@@ -193,7 +193,7 @@
 	\begin{columns}
 		\column{0.6 \textwidth}
 		\begin{itemize}
-			\item Single proton counting:
+			\item Single proton counting
 			\item Custom detector built ad hoc
 			\item Area \textbf{3x3} cm${}^2$ with \textbf{144} Strips;
 			\item Max rates= $10^8$ $\frac{p}{s \cdot cm^2}$ ({\color{blue} Error < \textbf{1}\%})
@@ -208,75 +208,96 @@
 	\end{frame}
 
 	\begin{frame}
-	\frametitle{ABACUS\_v2}
+	\frametitle{ABACUS\_v2 ({\small \textbf{A}synchronous-logic-\textbf{B}ased \textbf{A}nalog \textbf{C}ounter for \textbf{U}ltra fast \textbf{S}ilicon strips}) }
+	\vspace*{-2mm}
 	\begin{columns}
-		\column{0.25 \textwidth}
+		\column{0.2 \textwidth}
 		\begin{center}
-				\includegraphics[width=1.85 \textwidth, angle=90]{IMG/ABACUS2.png}
+				\includegraphics[width=2.45 \textwidth, angle=90]{IMG/ABACUS2.png}
 		\end{center}
-		\column{0.75 \textwidth}
-		\begin{center}
-			{\color{blue} \textbf{ABACUS\_v2}}={\tiny \textbf{A}synchronous-logic-\textbf{B}ased \textbf{A}nalog \textbf{C}ounter for \textbf{U}ltra fast \textbf{S}ilicon strips}
-		\end{center}
+		\column{0.8 \textwidth}
+		%\begin{center}
+		%	{\color{blue} \textbf{ABACUS\_v2}}
+		%\end{center}
 		\begin{columns}
 			\column{0.5 \textwidth}
 			\includegraphics[width=0.99 \textwidth]{IMG/ABACUS_channel.PNG}
 			{\color{blue} Channel structure }
-			{\small 
+			{\footnotesize 
 			\begin{itemize}
 				\item \textbf{Charge} sensitive amplifier
 				\item Discriminator driven by \textbf{2 DACs}
 				\begin{itemize}
-					\item Programmable internal DAC
-					\item External DAC 
+					%the discriminator threshold is setted with an external value and, in order to uniform the channels an internal DAC is used.
+					{\footnotesize
+					\item External DAC $\rightarrow$ global Vth
+					\item Internal DAC $\rightarrow$ Ch uniformity
+				}
 				\end{itemize}
-				\item \textbf{CML} converter 
-				\item \textbf{Fast} reset signal
+				\item \textbf{CML} converter (propagate signal)
+				\item \textbf{Fast} reset signal (reduce dead time)
 			\end{itemize} }
 			\column{0.5 \textwidth}
+			{\color{blue} Chip specifications }
 			\begin{itemize}
-				\item \textbf{110} nm technology
+				\item Die size \textbf{4.95 }x \textbf{1.935} mm$^2$
+				\item \textbf{110} nm CMOS technology
 				\item \textbf{24} channels
 				\item \textbf{I2C} controller for digital configuration
-				\item Die size \textbf{4.95 }x \textbf{1.935} mm$^2$
 				\item Max frequency >\textbf{100} MHz
 				\item Input capacitance \textbf{3-140} fC
 				\item Dead time <\textbf{10}ns
 				\item SNR>\textbf{10}
+				\item Full digital I/O interfaced \\ with \textbf{FPGA}
 			\end{itemize}
 		\end{columns}
-		
+		%%%
+		%\begin{itemize}
+		%	\item \textbf{Fast} reset signal (reduce dead time)
+		%\end{itemize}
+		%%%
 	\end{columns}
 	\end{frame}
 
 		
 
 		\begin{frame}
-	\frametitle{FPGA}
-	\begin{center}
-		\includegraphics[width=0.7 \textwidth]{IMG/Block_Diagram.pdf}
-	\end{center}
+	\frametitle{FPGA  (\textbf{F}ield \textbf{P}rogrammable \textbf{G}ate \textbf{A}rray)}
+	\begin{columns}
+		\column{0.5 \textwidth}
+		\begin{center}
+			\includegraphics[width=0.7 \textwidth]{IMG/FPGA_PARTS}
+		\end{center}
+		\column{0.5 \textwidth}
+		\begin{center}
+			\includegraphics[width=0.6 \textwidth]{IMG/FPGA2}
+		\end{center}
+	\end{columns}
+		\vspace{2mm}
 		\begin{itemize}
-			\item FPGA = \textbf{F}ield \textbf{P}rogrammable \textbf{G}ate \textbf{A}rray
-			\begin{itemize}
-				\item Gate array : \textbf{array of "logic cells"} that can be programmed to implement \textbf{any desired logic functionality}
-				\item Field programmable: \textbf{device not committed to do something} until effectively programmed according to the field application
-			\end{itemize}
+			\item A FPGA is an integrated circuit designed to be configured by a customer or a designer after manufacturing – hence the term \textbf{field-programmable}. 
 			\item In principle, \textbf{programmable infinite times} with no limitations
 			\item \textbf{High flexibility}: it can be implemented \textbf{any digital function}
 			\item \textbf{Fast} and \textbf{cheap} prototyping: \textbf{out of the box} solution: no layout or masks
-			\item {\color{orange} Power hungry, slow compared to \textbf{ASICs} and expensive on large-scales}
+			%\item {\color{orange} Power hungry, slow compared to \textbf{ASICs} and expensive on large-scales}
+			\item \textbf{HDL} such as Verilog or VHDL are used for the logic design 
 		\end{itemize}
 	\end{frame}
 
 \begin{frame}
-	\frametitle{FPGA function}
+	\frametitle{FPGA main tasks}
+	\vspace*{-2.7mm}
 	\begin{center}
-		{\huge What does the \textbf{FPGA} board do?}
+		\includegraphics[width=0.85 \textwidth]{IMG/Block_Diagram.pdf}
+	\end{center}
+	\vspace*{-5mm}
+	\begin{center}
+		{\Large \color{blue} What does the \textbf{FPGA} board do?}\\[3mm]
 		\begin{itemize}
 			\item Receives the \textbf{outputs} from the abacus chip
-			\item For each channel counts the number of \textbf{pulses} and the number of clock strokes with high signal.
-			\item Sends the data to a \textbf{PC} via UDP protocol
+			\item For each channel counts the number of \textbf{pulses} (thus the number of particles) and the number of clock strokes with high signal
+			\item For two adjacent channels counts the number of coincidence \textbf{AND} and \textbf{OR} (for pile-up correction)
+			\item Sends the data to a \textbf{PC} via \textbf{Ethernet}/\textbf{UDP} protocol
 			\item Configuration of \textbf{internal} and \textbf{external} DACs
 		\end{itemize}
 	\end{center}
@@ -361,20 +382,21 @@
 		\item {\color{teal} Creation of the level translation device for communication with the \textbf{FPGA}}
 		\item {\color{red} Addition of a \textbf{latch} in order to save into a \textbf{register} the current state of every counter}
 		\item {\color{red} Addition of a \textbf{timestamp} in order to obtain a more accurate rate calculation}
-		\item {\color{red} Addition of a configurable \textbf{mask} to calculate via firmware the \textbf{sum} of only certain selected channels}
+		%\item {\color{red} Addition of a configurable \textbf{mask} to calculate via firmware the \textbf{sum} of only certain selected channels}
 	\end{itemize}
 	\end{frame}
 	
 	\begin{frame}
 		\frametitle{Firmware Debug Tool for FMC connector}
+		%\small
 		\begin{columns}
-			\column{0.5 \textwidth}
+			\column{0.65 \textwidth}
 			\begin{center}
 				{\color{blue} KINTEX7 KC705}
 				\includegraphics[width=1.0 \textwidth]{IMG/KC705.PNG}
 			\end{center}
-			\column{0.5 \textwidth}
-			\textbf{FMC}{\tiny =\textbf{F}PGA \textbf{M}ezzanine \textbf{C}ard} connector
+			\column{0.35 \textwidth}
+			\textbf{FMC}{\tiny (\textbf{F}PGA \textbf{M}ezzanine \textbf{C}ard)} connector
 			\begin{itemize}
 				\item \textbf{LPC}= \textbf{L}ow \textbf{P}in \textbf{C}ount
 				\item \textbf{HPC}= \textbf{H}igh \textbf{P}in \textbf{C}ount
@@ -385,7 +407,7 @@
 				\item Set every pin as an \textbf{output}
 				\item Switch state (0/1) with a button
 				\item Measure voltages with multimeter
-				\item Levels: high$\approx$\textbf{1.5}V --- low$\approx$\textbf{0.7}V
+				\item Levels: high$\approx$\textbf{1.5}V \\ low$\approx$\textbf{0.7}V
 			\end{itemize}
 		\end{columns}
 	\end{frame}
@@ -403,8 +425,8 @@
 			\includegraphics[width=0.5 \textwidth]{IMG/probe/09-08-2021_clock-specks.png}
 		\end{center}
 		\begin{itemize}
-			\item ABACUS DAC I/O = \textbf{1.2}V single-ended
-			\item FPGA I/O = \textbf{2.5}V single-ended
+			\item ABACUS DACs I/O = CMOS \textbf{1.2}V single-ended
+			\item FPGA I/O = CMOS \textbf{2.5}V single-ended
 			\item Resistive \textbf{voltage divider}
 			\item 2x \textbf{2N2222} NPN transistor in TO-18 package
 			\item 3x \textbf{1}k$\Omega$ resistor 1/8W
@@ -505,7 +527,7 @@
 			\end{center}
 			\column{0.5 \textwidth}
 			\begin{itemize}
-				\item FSM (\textbf{F}inite \textbf{S}tate \textbf{M}achine): states for the serial data communication
+				\item FSM (\textbf{F}inite \textbf{S}tate \textbf{M}achine): states for the~serial data communication
 				\item \textbf{32} clock pulses sending data=
 				\begin{itemize}
 					\item \textbf{16} bit = initialization sequence
@@ -635,7 +657,7 @@
 	\begin{frame}
 	\frametitle{Pedestal distribution}
 	\begin{itemize}
-		\item Pedestal voltage value for odd channels
+		\item Pedestal (baseline) voltage value for selected channels
 		\item {\color{green}Green} dots with baseline dac=\textbf{63}
 		\item {\color{blue}Blue} dots with baseline dac=\textbf{0}
 		\item Average $\Delta V\approx$22 mV
@@ -650,7 +672,15 @@
 	\section{Conclusions}
 	
 	\begin{frame}
-	\frametitle{Conclusions }
+	\frametitle{Conclusions and To Do List}
+	\begin{center}
+		{\color{blue}\textbf{Conclusions}}
+	\end{center}
+		\begin{itemize}
+			\item New \textbf{FPGA} firmware extensions added for the configuration and readout of the ABACUS\_v2 chip
+			\item \textbf{Successfully} tested with simulations and in laboratory
+		\end{itemize}
+	
 	\begin{center}
 		{\color{blue}\textbf{Future additions to the FPGA firmware}}
 	\end{center}
@@ -658,7 +688,7 @@
 			\item DACs \textbf{characterization} and verification of their \textbf{linearity}
 			\item Addition of a \textbf{latch} in order to save into a \textbf{register} the current state of every counter 
 			\item Addition of a \textbf{timestamp} in order to obtain a more accurate rate calculation 
-			\item Addition of a configurable \textbf{mask} to calculate via firmware the \textbf{sum} of only certain selected channels 		
+			%\item Addition of a configurable \textbf{mask} to calculate via firmware the \textbf{sum} of only certain selected channels 		
 		\end{itemize}
 			\vspace{1 cm}
 		\begin{center}
@@ -827,5 +857,9 @@
 		\end{itemize}
 	}
 \end{frame}
+	
+	\begin{frame}
+		
+	\end{frame}
 	
 \end{document}

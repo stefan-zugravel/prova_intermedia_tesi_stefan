@@ -858,8 +858,13 @@
 	}
 \end{frame}
 	
-	\begin{frame}
-		
+	\begin{frame}[noframenumbering]
+		\frametitle{FPGA structure}
+		\begin{itemize}
+			\item \textbf{PSM}: \textbf{P}rogrammable \textbf{S}witch \textbf{M}atrix = Whenever a vertical and a horizontal channel intersect, there is a switch box. When a wire enters a switch box there are programmable switches that allow it to connect to other wires in adjacent channel segments
+			\item \textbf{IOB}: \textbf{I}/\textbf{O} \textbf{B}lock = collection or grouping of basic elements that implement the input and output functions of an FPGA device
+			\item \textbf{CLB}: \textbf{C}onfigurable \textbf{L}ogic \textbf{B}lock = A typical cell consists of a 4-input LUT, a Full adder (FA) and a D-type flip-flop
+		\end{itemize}
 	\end{frame}
 	
 \end{document}

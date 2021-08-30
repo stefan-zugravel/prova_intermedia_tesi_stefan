@@ -12,7 +12,7 @@
 
 
 
-\title{Development and test of FPGA firmware for the readout of the ABACUS\_v2 chip for beam monitoring applications in hadron therapy}
+\title{{\normalsize Development and test of FPGA firmware extensions for the configuration and readout of the ABACUS\_v2 chip for beam monitoring applications in hadron therapy}}
 \author[Stefan Zugravel]{Candidate: \\ Stefan Cristi Zugravel \\ --------------------------------- \\ Supervisor: \\ Dott. Luca Pacher\\ ---------------------------------  \\ Co-Supervisor: \\ Prof. Vincenzo Monaco}
 \date{\today}
 \institute[UniTo]{University of Turin}
@@ -63,17 +63,17 @@
 		
 			{\color{blue} Advantages compared to x-ray radiotherapy:}
 			\begin{itemize}
-				\item Maximum dose delivered deep into tissue (Bragg peak)
+				\item Maximum dose delivered deep into tissue (Bragg peak that depends on the energy)
 				\item Greater conformation of the dose to the tumor
 				\item Conservation of the healthy tissues 
 			\end{itemize}
 		\vspace{1 cm}
-			{\color{blue} Typical Proton Beam Parameters:}
+			{\color{blue} Advanced treatment techniques use thin proton beams. \\ Typical parameters (CNAO examples):}
 			\begin{itemize}
-				\item FWHM 3-7 mm
-				\item Beam rates $10^6-10^{10}$ p/s
-				\item Current  1-320 nA
-				\item Energy  70-228 MeV
+				\item FWHM 3$\div$7 mm
+				\item Beam rates $10^6\div10^{10}$ p/s
+				\item Current  1$\div$320 nA
+				\item Energy  70$\div$228 MeV $\rightarrow$ (4$\div$32) cm in water
 			\end{itemize}
 		
 		\end{columns}
@@ -85,6 +85,7 @@
 			\column{0.5 \textwidth}
 			\includegraphics[width=0.95 \textwidth]{IMG/Beam_Monitoring.PNG}
 			\column{0.5 \textwidth}
+			{\color{blue} \textbf{Active spot scanning:}}
 			\begin{itemize}
 				\item Acquisition of morphological data by CT (\textbf{C}omputed \textbf{T}omography) and tumor volume identification
 				\item Subdivision of the tumor into spots organized in layers of different depths corresponding to different beam energies
@@ -93,7 +94,7 @@
 			\end{itemize}
 		\end{columns}
 	\vspace{0.2 cm}
-	{\color{blue} Real-time beam detection parameters (direction and number of particles delivered) \newline is extremely important in order to distribute the dose accurately.}
+	{\color{blue} Real-time beam detection parameters (direction and \textbf{number of particles} delivered) \newline is extremely important in order to distribute the dose accurately.}
 	\end{frame}
 	%I rivelatori controllano il trattamento, sulla base di queste informazioni viene controllata la posizione, la direzione e l'energia del fascio in tempo reale
 	%Come si comportano dei rivelatori al silicio?
@@ -121,7 +122,7 @@
 			\begin{itemize}
 				\item Slow response times $\approx 100\:\mu s$
 				\item Limited sensitivity (>$10^4$ p)
-				\item Indirect measurement of the number of particles
+				\item Indirect measurement of the number of particles \\{\tiny Mandatory to know the beam energy}
 			\end{itemize}
 			\column{0.38 \textwidth}
 			{\color{blue} Solid state detectors}
@@ -144,7 +145,7 @@
 
 	
 	\begin{frame}
-	\frametitle{UFSD LGAD sensors}
+	\frametitle{UFSD/LGAD sensors}
 	\begin{columns}
 	\column{0.35 \textwidth}
 		\begin{center}	
@@ -162,7 +163,7 @@
 		\end{center}
 	\end{columns}
 		\begin{itemize}
-			\item \textbf{U}ltra \textbf{F}ast \textbf{S}ilicon \textbf{D}etector \textbf{L}ow \textbf{G}ain \textbf{A}valanche \textbf{D}iode
+			\item \textbf{U}ltra \textbf{F}ast \textbf{S}ilicon \textbf{D}etector/\textbf{L}ow \textbf{G}ain \textbf{A}valanche \textbf{D}iode
 			\item Charge multiplication in $p^+ / n^{++}$ junction 
 			\item 50$\mu$m sensor thickness
 			\item Internal gain of \textbf{10-15} 
@@ -187,14 +188,16 @@
 	\begin{center}
 		{\Large \color{blue} MoVe\_IT = \textbf{Mo}deling and \textbf{Ve}rification for \textbf{I}on beam \textbf{T}reatment planning }
 		\newline
-		Prove the ability of \textbf{LGAD} detectors to discriminate individual protons and to count their number up to fluxes of \textbf{100} MHz/cm2 with an uncertainty of {\color{blue}less than \textbf{1}\%}, (\underline{clinical tolerance required})
+		Prove the ability of \textbf{LGAD} detectors to discriminate individual protons and to count their number up to fluxes of \textbf{100} MHz/cm$^2$ with an uncertainty of {\color{blue}less than \textbf{1}\%}, (\underline{clinical tolerance required})
 	\end{center}
 	\begin{columns}
 		\column{0.6 \textwidth}
 		\begin{itemize}
 			\item Single proton counting:
+			\item Custom detector built ad hoc
 			\item Area \textbf{3x3} cm${}^2$ with \textbf{144} Strips;
-			\item Max rates= $10^8$ p/s cm2 ({\color{blue} Error < \textbf{1}\%})
+			\item Max rates= $10^8$ $\frac{p}{s \cdot cm^2}$ ({\color{blue} Error < \textbf{1}\%})
+			\item 50$\mu$m sensor thickness
 			\item Two orthogonal directions
 		\end{itemize}
 		\column{0.4 \textwidth}
@@ -246,42 +249,7 @@
 	\end{columns}
 	\end{frame}
 
-		\begin{frame}
-	\frametitle{ABACUS\_v2 internal DACs setup}	
-	\begin{columns}
-		\column{0.5 \textwidth}
-		\begin{center}
-			\includegraphics[width=0.7 \textwidth]{IMG/InternalDAC.pdf}
-			\includegraphics[width=0.7 \textwidth]{IMG/TableLSB.PNG}
-		\end{center}
-		\textbf{LSB} value $\approx$0.94 mV for \textbf{Vref\_LSB}=600 mV
-		\column{0.5 \textwidth}
-		{\color{blue} Internal DAC setup}
-		\begin{itemize}
-			\item Initialization sequence \textbf{A5A5}= 
-			\newline
-			1010-0101-1010-0101
-			\item \textbf{16bit words}= \newline 2bit command + 6bit address + 8bit data
-			\begin{itemize}
-				\item \textbf{command}
-				\begin{itemize}
-					\item \textbf{11} = write
-					\item \textbf{10} = read
-				\end{itemize}
-				\item \textbf{address}
-				\begin{itemize}
-					\item \textbf{5bit} address from \textbf{0} to \textbf{23}
-					\item \textbf{LSB} is Vth+- (not used for now)
-				\end{itemize}
-				\item \textbf{data}
-				\begin{itemize}
-					\item \textbf{2MSB} not used
-					\item \textbf{6LSB} data for the internal DAC \newline from \textbf{0} to \textbf{63}
-				\end{itemize}
-			\end{itemize} 
-		\end{itemize}
-	\end{columns}
-	\end{frame}
+		
 
 		\begin{frame}
 	\frametitle{FPGA}
@@ -300,6 +268,19 @@
 			\item {\color{orange} Power hungry, slow compared to \textbf{ASICs} and expensive on large-scales}
 		\end{itemize}
 	\end{frame}
+
+\begin{frame}
+	\frametitle{FPGA function}
+	\begin{center}
+		{\huge What does the \textbf{FPGA} board do?}
+		\begin{itemize}
+			\item Receives the \textbf{outputs} from the abacus chip
+			\item For each channel counts the number of \textbf{pulses} and the number of clock strokes with high signal.
+			\item Sends the data to a \textbf{PC} via UDP protocol
+			\item Configuration of \textbf{internal} and \textbf{external} DACs
+		\end{itemize}
+	\end{center}
+\end{frame}
 
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -334,7 +315,7 @@
 			\begin{itemize}
 				\item \textbf{6 ABACUS} chips
 				\item Able to read \textbf{144} strips
-				\item \textbf{3} FPGA needed
+				\item \textbf{3} FPGA (Kintex7 KC705) needed
 			\end{itemize}
 		\end{columns}	
 	\end{frame}
@@ -351,7 +332,7 @@
 				\item Fast Pulse Generator
 				\item Oscilloscope
 				\item Power Supply
-				\item Kintez 7 FPGA
+				\item Kintex7 FPGA
 				\item Test Board
 				\item PC with LabView
 				\item Level translator
@@ -385,7 +366,7 @@
 	\end{frame}
 	
 	\begin{frame}
-		\frametitle{Debug Tool}
+		\frametitle{Firmware Debug Tool for FMC connector}
 		\begin{columns}
 			\column{0.5 \textwidth}
 			\begin{center}
@@ -422,8 +403,8 @@
 			\includegraphics[width=0.5 \textwidth]{IMG/probe/09-08-2021_clock-specks.png}
 		\end{center}
 		\begin{itemize}
-			\item ABACUS output = \textbf{1.2}V single-ended
-			\item FPGA input = \textbf{2.5}V single-ended
+			\item ABACUS DAC I/O = \textbf{1.2}V single-ended
+			\item FPGA I/O = \textbf{2.5}V single-ended
 			\item Resistive \textbf{voltage divider}
 			\item 2x \textbf{2N2222} NPN transistor in TO-18 package
 			\item 3x \textbf{1}k$\Omega$ resistor 1/8W
@@ -455,6 +436,42 @@
 		\end{columns}
 	\end{frame}
 
+	\begin{frame}
+		\frametitle{ABACUS\_v2 internal DACs setup}	
+		\begin{columns}
+			\column{0.5 \textwidth}
+			\begin{center}
+				\includegraphics[width=0.7 \textwidth]{IMG/InternalDAC.pdf}
+				\includegraphics[width=0.7 \textwidth]{IMG/TableLSB.PNG}
+			\end{center}
+			\textbf{LSB} value $\approx$0.94 mV for \textbf{Vref\_LSB}=600 mV
+			\column{0.5 \textwidth}
+			{\color{blue} Internal DAC setup}
+			\begin{itemize}
+				\item Initialization sequence \textbf{A5A5}= 
+				\newline
+				1010-0101-1010-0101
+				\item \textbf{16bit words}= \newline 2bit command + 6bit address + 8bit data
+				\begin{itemize}
+					\item \textbf{command}
+					\begin{itemize}
+						\item \textbf{11} = write
+						\item \textbf{10} = read
+					\end{itemize}
+					\item \textbf{address}
+					\begin{itemize}
+						\item \textbf{5bit} address from \textbf{0} to \textbf{23}
+						\item \textbf{LSB} is Vth+- (not used for now)
+					\end{itemize}
+					\item \textbf{data}
+					\begin{itemize}
+						\item \textbf{2MSB} not used
+						\item \textbf{6LSB} data for the internal DAC \newline from \textbf{0} to \textbf{63}
+					\end{itemize}
+				\end{itemize} 
+			\end{itemize}
+		\end{columns}
+	\end{frame}
 
 	\begin{frame}
 	\frametitle{Firmware - DATA}
@@ -480,7 +497,7 @@
 	\end{frame}
 
 	\begin{frame}[fragile]
-		\frametitle{Firmware - FSM}
+		\frametitle{Firmware - FSM for internal DAC configuration}
 		\begin{columns}
 			\column{0.5 \textwidth}
 			\begin{center}
@@ -602,21 +619,21 @@
 		
 	\end{frame}
 
-	\begin{frame}
-	\frametitle{Pedestal distribution-1}
-	\begin{itemize}
-		\item Pedestal voltage value for odd channels
-		\item {\color{blue}Blue} dots with baseline dac=\textbf{63}
-		\item {\color{red}Red} dots with baseline dac=\textbf{0}
-	\end{itemize}
-	\begin{center}
-		\includegraphics[width=0.59 \textwidth]{data/DAC_V_REF_600mV.pdf}
-	\end{center}
-	
-	\end{frame}
+	%\begin{frame}
+	%\frametitle{Pedestal distribution-1}
+	%\begin{itemize}
+	%	\item Pedestal voltage value for odd channels
+	%	\item {\color{blue}Blue} dots with baseline dac=\textbf{63}
+	%	\item {\color{red}Red} dots with baseline dac=\textbf{0}
+	%\end{itemize}
+	%\begin{center}
+	%	\includegraphics[width=0.59 \textwidth]{data/DAC_V_REF_600mV.pdf}
+	%\end{center}
+	%
+	%\end{frame}
 
 	\begin{frame}
-	\frametitle{Pedestal distribution-2}
+	\frametitle{Pedestal distribution}
 	\begin{itemize}
 		\item Pedestal voltage value for odd channels
 		\item {\color{green}Green} dots with baseline dac=\textbf{63}

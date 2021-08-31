@@ -30,13 +30,15 @@
 	\begin{frame}[noframenumbering]
 	\frametitle{Table of contents}
 		\begin{columns}
+			\hspace*{15mm}
 			\column{0.3 \textwidth}
 				\begin{center}
 					\tableofcontents
 				\end{center}
 			\column{0.7 \textwidth}
 				\begin{center}
-					\includegraphics[width=0.95 \textwidth]{IMG/Move_IT_logo.PNG}
+					\includegraphics[width=0.55 \textwidth]{IMG/LOGOINFN.PNG}
+					\includegraphics[width=0.55 \textwidth]{IMG/Move_IT_logo.PNG}
 				\end{center}
 		\end{columns}
 	\end{frame}
@@ -68,11 +70,11 @@
 				\item Conservation of the healthy tissues 
 			\end{itemize}
 		\vspace{1 cm}
-			{\color{blue} Advanced treatment techniques use thin proton beams. \\ Typical parameters (CNAO examples):}
+			{\color{blue} Advanced treatment techniques use thin proton beams. \\ Typical parameters (TIFPA examples):}
 			\begin{itemize}
 				\item FWHM 3$\div$7 mm
 				\item Beam rates $10^6\div10^{10}$ p/s
-				\item Current  1$\div$320 nA
+				%\item Current  1$\div$320 nA
 				\item Energy  70$\div$228 MeV $\rightarrow$ (4$\div$32) cm in water
 			\end{itemize}
 		
@@ -94,7 +96,7 @@
 			\end{itemize}
 		\end{columns}
 	\vspace{0.2 cm}
-	{\color{blue} Real-time beam detection parameters (direction and \textbf{number of particles} delivered) \newline is extremely important in order to distribute the dose accurately.}
+	{\color{blue} Monitoring in real-time beam parameters (direction and \textbf{number of particles} delivered) \newline is extremely important in order to distribute the dose accurately}
 	\end{frame}
 	%I rivelatori controllano il trattamento, sulla base di queste informazioni viene controllata la posizione, la direzione e l'energia del fascio in tempo reale
 	%Come si comportano dei rivelatori al silicio?
@@ -122,7 +124,7 @@
 			\begin{itemize}
 				\item Slow response times $\approx 100\:\mu s$
 				\item Limited sensitivity (>$10^4$ p)
-				\item Indirect measurement of the number of particles \\{\tiny Mandatory to know the beam energy}
+				\item Indirect measurement of the number of particles  (mandatory to know the beam energy)
 			\end{itemize}
 			\column{0.38 \textwidth}
 			{\color{blue} Solid state detectors}
@@ -130,8 +132,8 @@
 			\textbf{Advantages}
 			\begin{itemize}
 				\item Fast response times $\approx 1-2$ ns
-				\item High spatio-temporal resolution
 				\item Ideally, sensitive to the single particle
+				\item High spatial-temporal resolution
 			\end{itemize}
 			\textbf{Disadvantages}
 			\begin{itemize}
@@ -184,7 +186,7 @@
 	\section{Move\_IT}
 	
 	\begin{frame}
-	\frametitle{MoVe\_IT project}
+	\frametitle{MoVe\_IT INFN project}
 	\begin{center}
 		{\Large \color{blue} MoVe\_IT = \textbf{Mo}deling and \textbf{Ve}rification for \textbf{I}on beam \textbf{T}reatment planning }
 		\newline
@@ -195,9 +197,9 @@
 		\begin{itemize}
 			\item Single proton counting
 			\item Custom detector built ad hoc
-			\item Area \textbf{3x3} cm${}^2$ with \textbf{144} Strips;
-			\item Max rates= $10^8$ $\frac{p}{s \cdot cm^2}$ ({\color{blue} Error < \textbf{1}\%})
-			\item 50$\mu$m sensor thickness
+			\item Area \textbf{3x3} cm${}^2$ with \textbf{144} Strips
+			\item Max proton flux= $10^8$ $\frac{p}{s \cdot cm^2}$ ({\color{blue} Error < \textbf{1}\%})
+			\item 50$\mu$m sensor thickness (active region)
 			\item Two orthogonal directions
 		\end{itemize}
 		\column{0.4 \textwidth}
@@ -226,12 +228,13 @@
 			{\footnotesize 
 			\begin{itemize}
 				\item \textbf{Charge} sensitive amplifier
+				\item \textbf{Binary} readout
 				\item Discriminator driven by \textbf{2 DACs}
 				\begin{itemize}
 					%the discriminator threshold is setted with an external value and, in order to uniform the channels an internal DAC is used.
 					{\footnotesize
-					\item External DAC $\rightarrow$ global Vth
-					\item Internal DAC $\rightarrow$ Ch uniformity
+					\item[$-$] External 12b DAC $\rightarrow$ global Vth
+					\item[$-$] Internal 6b DAC $\rightarrow$ Ch uniformity
 				}
 				\end{itemize}
 				\item \textbf{CML} converter (propagate signal)
@@ -245,7 +248,7 @@
 				\item \textbf{24} channels
 				\item \textbf{I2C} controller for digital configuration
 				\item Max frequency >\textbf{100} MHz
-				\item Input capacitance \textbf{3-140} fC
+				\item Input charge \textbf{3-140} fC
 				\item Dead time <\textbf{10}ns
 				\item SNR>\textbf{10}
 				\item Full digital I/O interfaced \\ with \textbf{FPGA}
@@ -275,12 +278,12 @@
 	\end{columns}
 		\vspace{2mm}
 		\begin{itemize}
-			\item A FPGA is an integrated circuit designed to be configured by a customer or a designer after manufacturing – hence the term \textbf{field-programmable}. 
+			\item A FPGA is a digital integrated circuit that can be programmed to implement any digital~functionality after manufacturing – hence the term \textbf{field-programmable}
 			\item In principle, \textbf{programmable infinite times} with no limitations
 			\item \textbf{High flexibility}: it can be implemented \textbf{any digital function}
 			\item \textbf{Fast} and \textbf{cheap} prototyping: \textbf{out of the box} solution: no layout or masks
 			%\item {\color{orange} Power hungry, slow compared to \textbf{ASICs} and expensive on large-scales}
-			\item \textbf{HDL} such as Verilog or VHDL are used for the logic design 
+			\item \textbf{HDL} (\textbf{H}ardware \textbf{D}escription \textbf{L}anguage) such as Verilog or VHDL are used to implement~and simulate the desired digital circuit
 		\end{itemize}
 	\end{frame}
 
@@ -294,8 +297,8 @@
 	\begin{center}
 		{\Large \color{blue} What does the \textbf{FPGA} board do?}\\[3mm]
 		\begin{itemize}
-			\item Receives the \textbf{outputs} from the abacus chip
-			\item For each channel counts the number of \textbf{pulses} (thus the number of particles) and the number of clock strokes with high signal
+			\item Receives the \textbf{outputs} from the ABACUS chip
+			\item For each channel counts the \textbf{number of pulses} (thus the number of particles) and the pulse duration
 			\item For two adjacent channels counts the number of coincidence \textbf{AND} and \textbf{OR} (for pile-up correction)
 			\item Sends the data to a \textbf{PC} via \textbf{Ethernet}/\textbf{UDP} protocol
 			\item Configuration of \textbf{internal} and \textbf{external} DACs
@@ -316,7 +319,7 @@
 
 
 	\begin{frame}
-	\frametitle{Test board}
+	\frametitle{Test boards}
 		\begin{columns}
 			\column{0.5 \textwidth}
 			\begin{center}
@@ -329,10 +332,9 @@
 				\item 1 \textbf{ABACUS} ASIC chip
 				\item \textbf{CML} output to \textbf{FPGA}
 				\item \textbf{I2C} input to internal DACs
-				\item Possibility to \textbf{simulate} signals sending pulses to even or odd channels
-				\item \textbf{TP\_even} and \textbf{TP\_odd} \newline {\tiny \textbf{TP}=\textbf{T}est \textbf{P}ulse}
+				\item Possibility to \textbf{simulate} signals sending test pulses (TP) to even or odd channels
 			\end{itemize}
-			{\color{blue}ESA-ABACUS}
+			{\color{blue}ESA-ABACUS read-out board}
 			\begin{itemize}
 				\item \textbf{6 ABACUS} chips
 				\item Able to read \textbf{144} strips
@@ -353,7 +355,7 @@
 				\item Fast Pulse Generator
 				\item Oscilloscope
 				\item Power Supply
-				\item Kintex7 FPGA
+				\item Xilinx Kintex7 FPGA
 				\item Test Board
 				\item PC with LabView
 				\item Level translator
@@ -378,8 +380,8 @@
 	\frametitle{Personal Contribution}
 	\begin{itemize}
 		\item {\color{teal} Creation of a \textbf{debug} tool for the FMC connectors}
-		\item {\color{teal} Firmware implementation of the read/write logic for DAC configuration in the \textbf{ABACUS} chip}
 		\item {\color{teal} Creation of the level translation device for communication with the \textbf{FPGA}}
+		\item {\color{teal} Firmware implementation of the read/write logic for DAC configuration in the \textbf{ABACUS} chip}
 		\item {\color{red} Addition of a \textbf{latch} in order to save into a \textbf{register} the current state of every counter}
 		\item {\color{red} Addition of a \textbf{timestamp} in order to obtain a more accurate rate calculation}
 		%\item {\color{red} Addition of a configurable \textbf{mask} to calculate via firmware the \textbf{sum} of only certain selected channels}
@@ -392,7 +394,7 @@
 		\begin{columns}
 			\column{0.65 \textwidth}
 			\begin{center}
-				{\color{blue} KINTEX7 KC705}
+				{\color{blue} XILINX KINTEX7 KC705}
 				\includegraphics[width=1.0 \textwidth]{IMG/KC705.PNG}
 			\end{center}
 			\column{0.35 \textwidth}
@@ -405,9 +407,9 @@
 			\textbf{Debug}
 			\begin{itemize}
 				\item Set every pin as an \textbf{output}
-				\item Switch state (0/1) with a button
+				\item Switch state (0/1) with a DIP switch
 				\item Measure voltages with multimeter
-				\item Levels: high$\approx$\textbf{1.5}V \\ low$\approx$\textbf{0.7}V
+				\item Levels: high $\approx$ \textbf{1.5} V \\ low $\approx$ \textbf{0.7} V
 			\end{itemize}
 		\end{columns}
 	\end{frame}
@@ -435,7 +437,7 @@
 	\end{frame}
 
 	\begin{frame}
-		\frametitle{Firmware}
+		\frametitle{FPGA Firmware}
 		\begin{columns}
 			\column{0.5 \textwidth}
 			\begin{center}
@@ -443,13 +445,13 @@
 			\end{center}
 			\column{0.5 \textwidth}
 			\begin{itemize}
-				\item Firmware written in \textbf{VHDL}
+				\item Original firmware written in \textbf{VHDL} by R.Wheadon (INFN-To) 
 				\item GbPhy = Custom \textbf{UDP} Protocol
 				\item LCD-Controller = display informations such as:
 					\begin{itemize}
-						\item Firmware version
-						\item Board number
-						\item Project name
+						\item[$-$] Firmware version
+						\item[$-$] Board number
+						\item[$-$] Project name
 					\end{itemize}
 				\item Tera10-I/O = Input setup and counters
 				\item Tera10-Controller = controls for reading and activate channels
@@ -466,11 +468,11 @@
 				\includegraphics[width=0.7 \textwidth]{IMG/InternalDAC.pdf}
 				\includegraphics[width=0.7 \textwidth]{IMG/TableLSB.PNG}
 			\end{center}
-			\textbf{LSB} value $\approx$0.94 mV for \textbf{Vref\_LSB}=600 mV
+			\textbf{LSB} value $\approx$ 0.94 mV for \textbf{Vref\_LSB} = 600~mV
 			\column{0.5 \textwidth}
 			{\color{blue} Internal DAC setup}
 			\begin{itemize}
-				\item Initialization sequence \textbf{A5A5}= 
+				\item Initialization sequence \textbf{0xA5A5}= 
 				\newline
 				1010-0101-1010-0101
 				\item \textbf{16bit words}= \newline 2bit command + 6bit address + 8bit data
@@ -483,7 +485,7 @@
 					\item \textbf{address}
 					\begin{itemize}
 						\item \textbf{5bit} address from \textbf{0} to \textbf{23}
-						\item \textbf{LSB} is Vth+- (not used for now)
+						\item \textbf{LSB} is Vth$\pm$ (not used for now)
 					\end{itemize}
 					\item \textbf{data}
 					\begin{itemize}
@@ -498,12 +500,12 @@
 	\begin{frame}
 	\frametitle{Firmware - DATA}
 	\begin{itemize}
-		\item The \textbf{FPGA} communicates with the pc using UDP (\textbf{U}ser \textbf{D}atagram \textbf{P}rotocol) implemented in the \textbf{GbPhy} project
+		\item The \textbf{FPGA} communicates with the PC using Ethernet/UDP (\textbf{U}ser \textbf{D}atagram \textbf{P}rotocol) implemented in the \textbf{GbPhy} project
 		\item Each UDP packet is \textbf{64} bit long $\rightarrow$ \textbf{32} bit used by GbPhy and \textbf{32} bit of data
 		\item \textbf{32} bit data =
 		\begin{itemize}
-			\item \textbf{4} bit $\rightarrow$ firmware target
-			\item \textbf{8} bit $\rightarrow$ firmware command
+			\item \textbf{4} bit $\rightarrow$ firmware target (0x4 for HW command)
+			\item \textbf{8} bit $\rightarrow$ firmware command (0x11 for DAC config)
 			\item \textbf{20} bit $\rightarrow$ firmware data
 		\end{itemize}
 		\item \textbf{20} bit firmware data =
@@ -541,7 +543,7 @@
 
 
 	\begin{frame}
-	\frametitle{Vivado simulation}
+	\frametitle{Example Xilinx Vivado simulation}
 		\begin{center}
 			Finite State Machine
 			\includegraphics[width=0.9 \textwidth]{IMG/Simulation1.png}
@@ -559,42 +561,47 @@
 
 	
 	\begin{frame}
-	\frametitle{Writing Baseline DACs}
+	\frametitle{Writing Internal DACs for threshold-tuning}
 	\begin{columns}
 		\column{0.5 \textwidth}
 	{\color{blue} Input}
 	\begin{itemize}
-		\item Initialization sequence = A5A5
-		\item Command = 11 = write
+		\item Initialization sequence = 0xA5A5
+		\item Write command = 11 
 		\item Address = 100010 = 10001-0 = channel 17
 		\item Data    = 00111111 = 63
 	\end{itemize}
 	\column{0.5 \textwidth}
-	{\color{blue} Clock Stats}
+	{\color{blue} Clock Specs}
 	\begin{itemize}
 		\item Period = \textbf{98.44} $\mu$s
 		\item Duty cycle \textbf{33}\%
 		\item Packet duration $\approx$ \textbf{6.4} ms
 	\end{itemize}
 	\end{columns}
-	\begin{center}
-		{\color{green} clock signal}
+	\begin{columns}
+		\column{0.75 \textwidth}
+		\begin{center}
+			\includegraphics[width=0.667 \textwidth]{IMG/probe/09-08-2021_ch17-write63-baselinedac1.png}
+		\end{center}
+		\column{0.2 \textwidth}
+		\hspace{-20mm} \vspace{8mm}
+		{\color{green} clock signal}\\
+		\hspace{-20mm} \vspace{-4mm}
 		{\color{yellow} input data}
-	\end{center}
-	\begin{center}
-		\includegraphics[width=0.5 \textwidth]{IMG/probe/09-08-2021_ch17-write63-baselinedac1.png}
-	\end{center}
+		\column{0.05 \textwidth}
+	\end{columns}
 	\end{frame}
 
 	
 	\begin{frame}
-	\frametitle{Reading Baseline DACs}
+	\frametitle{Reading Internal DACs for threshold-tuning}
 	\begin{columns}
 		\column{0.5 \textwidth}
 		{\color{blue} Input}
 		\begin{itemize}
-			\item Initialization sequence = A5A5
-			\item Command = 10 = read
+			\item Initialization sequence = 0xA5A5
+			\item Read command = 10 
 			\item Address = 001010 = 00101-0 = channel 05
 			\item Data    = 00000000
 		\end{itemize}
@@ -606,13 +613,24 @@
 			\item 00110101 = 53
 		\end{itemize}
 	\end{columns}
+	\begin{columns}
+		\column{0.75 \textwidth}
 		\begin{center}
-			{\color{green} clock signal}
-			{\color{yellow} input data}
-			{\color{red} output data 2.5V}
-			{\color{blue} output data 1.2V}
-			\includegraphics[width=0.5 \textwidth]{IMG/probe/09-08-2021_ch05-read53-baselinedac1.png}
+			\includegraphics[width=0.667 \textwidth]{IMG/probe/09-08-2021_ch05-read53-baselinedac1.png}
 		\end{center}
+		\column{0.2 \textwidth}
+			\hspace{-20mm} \vspace{5mm}
+			{\color{green} clock signal} \\
+			\hspace{-20mm} \vspace{5mm}
+			{\color{yellow} input data} \\
+			\hspace{-20mm} \vspace{5mm}
+			{\color{red} output data 2.5V} \\
+			\hspace{-20mm} \vspace{-7mm}
+			{\color{blue} output data 1.2V}
+		
+		\column{0.05 \textwidth} 
+	\end{columns}
+		
 	\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -629,14 +647,16 @@
 	\end{frame}
 	
 	\begin{frame}
-	\frametitle{threshold scan}
+	\frametitle{Threshold scan}
 		\begin{itemize}
-			\item Channel 1 threshold scan with \textbf{600}mV \textbf{10}KHz impulses
-			\item {\color{blue}Blue} curve with baseline dac=\textbf{0}
-			\item {\color{green}Green} curve with baseline dac=\textbf{63}  
+			\item Internal DACs configuration allows to adjust the threshold for each channel
+			\item Example: ch \textbf{1}, global threshold scan with fixed injected charge and \textbf{10} kHz test pulse rate
+			\item {\color{blue}Blue} curve: trimming DAC code= \textbf{0}
+			\item {\color{green}Green} curve: trimming DAC code= \textbf{63}
+			\item S-curve shifted as expected  
 		\end{itemize}	
 		\begin{center}
-			\includegraphics[width=0.65 \textwidth]{IMG/ThScan_ch0.pdf}
+			\includegraphics[width=0.55 \textwidth]{IMG/ThScan_ch0.pdf}
 		\end{center}
 		
 	\end{frame}
@@ -657,10 +677,10 @@
 	\begin{frame}
 	\frametitle{Pedestal distribution}
 	\begin{itemize}
-		\item Pedestal (baseline) voltage value for selected channels
-		\item {\color{green}Green} dots with baseline dac=\textbf{63}
-		\item {\color{blue}Blue} dots with baseline dac=\textbf{0}
-		\item Average $\Delta V\approx$22 mV
+		\item DC pre-amp output voltage values for selected channels
+		\item {\color{blue}Blue} dots: trimming DAC code= \textbf{0}
+		\item {\color{green}Green} dots: trimming DAC code= \textbf{63}
+		\item Average $\Delta V\approx$ 22 mV
 	\end{itemize}
 	\begin{center}
 		\includegraphics[width=0.55 \textwidth]{data/DAC_V_REF_600mV-Copia.pdf}
@@ -682,10 +702,10 @@
 		\end{itemize}
 	
 	\begin{center}
-		{\color{blue}\textbf{Future additions to the FPGA firmware}}
+		{\color{blue}\textbf{Future work and additions to the FPGA firmware}}
 	\end{center}
 		\begin{itemize}
-			\item DACs \textbf{characterization} and verification of their \textbf{linearity}
+			\item Internal DACs \textbf{characterization} and verification of their \textbf{linearity}
 			\item Addition of a \textbf{latch} in order to save into a \textbf{register} the current state of every counter 
 			\item Addition of a \textbf{timestamp} in order to obtain a more accurate rate calculation 
 			%\item Addition of a configurable \textbf{mask} to calculate via firmware the \textbf{sum} of only certain selected channels 		

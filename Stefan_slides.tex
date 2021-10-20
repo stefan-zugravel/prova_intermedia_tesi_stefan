@@ -12,7 +12,8 @@
 
 
 
-\title{{\normalsize Development and test of FPGA firmware extensions for the configuration and readout\\ of the ABACUS2 chip for beam monitoring applications in hadron therapy}}
+%\title{{\normalsize Development and test of FPGA firmware extensions for the configuration and readout\\ of the ABACUS2 chip for beam monitoring applications in hadron therapy}}
+\title{{\normalsize Development and test of FPGA firmware extensions for the configuration and readout\\ of the new ABACUS2 chip for beam~monitoring applications in hadron therapy}}
 \author[Stefan Zugravel]{Candidate: \\ Stefan Cristi Zugravel \\ --------------------------------- \\ Supervisor: \\ Dott. Luca Pacher\\ ---------------------------------  \\ Co-Supervisor: \\ Prof. Vincenzo Monaco}
 %\date{\today}
 \date{October 27, 2021}
@@ -228,7 +229,7 @@
 			{\color{blue} Channel structure }
 			{\footnotesize 
 			\begin{itemize}
-				\item Low noise \textbf{Charge} Sensitive Amplifier (\textbf{CSA})
+				\item Low noise \textbf{Charge Sensitive Amplifier} (\textbf{CSA})
 				\item Fast discriminator for \textbf{binary} readout
 				\item Discriminator driven by \textbf{2 DACs}
 				\begin{itemize}
@@ -390,11 +391,11 @@
 	\begin{columns}
 		\column{0.6 \textwidth}
 		\begin{itemize}
-			\item {\color{teal} Creation of a \textbf{debug} tool for the FMC connectors}
+			\item 1) {\color{teal} Creation of a \textbf{debug} tool for the FMC connectors}
 			%\item {\color{teal} Creation of the level translation device for communication with the \textbf{FPGA}}
-			\item {\color{teal} Firmware implementation of the read/write logic for internal DACs configuration in the \textbf{ABACUS} chip}
-			\item {\color{teal} Addition of a \textbf{latch} in order to save into a \textbf{register} the current state of every counter}
-			\item {\color{teal} Addition of a \textbf{timestamp} in order to obtain a more accurate rate calculation}
+			\item 2) {\color{teal} Firmware implementation of the read/write logic for internal DACs configuration in the \textbf{ABACUS} chip}
+			\item 3) {\color{teal} Addition of a \textbf{latch} in order to save into a \textbf{register} the current state of every counter}
+			\item 4) {\color{teal} Addition of a \textbf{timestamp} in order to obtain a more accurate rate calculation}
 		\end{itemize}
 		\column{0.4 \textwidth}
 		\begin{center}
@@ -405,7 +406,7 @@
 	\end{frame}
 	
 	\begin{frame}
-		\frametitle{1=>Firmware Debug Tool for FMC connector}
+		\frametitle{1) Firmware Debug Tool for FMC connector}
 		%\small
 		\begin{columns}
 			\column{0.65 \textwidth}
@@ -463,22 +464,23 @@
 			\column{0.5 \textwidth}
 			\begin{itemize}
 				\item Original firmware written in \textbf{VHDL} by R.Wheadon (INFN-To) 
-				\item GbPhy = Custom \textbf{UDP} Protocol
-				\item LCD-Controller = display informations such~as:
+				\item A) GbPhy = Custom \textbf{UDP} Protocol
+				\item B) LCD-Controller = display informations such~as:
 					\begin{itemize}
 						\item[$-$] Firmware version
 						\item[$-$] Board number
 						\item[$-$] Project name
 					\end{itemize}
-				\item Tera10-I/O = Input setup and counters
-				\item Tera10-Controller = controls for reading and activate channels
-				\item Hardware-Controller = setup internal and~external DACs
+				\item C) Tera10-I/O = Input setup and counters
+				\item D) Tera10-Controller = controls for reading and activate channels
+				\item E) Hardware-Controller = setup internal and~external DACs
+				\item F) Tera10-Latch-Counter = latch and timestamp logic
 			\end{itemize}
 		\end{columns}
 	\end{frame}
 
 	\begin{frame}
-		\frametitle{2=>ABACUS2 internal DACs setup}	
+		\frametitle{2) ABACUS2 internal DACs setup}	
 		\begin{columns}
 			\column{0.5 \textwidth}
 			\begin{center}
@@ -488,12 +490,12 @@
 			\end{center}
 			\textbf{LSB} value $\approx$ 0.94 mV for \textbf{Vref\_LSB} = 600~mV
 			\column{0.5 \textwidth}
-			{\color{blue} Internal DAC setup}
+			{\color{blue} Internal DAC configuration}
 			\begin{itemize}
 				\item Initialization sequence \textbf{0xA5A5}= 
 				\newline
 				1010-0101-1010-0101
-				\item \textbf{16bit words}= \newline 2bit command + 6bit address + 8bit data
+				\item \textbf{16 bit words}= \newline 2bit command + 6bit address + 8bit data
 				\begin{itemize}
 					\item \textbf{command}
 					\begin{itemize}
@@ -502,13 +504,13 @@
 					\end{itemize}
 					\item \textbf{address}
 					\begin{itemize}
-						\item \textbf{5bit} address from \textbf{0} to \textbf{23}
+						\item \textbf{5 bit} address from \textbf{0} to \textbf{23}
 						\item \textbf{LSB} is Vth$\pm$ (not used for now)
 					\end{itemize}
 					\item \textbf{data}
 					\begin{itemize}
-						\item \textbf{2MSB} not used
-						\item \textbf{6LSB} data for the internal DAC \newline from \textbf{0} to \textbf{63}
+						\item \textbf{2 MSB} not used
+						\item \textbf{6 LSB} data for the internal DAC \newline from \textbf{0} to \textbf{63}
 					\end{itemize}
 				\end{itemize} 
 			\end{itemize}
@@ -516,7 +518,7 @@
 	\end{frame}
 
 	\begin{frame}
-	\frametitle{2=>Firmware - DATA}
+	\frametitle{2) Firmware - DATA protocol}
 	\begin{itemize}
 		\item The \textbf{FPGA} communicates with the PC using Ethernet/UDP (\textbf{U}ser \textbf{D}atagram \textbf{P}rotocol) implemented in the \textbf{GbPhy} project
 		\item Each UDP packet is \textbf{64} bit long $\rightarrow$ \textbf{32} bit used by GbPhy and \textbf{32} bit of user data
@@ -532,32 +534,30 @@
 			\item \textbf{2} bit baseline DAC command
 			\item \textbf{6} bit baseline DAC address
 			\item \textbf{8} bit baseline DAC data
-			\item \textbf{1} bit baseline DAC selecet (each FPGA can control 2 chips)
+			\item \textbf{1} bit baseline DAC select (each FPGA can control 2 chips)
 		\end{itemize}
 		\item To perform a Read/write operation the initialization sequence must be sent first\newline every time
 	\end{itemize}
 	\end{frame}
 
-	\begin{frame}[fragile]
-		\frametitle{2=>Firmware - FSM for internal DAC configuration}
-		\begin{columns}
-			\column{0.6 \textwidth}
-			\begin{center}
-				%\includegraphics[width=0.95 \textwidth]{IMG/FSM.pdf}
-				\includegraphics[width=0.95 \textwidth]{IMG2/InternalDACsFSM.pdf}
-			\end{center}
-			\column{0.4 \textwidth}
+	\begin{frame}%[fragile]
+		\frametitle{2) Firmware - FSM for internal DAC configuration}
+		\begin{itemize}
+			\item FSM (\textbf{F}inite \textbf{S}tate \textbf{M}achine): states for the~serial data communication
+			\item \textbf{32} clock pulses sending data=
 			\begin{itemize}
-				\item FSM (\textbf{F}inite \textbf{S}tate \textbf{M}achine): states for the~serial data communication
-				\item \textbf{32} clock pulses sending data=
-				\begin{itemize}
-					\item \textbf{16} bit = initialization sequence
-					\item \textbf{16} bit = data
-				\end{itemize}
-				\item \textbf{32} bit waiting the response
-				\item Set Data End Communication is always zero
+				\item \textbf{16} bit = initialization sequence + \textbf{16} bit = data
 			\end{itemize}
-		\end{columns}
+			\item \textbf{32} bit waiting the response (Set Data End Communication is always zero)
+		\end{itemize}
+		\begin{center}
+			%\includegraphics[width=0.95 \textwidth]{IMG/FSM.pdf}
+			\includegraphics[width=0.85 \textwidth]{IMG2/InternalDACsFSM.pdf}
+		\end{center}
+		%\begin{columns}
+		%	\column{0.6 \textwidth}
+		%	\column{0.4 \textwidth}		
+		%\end{columns}
 	\end{frame}
 
 
@@ -614,7 +614,7 @@
 
 	
 	\begin{frame}
-	\frametitle{2=>Reading Internal DACs for threshold-tuning}
+	\frametitle{2) Reading Internal DACs for threshold-tuning}
 	\begin{columns}
 		\column{0.5 \textwidth}
 		{\color{blue} Input}
@@ -653,7 +653,7 @@
 
 
 	\begin{frame}
-		\frametitle{3=> Firmware - Latch counter system}
+		\frametitle{3) Firmware - Latch counter system}
 		\begin{itemize}
 			\item In the original FPGA firmware any counter could be read, but \textbf{only one at the time}
 			\item The firmware could not read the value of two or more counters \textbf{simultaneously}
@@ -681,11 +681,11 @@
 	\end{frame}
 
 	\begin{frame}
-		\frametitle{4=> Firmware - timestamp generator}
+		\frametitle{4) Firmware - timestamp generator}
 		\begin{itemize}
 			\item In order to calculate the count rate, it is needed to compare two measurements of
 			counts with the time elapsed between two latches
-			\item I implemented a \textbf{64 bit} counter running at 500 MHz and the logic to read it
+			\item I implemented a \textbf{64 bit} counter running at \textbf{500 MHz} and the logic to read it
 			\item $2 \: ns \cdot \: 64 \: bit \: =\: 2 \: ns \cdot \: 18.44\cdot10^{18} \: = \: 36.6\cdot10^{9} \: s \approx 1170 \: years$
 			\item Having a counter so long means that a reset command is not necessary 
 		\end{itemize}
@@ -704,13 +704,13 @@
 	\begin{frame}
 		\frametitle{Software simulations}
 		\begin{center}
-			Internal DACs configuration example \\
+			Internal DACs configuration example=> \textbf{read} from \textbf{ch 8} \\%value 0xC3
 			\includegraphics[width=0.9 \textwidth]{IMG2/FSMalmostall.png}
 			\newline
-			LATCH system example \\
+			LATCH system example=> \textbf{ch 0}, \textbf{value 7} \\
 			\includegraphics[width=0.9 \textwidth]{IMG2/READLATCH.png}
 			\newline
-			Timestamp generator example \\
+			Timestamp generator example=> value \textbf{783 timestamp units}\\
 			{\hspace*{-6.5mm}
 			\includegraphics[width=0.9 \textwidth]{IMG2/TIMESTAMPFSM.png}}
 					\end{center}
@@ -730,10 +730,10 @@
 	\end{frame}
 	
 	\begin{frame}
-	\frametitle{Threshold scan}
+	\frametitle{Threshold scans}
 		\begin{itemize}
 			\item Internal DACs configuration allows to adjust the threshold for each channel
-			\item Example: ch \textbf{1}, global threshold scan with fixed injected charge and \textbf{10} kHz test pulse rate
+			\item Example: \textbf{ch 1}, global threshold scan with fixed injected charge and \textbf{10} kHz test pulse rate
 			\item {\color{blue}Blue} curve: trimming DAC code= \textbf{0} = \textbf{0x00}
 			\item {\color{green}Green} curve: trimming DAC code= \textbf{63} = \textbf{0x3F}
 			\item S-curves shifted as expected  
@@ -770,7 +770,15 @@
 	\end{center}
 	\end{frame}
 
-
+	\begin{frame}
+		\frametitle{New LabVIEW panel}
+		\begin{center}
+			\textbf{New LabVIEW data acquisition panel for latch and timestamp control}
+		\end{center}
+		\begin{center}
+			\includegraphics[width=0.9 \textwidth]{IMG2/fig7}
+		\end{center}
+	\end{frame}
 
 	\begin{frame}
 		\frametitle{Rate calculations}
@@ -781,14 +789,15 @@
 			\end{center}
 			\column{0.3 \textwidth}
 			\begin{itemize}
-				\item 1~MHz pulsed rate
-				\item 100~ms integration time
-				\item measurement from \textbf{ch~16}
+				\item \textbf{1~MHz} pulsed rate
+				\item \textbf{100~ms} integration time
+				\item data from \textbf{ch 16}
+				\item \textbf{999} rate measurements for each case 
 				\item $\sigma_{CPU}$ = {\color{red}341~Hz} 
 				\item $\sigma_{FPGA}$ = {\color{blue}4~Hz}
 			\end{itemize}
 		\end{columns}
-		{\color{blue} Same measurements were performed with \textbf{200~ms}, \textbf{300~ms} ans \textbf{500~ms} integration time:\\average \textbf{90~times} $\sigma$ improvement}
+		{\color{blue} Same measurements were performed with \textbf{200~ms}, \textbf{300~ms} ans \textbf{500~ms} integration time:\\in average \textbf{90~times $\sigma$} improvement}
 	\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

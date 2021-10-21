@@ -25,11 +25,11 @@
 \setbeamertemplate{navigation symbols}{}
 \begin{document}
 	
-	\begin{frame}[noframenumbering]		
+	\begin{frame}[noframenumbering, plain]		
 		\maketitle
 	\end{frame}
 
-	\begin{frame}[noframenumbering]
+	\begin{frame}[noframenumbering, plain]
 	\frametitle{Table of contents}
 		\begin{columns}
 			\hspace*{15mm}
@@ -98,7 +98,8 @@
 			\end{itemize}
 		\end{columns}
 	\vspace{0.5 cm}
-	{\color{blue} Monitoring in real-time beam parameters (direction and \textbf{number of particles} delivered) \newline is extremely important in order to distribute the dose accurately}
+	{\color{blue} Monitoring in \textbf{real-time} beam parameters (direction and \textbf{number of particles} delivered) \newline is extremely important in order to distribute the dose accurately}
+	%per poter proseguire nei punti sccessivi-> active= scansione con un monitoraggio usato per gestire la scansione stessa.
 	\end{frame}
 	%I rivelatori controllano il trattamento, sulla base di queste informazioni viene controllata la posizione, la direzione e l'energia del fascio in tempo reale
 	%Come si comportano dei rivelatori al silicio?
@@ -134,7 +135,7 @@
 			\textbf{Advantages}
 			\begin{itemize}
 				\item Fast response times $\approx 1-2$ ns
-				\item Ideally, sensitive to the single particle
+				\item Sensitive to the single particle
 				\item High spatial-temporal resolution
 			\end{itemize}
 			\textbf{Disadvantages}
@@ -170,10 +171,10 @@
 			\item \textbf{U}ltra \textbf{F}ast \textbf{S}ilicon \textbf{D}etector/\textbf{L}ow \textbf{G}ain \textbf{A}valanche \textbf{D}iode
 			\item Charge multiplication in $p^+ / n^{++}$ junction 
 			\item 50$\mu$m sensor thickness (active region)
-			\item Internal gain of \textbf{10-15} 
-			\item Trapezoidal signal of $\approx$\textbf{1.5ns}\newline
-				{\color{blue} Capable of detecting single particle }
-			\item LGAD allows to increase SNR 
+			\item Internal gain of \textbf{10~$\div$~15}\\
+			 	LGAD allows to increase SNR 
+			\item Trapezoidal signal of $\approx$~\textbf{1.5ns}
+			\item Capable of detecting single particles at high rates if properly segmented
 		\end{itemize}
 	\end{columns}
 	\end{frame}
@@ -201,7 +202,7 @@
 			\item Custom detector built ad hoc
 			\item Area \textbf{3x3} cm${}^2$ with \textbf{144} Strips
 			\item Max proton flux= $10^8$ $\frac{p}{s \cdot cm^2}$ ({\color{blue} Error < \textbf{1}\%})
-			\item 50$\mu$m sensor thickness (active region)
+			\item 50~$\mu$m sensor thickness (active region)
 			\item Two orthogonal directions
 		\end{itemize}
 		\column{0.4 \textwidth}
@@ -225,18 +226,19 @@
 		%\end{center}
 		\begin{columns}
 			\column{0.5 \textwidth}
+			\vspace*{1.0mm}
 			\includegraphics[width=0.99 \textwidth]{IMG/ABACUS_channel.PNG}
 			{\color{blue} Channel structure }
 			{\footnotesize 
 			\begin{itemize}
-				\item Low noise \textbf{Charge Sensitive Amplifier} (\textbf{CSA})
+				\item Low noise \textbf{Charge Sensitive Amplifier} (\textbf{CSA}) + injection circuit
 				\item Fast discriminator for \textbf{binary} readout
 				\item Discriminator driven by \textbf{2 DACs}
 				\begin{itemize}
 					%the discriminator threshold is setted with an external value and, in order to uniform the channels an internal DAC is used.
 					{\footnotesize
-					\item[$-$] External 16b DAC $\rightarrow$ global Vth
-					\item[$-$] Internal 6b DAC $\rightarrow$ Th tuning
+					\item[$-$] External commercial 16b DAC $\rightarrow$ global Vth
+					\item[$-$] Internal per-channel 6b DAC $\rightarrow$ th tuning
 				}
 				\end{itemize}
 				\item \textbf{CML} converter (propagate signal)
@@ -249,10 +251,10 @@
 				\item \textbf{110} nm CMOS technology
 				\item \textbf{24} channels
 				\item \textbf{I2C} controller for digital configuration
-				\item Max frequency >\textbf{100} MHz
-				\item Input charge \textbf{3-140} fC
-				\item Dead time <\textbf{10}ns
-				\item SNR>\textbf{10}
+				\item Max frequency >\textbf{100}~MHz
+				\item Input charge \textbf{3-140}~fC
+				\item Dead time <\textbf{10}~ns
+				\item SNR~>~\textbf{10}
 				\item Full digital I/O interfaced \\ with \textbf{FPGA}
 			\end{itemize}
 		\end{columns}
@@ -283,7 +285,7 @@
 			\item A FPGA is a digital integrated circuit that can be programmed to implement any digital~functionality after manufacturing – hence the term \textbf{field-programmable}
 			\item In principle, \textbf{programmable infinite times} with no limitations
 			\item \textbf{High flexibility}: it can be implemented \textbf{any digital function}
-			\item \textbf{Fast} and \textbf{cheap} prototyping: \textbf{out of the box} solution: no layout or masks
+			\item \textbf{Fast} and \textbf{cheap} prototyping: \textbf{out of the box} solution, no layout or masks
 			%\item {\color{orange} Power hungry, slow compared to \textbf{ASICs} and expensive on large-scales}
 			\item \textbf{HDL} (\textbf{H}ardware \textbf{D}escription \textbf{L}anguage) such as Verilog or VHDL are used to implement~and simulate the desired digital circuit
 		\end{itemize}
@@ -299,9 +301,9 @@
 	\begin{center}
 		{\Large \color{blue} What does the \textbf{FPGA} board do?}\\[3mm]
 		\begin{itemize}
-			\item Receives the \textbf{outputs} from the ABACUS chip
-			\item For each channel counts the \textbf{number of pulses} (thus the number of particles) and the pulse duration
-			\item For two adjacent channels counts the number of coincidence \textbf{AND} and \textbf{OR} (for pile-up correction)
+			\item Receives the \textbf{outputs} from the ABACUS2 chip
+			\item For each channel counts the \textbf{number of pulses}, thus the number of particles
+			\item Additional counters added for pile-up correction
 			\item Sends the data to a \textbf{PC} via \textbf{Ethernet}/\textbf{UDP} protocol
 			\item Configuration of \textbf{internal} and \textbf{external} DACs
 		\end{itemize}
@@ -377,26 +379,27 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-	\section{Personal Contribution}
+	\section{Personal contributions}
 	
 	\begin{frame}[plain, noframenumbering]
 		\begin{center}
-			{\Huge \fontfamily{qtm}\selectfont \color{blue} \textbf{Personal contribution to the project}}
+			{\Huge \fontfamily{qtm}\selectfont \color{blue} \textbf{Personal contributions to the project}}
 		\end{center}
 	\end{frame}
 	
 	
 	\begin{frame}
-	\frametitle{Personal Contribution}
+	\frametitle{Personal contributions}
 	\begin{columns}
 		\column{0.6 \textwidth}
 		\begin{itemize}
-			\item 1) {\color{teal} Creation of a \textbf{debug} tool for the FMC connectors}
-			%\item {\color{teal} Creation of the level translation device for communication with the \textbf{FPGA}}
-			\item 2) {\color{teal} Firmware implementation of the read/write logic for internal DACs configuration in the \textbf{ABACUS} chip}
-			\item 3) {\color{teal} Addition of a \textbf{latch} in order to save into a \textbf{register} the current state of every counter}
-			\item 4) {\color{teal} Addition of a \textbf{timestamp} in order to obtain a more accurate rate calculation}
+			\item 1) {\color{teal} Creation of the \textbf{level translation device} for communication with the FPGA}
+			\item 2) {\color{teal} Creation of a \textbf{debug} tool for the FMC connectors}
+			\item 3) {\color{teal} Firmware implementation of the read/write logic for internal DACs configuration in the \textbf{ABACUS} chip}
+			\item 4) {\color{teal} Addition of a \textbf{latch system} in order to save into a \textbf{register} the current state of every counter}
+			\item 5) {\color{teal} Addition of a \textbf{timestamp generator} in order to obtain a more accurate rate calculation}
 		\end{itemize}
+		Software tools: VHDL, Xilinx Vivado, LabVIEW
 		\column{0.4 \textwidth}
 		\begin{center}
 			\includegraphics[width=0.67 \textwidth]{IMG2/DEVICE.PNG}
@@ -405,8 +408,31 @@
 	
 	\end{frame}
 	
+	
 	\begin{frame}
-		\frametitle{1) Firmware Debug Tool for FMC connector}
+		\frametitle{1) Level translator}
+		\begin{columns}
+			\column{0.35 \textwidth}
+			\begin{center}
+				\includegraphics[width=0.8 \textwidth]{IMG/level_translator_front-min.jpg}
+				\includegraphics[width=0.8 \textwidth]{IMG/Diagram_cropped.pdf}
+			\end{center}
+			\column{0.65 \textwidth}
+			\begin{center}
+				\includegraphics[width=0.5 \textwidth]{IMG/probe/09-08-2021_clock-specks.png}
+			\end{center}
+			\begin{itemize}
+				\item ABACUS DACs I/O = CMOS \textbf{1.2}V single-ended
+				\item FPGA I/O = CMOS \textbf{2.5}V single-ended
+				\item Resistive \textbf{voltage divider}
+				\item 2x \textbf{2N2222} NPN transistor in TO-18 package
+				\item 3x \textbf{1}k$\Omega$ resistor 1/8W
+			\end{itemize}
+		\end{columns}
+	\end{frame}
+	
+	\begin{frame}
+		\frametitle{2) Firmware Debug Tool for FMC connector}
 		%\small
 		\begin{columns}
 			\column{0.65 \textwidth}
@@ -431,27 +457,7 @@
 		\end{columns}
 	\end{frame}
 
-%	\begin{frame}
-%	\frametitle{Level translator}
-%	\begin{columns}
-%		\column{0.35 \textwidth}
-%		\begin{center}
-%			\includegraphics[width=0.8 \textwidth]{IMG/level_translator_front-min.jpg}
-%			\includegraphics[width=0.8 \textwidth]{IMG/Diagram_cropped.pdf}
-%		\end{center}
-%		\column{0.65 \textwidth}
-%		\begin{center}
-%			\includegraphics[width=0.5 \textwidth]{IMG/probe/09-08-2021_clock-specks.png}
-%		\end{center}
-%		\begin{itemize}
-%			\item ABACUS DACs I/O = CMOS \textbf{1.2}V single-ended
-%			\item FPGA I/O = CMOS \textbf{2.5}V single-ended
-%			\item Resistive \textbf{voltage divider}
-%			\item 2x \textbf{2N2222} NPN transistor in TO-18 package
-%			\item 3x \textbf{1}k$\Omega$ resistor 1/8W
-%		\end{itemize}
-%	\end{columns}
-%	\end{frame}
+
 
 	\begin{frame}
 		\frametitle{FPGA Firmware}
@@ -480,12 +486,13 @@
 	\end{frame}
 
 	\begin{frame}
-		\frametitle{2) ABACUS2 internal DACs setup}	
+		\frametitle{3) ABACUS2 internal DACs setup}	
 		\begin{columns}
 			\column{0.5 \textwidth}
 			\begin{center}
 				%\includegraphics[width=0.7 \textwidth]{IMG/InternalDAC.pdf}
 				\includegraphics[width=0.7 \textwidth]{IMG2/INTERNALDAC}
+				%\textbf{HDL} simulated
 				\includegraphics[width=0.7 \textwidth]{IMG/TableLSB.PNG}
 			\end{center}
 			\textbf{LSB} value $\approx$ 0.94 mV for \textbf{Vref\_LSB} = 600~mV
@@ -504,7 +511,7 @@
 					\end{itemize}
 					\item \textbf{address}
 					\begin{itemize}
-						\item \textbf{5 bit} address from \textbf{0} to \textbf{23}
+						\item \textbf{5 bit} address from \textbf{0} to \textbf{23} (ch number)
 						\item \textbf{LSB} is Vth$\pm$ (not used for now)
 					\end{itemize}
 					\item \textbf{data}
@@ -513,12 +520,13 @@
 						\item \textbf{6 LSB} data for the internal DAC \newline from \textbf{0} to \textbf{63}
 					\end{itemize}
 				\end{itemize} 
+			%aggiungere che il chip è stato simulato in Verilog.
 			\end{itemize}
 		\end{columns}
 	\end{frame}
 
 	\begin{frame}
-	\frametitle{2) Firmware - DATA protocol}
+	\frametitle{3) Firmware - DATA protocol}
 	\begin{itemize}
 		\item The \textbf{FPGA} communicates with the PC using Ethernet/UDP (\textbf{U}ser \textbf{D}atagram \textbf{P}rotocol) implemented in the \textbf{GbPhy} project
 		\item Each UDP packet is \textbf{64} bit long $\rightarrow$ \textbf{32} bit used by GbPhy and \textbf{32} bit of user data
@@ -541,7 +549,7 @@
 	\end{frame}
 
 	\begin{frame}%[fragile]
-		\frametitle{2) Firmware - FSM for internal DAC configuration}
+		\frametitle{3) Firmware - FSM for internal DAC configuration}
 		\begin{itemize}
 			\item FSM (\textbf{F}inite \textbf{S}tate \textbf{M}achine): states for the~serial data communication
 			\item \textbf{32} clock pulses sending data=
@@ -580,41 +588,11 @@
 %	\end{frame}
 
 	
-%	\begin{frame}
-%	\frametitle{Writing Internal DACs for threshold-tuning}
-%	\begin{columns}
-%		\column{0.5 \textwidth}
-%	{\color{blue} Input}
-%	\begin{itemize}
-%		\item Initialization sequence = 0xA5A5
-%		\item Write command = 11 
-%		\item Address = 100010 = 10001-0 = channel 17
-%		\item Data    = 00111111 = 63
-%	\end{itemize}
-%	\column{0.5 \textwidth}
-%	{\color{blue} Clock Specs}
-%	\begin{itemize}
-%		\item Period = \textbf{98.44} $\mu$s
-%		\item Duty cycle \textbf{33}\%
-%		\item Packet duration $\approx$ \textbf{6.4} ms
-%	\end{itemize}
-%	\end{columns}
-%	\begin{columns}
-%		\column{0.75 \textwidth}
-%		\begin{center}
-%			\includegraphics[width=0.667 \textwidth]{IMG/probe/09-08-2021_ch17-write63-baselinedac1.png}
-%		\end{center}
-%		\column{0.2 \textwidth}
-%		{\color{green} clock signal}\\
-%		\hspace{-20mm} \vspace{-4mm}
-%		{\color{yellow} input data}
-%		\column{0.05 \textwidth}
-%	\end{columns}
-%	\end{frame}
+
 
 	
 	\begin{frame}
-	\frametitle{2) Reading Internal DACs for threshold-tuning}
+	\frametitle{3) Reading Internal DACs for threshold-tuning}
 	\begin{columns}
 		\column{0.5 \textwidth}
 		{\color{blue} Input}
@@ -653,7 +631,7 @@
 
 
 	\begin{frame}
-		\frametitle{3) Firmware - Latch counter system}
+		\frametitle{4) Firmware - Latch counter system}
 		\begin{itemize}
 			\item In the original FPGA firmware any counter could be read, but \textbf{only one at the time}
 			\item The firmware could not read the value of two or more counters \textbf{simultaneously}
@@ -681,7 +659,7 @@
 	\end{frame}
 
 	\begin{frame}
-		\frametitle{4) Firmware - timestamp generator}
+		\frametitle{5) Firmware - timestamp generator}
 		\begin{itemize}
 			\item In order to calculate the count rate, it is needed to compare two measurements of
 			counts with the time elapsed between two latches
@@ -805,9 +783,9 @@
 	
 	\begin{frame}
 	\frametitle{Conclusions}
-	\begin{center}
-		{\color{blue}\textbf{Conclusions}}
-	\end{center}
+	%\begin{center}
+	%	{\color{blue}\textbf{Conclusions}}
+	%\end{center}
 		\begin{itemize}
 			%\item New \textbf{FPGA} firmware extensions added for the configuration and readout of the \textbf{ABACUS2} chip
 			%\item \textbf{Successfully} tested with simulations and in laboratory
@@ -898,6 +876,38 @@
 			\end{figure}	
 		\end{center}
 	\end{columns}
+		\end{frame}
+	
+		\begin{frame}[noframenumbering]
+		\frametitle{Writing Internal DACs for threshold-tuning}
+		\begin{columns}
+			\column{0.5 \textwidth}
+		{\color{blue} Input}
+		\begin{itemize}
+			\item Initialization sequence = 0xA5A5
+			\item Write command = 11 
+			\item Address = 100010 = 10001-0 = channel 17
+			\item Data    = 00111111 = 63
+		\end{itemize}
+		\column{0.5 \textwidth}
+		{\color{blue} Clock Specs}
+		\begin{itemize}
+			\item Period = \textbf{98.44}~$\mu$s
+			\item Duty cycle \textbf{33}\%
+			\item Packet duration $\approx$ \textbf{6.4}~ms
+		\end{itemize}
+		\end{columns}
+		\begin{columns}
+			\column{0.75 \textwidth}
+			\begin{center}
+				\includegraphics[width=0.667 \textwidth]{IMG/probe/09-08-2021_ch17-write63-baselinedac1.png}
+			\end{center}
+			\column{0.2 \textwidth}
+			%{\color{green} clock signal}\\
+			%\hspace{-20mm} \vspace{-4mm}
+			%{\color{yellow} input data}
+			\column{0.05 \textwidth}
+		\end{columns}
 		\end{frame}
 	
 	\begin{frame}[noframenumbering]
@@ -1006,5 +1016,7 @@
 			\item \textbf{CLB}: \textbf{C}onfigurable \textbf{L}ogic \textbf{B}lock = A typical cell consists of a 4-input LUT, a Full adder (FA) and a D-type flip-flop
 		\end{itemize}
 	\end{frame}
+
+		
 	
 \end{document}

@@ -126,7 +126,7 @@
 			\textbf{Disadvantages}
 			\begin{itemize}
 				\item Slow response times $\approx 100\:\mu s$
-				\item Limited sensitivity (>$10^4$ p)
+				\item Limited sensitivity (> $10^4$ p)
 				\item Indirect measurement of the number of particles  (mandatory to know the beam energy)
 			\end{itemize}
 			\column{0.38 \textwidth}
@@ -170,10 +170,10 @@
 		\begin{itemize}
 			\item \textbf{U}ltra \textbf{F}ast \textbf{S}ilicon \textbf{D}etector/\textbf{L}ow \textbf{G}ain \textbf{A}valanche \textbf{D}iode
 			\item Charge multiplication in $p^+ / n^{++}$ junction 
-			\item 50$\mu$m sensor thickness (active region)
+			\item 50 $\mu$m sensor thickness (active region)
 			\item Internal gain of \textbf{10~$\div$~15}\\
 			 	LGAD allows to increase SNR 
-			\item Trapezoidal signal of $\approx$~\textbf{1.5ns}
+			\item Trapezoidal signal of $\approx$~\textbf{1.5 ns}
 			\item Capable of detecting single particles at high rates if properly segmented
 		\end{itemize}
 	\end{columns}
@@ -200,7 +200,7 @@
 		\begin{itemize}
 			\item Single proton counting
 			\item Custom detector built ad hoc
-			\item Area \textbf{3x3} cm${}^2$ with \textbf{144} Strips
+			\item Area \textbf{3x3} cm${}^2$ with \textbf{144} strips
 			\item Max proton flux= $10^8$ $\frac{p}{s \cdot cm^2}$ ({\color{blue} Error < \textbf{1}\%})
 			\item 50~$\mu$m sensor thickness (active region)
 			\item Two orthogonal directions
@@ -251,9 +251,9 @@
 				\item \textbf{110} nm CMOS technology
 				\item \textbf{24} channels
 				\item \textbf{I2C} controller for digital configuration
-				\item Max frequency >\textbf{100}~MHz
+				\item Max frequency > \textbf{100}~MHz
 				\item Input charge \textbf{3-140}~fC
-				\item Dead time <\textbf{10}~ns
+				\item Dead time < \textbf{10}~ns
 				\item SNR~>~\textbf{10}
 				\item Full digital I/O interfaced \\ with \textbf{FPGA}
 			\end{itemize}
@@ -332,7 +332,7 @@
 		{\hspace*{1.5cm}
 		{\color{blue}ESA-ABACUS read-out board}
 		\begin{itemize}
-			\item \textbf{6 ABACUS} chips
+			\item \textbf{6 ABACUS2} chips
 			\item Able to read \textbf{144} strips
 			\item \textbf{3} FPGA (Kintex7 KC705) needed
 		\end{itemize}
@@ -342,7 +342,7 @@
 			\hspace*{1.5cm}
 			{\color{blue}ABACUS2 test board}
 			\begin{itemize}
-				\item 1 \textbf{ABACUS} ASIC chip
+				\item 1 \textbf{ABACUS2} ASIC chip
 				\item \textbf{CML} output to \textbf{FPGA}
 				\item \textbf{I2C} input to internal DACs
 				\item Possibility to \textbf{simulate} signals sending test pulses (TP) to even or odd channels
@@ -395,7 +395,7 @@
 		\begin{itemize}
 			\item 1) {\color{teal} Creation of the \textbf{level translation device} for communication with the FPGA}
 			\item 2) {\color{teal} Creation of a \textbf{debug} tool for the FMC connectors}
-			\item 3) {\color{teal} Firmware implementation of the read/write logic for internal DACs configuration in the \textbf{ABACUS} chip}
+			\item 3) {\color{teal} Firmware implementation of the read/write logic for internal DACs configuration in the \textbf{ABACUS2} chip}
 			\item 4) {\color{teal} Addition of a \textbf{latch system} in order to save into a \textbf{register} the current state of every counter}
 			\item 5) {\color{teal} Addition of a \textbf{timestamp generator} in order to obtain a more accurate rate calculation}
 		\end{itemize}
@@ -422,11 +422,11 @@
 				\includegraphics[width=0.5 \textwidth]{IMG/probe/09-08-2021_clock-specks.png}
 			\end{center}
 			\begin{itemize}
-				\item ABACUS DACs I/O = CMOS \textbf{1.2}V single-ended
-				\item FPGA I/O = CMOS \textbf{2.5}V single-ended
+				\item ABACUS2 DACs I/O = CMOS \textbf{1.2} V single-ended
+				\item FPGA I/O = CMOS \textbf{2.5} V single-ended
 				\item Resistive \textbf{voltage divider}
 				\item 2x \textbf{2N2222} NPN transistor in TO-18 package
-				\item 3x \textbf{1}k$\Omega$ resistor 1/8W
+				\item 3x \textbf{1} k$\Omega$ resistor 1/8 W
 			\end{itemize}
 		\end{columns}
 	\end{frame}
@@ -502,7 +502,7 @@
 				\item Initialization sequence \textbf{0xA5A5}= 
 				\newline
 				1010-0101-1010-0101
-				\item \textbf{16 bit words}= \newline 2bit command + 6bit address + 8bit data
+				\item \textbf{16 bit words}= \newline 2b command + 6b address + 8b data
 				\begin{itemize}
 					\item \textbf{command}
 					\begin{itemize}
@@ -556,7 +556,7 @@
 			\begin{itemize}
 				\item \textbf{16} bit = initialization sequence + \textbf{16} bit = data
 			\end{itemize}
-			\item \textbf{32} bit waiting the response (Set Data End Communication is always zero)
+			\item \textbf{32} clock pulses waiting the response (Set Data End Communication is always zero)
 		\end{itemize}
 		\begin{center}
 			%\includegraphics[width=0.95 \textwidth]{IMG/FSM.pdf}
@@ -621,9 +621,9 @@
 			\hspace{-20mm} \vspace{5mm}
 			{\color{yellow} input data} \\
 			\hspace{-20mm} \vspace{5mm}
-			{\color{red} output data 2.5V} \\
+			{\color{red} output data 2.5 V} \\
 			\hspace{-20mm} \vspace{-7mm}
-			{\color{blue} output data 1.2V}
+			{\color{blue} output data 1.2 V}
 		
 		\column{0.05 \textwidth} 
 	\end{columns}
@@ -639,17 +639,21 @@
 			\item The latch system allows to \textbf{synchronize} the measurement of counts from different channel
 		\end{itemize}
 		\begin{columns}
-			\column{0.2 \textwidth}
+			\column{0.4 \textwidth}
 			{\color{blue} \textbf{Logic implemented:}}
 			\begin{itemize}
 				\item \textbf{1 RAM} block for each register
 				\item \textbf{192} registers to be saved
-				\item logic controls \textbf{commands}
+				\item Control logic:
+				\begin{itemize}
+					\item New firmware \textbf{target}
+					\item New firmware \textbf{commands} for saving and reading data
+				\end{itemize}
 			\end{itemize}
-			\column{0.2 \textwidth}
-			\begin{center}
-				\includegraphics[width=0.8 \textwidth]{IMG2/LATCH_RAM_IP_2}
-			\end{center}
+			%\column{0.2 \textwidth}
+			%\begin{center}
+			%	\includegraphics[width=0.8 \textwidth]{IMG2/LATCH_RAM_IP_2}
+			%\end{center}
 			\column{0.6 \textwidth}
 			\begin{center}
 				\includegraphics[width=1.0 \textwidth]{IMG2/latch_counter}\\
@@ -663,9 +667,11 @@
 		\begin{itemize}
 			\item In order to calculate the count rate, it is needed to compare two measurements of
 			counts with the time elapsed between two latches
-			\item I implemented a \textbf{64 bit} counter running at \textbf{500 MHz} and the logic to read it
-			\item $2 \: ns \cdot \: 64 \: bit \: =\: 2 \: ns \cdot \: 18.44\cdot10^{18} \: = \: 36.6\cdot10^{9} \: s \approx 1170 \: years$
-			\item Having a counter so long means that a reset command is not necessary 
+			\item I implemented a \textbf{64 bit} counter running at \textbf{500 MHz}
+			%\item $2 \: ns \cdot \: 64 \: bit \: =\: 2 \: ns \cdot \: 18.44\cdot10^{18} \: = \: 36.6\cdot10^{9} \: s \approx 1170 \: years$
+			%\item Having a counter so long means that a reset command is not necessary
+			\item New commands for reading timestamp data
+			\item 64 bit \textbf{CDC FIFO} and \textbf{RAM} needed for accurate results   
 		\end{itemize}
 		\begin{columns}		
 			\column{0.5 \textwidth}
@@ -1015,6 +1021,16 @@
 			\item \textbf{IOB}: \textbf{I}/\textbf{O} \textbf{B}lock = collection or grouping of basic elements that implement the input and output functions of an FPGA device
 			\item \textbf{CLB}: \textbf{C}onfigurable \textbf{L}ogic \textbf{B}lock = A typical cell consists of a 4-input LUT, a Full adder (FA) and a D-type flip-flop
 		\end{itemize}
+	\end{frame}
+
+	\begin{frame}[noframenumbering]
+		\frametitle{More on timestamp generator}
+		\begin{center}
+			\begin{itemize}
+				\item \textbf{CDC FIFO}= Clock Domain Crossing FIFO, decouples two sides, each in their own asynchronous clock domain.
+				\item $2 \: ns \cdot \: 64 \: bit \: =\: 2 \: ns \cdot \: 18.44\cdot10^{18} \: = \: 36.6\cdot10^{9} \: s \approx 1170 \: years$
+			\end{itemize}
+		\end{center}
 	\end{frame}
 
 		

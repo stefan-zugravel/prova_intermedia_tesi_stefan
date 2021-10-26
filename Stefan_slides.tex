@@ -60,7 +60,7 @@
 		\begin{columns}
 		\column{0.40 \textwidth}
 		\begin{center}
-			\textbf{Hadron therapy} uses heavy charged particles (p, ${}^{12}$C ions) to administer a lethal dose to the tumor target minimizing the energy deposited in the surrounding healthy tissues.
+			\textbf{Hadron therapy} uses heavy charged particles (p, ${}^{12}$C ions) to deliver a lethal dose to the tumor target minimizing the energy deposited in the surrounding healthy tissues.
 			\includegraphics[width=0.95 \textwidth]{IMG/Bragg_Peak.PNG}
 		\end{center}
 		\column{0.60 \textwidth}
@@ -74,10 +74,10 @@
 		\vspace{1 cm}
 			{\color{blue} Advanced treatment techniques use thin proton beams. \\ Typical parameters (TIFPA examples):}
 			\begin{itemize}
-				\item FWHM 3$\div$7 mm
+				\item FWHM 3 $\div$ 7 mm
 				\item Beam rates $10^6\div10^{10}$ p/s
 				%\item Current  1$\div$320 nA
-				\item Energy  70$\div$228 MeV $\rightarrow$ (4$\div$32) cm in water
+				\item Energy 70 $\div$ 228 MeV $\rightarrow$ (4 $\div$ 32) cm in water
 			\end{itemize}
 		
 		\end{columns}
@@ -237,8 +237,8 @@
 				\begin{itemize}
 					%the discriminator threshold is setted with an external value and, in order to uniform the channels an internal DAC is used.
 					{\footnotesize
-					\item[$-$] External commercial 16b DAC $\rightarrow$ global Vth
-					\item[$-$] Internal per-channel 6b DAC $\rightarrow$ th tuning
+					\item[$-$] External commercial 16b DAC \\$\rightarrow$ global threshold
+					\item[$-$] Internal per-channel 6b DAC \\$\rightarrow$ threshold tuning
 				}
 				\end{itemize}
 				\item \textbf{CML} converter (propagate signal)
@@ -493,9 +493,10 @@
 				%\includegraphics[width=0.7 \textwidth]{IMG/InternalDAC.pdf}
 				\includegraphics[width=0.7 \textwidth]{IMG2/INTERNALDAC}
 				%\textbf{HDL} simulated
+				%\vspace*{0.6cm}
 				\includegraphics[width=0.7 \textwidth]{IMG/TableLSB.PNG}
 			\end{center}
-			\textbf{LSB} value $\approx$ 0.94 mV for \textbf{Vref\_LSB} = 600~mV
+			{\small \textbf{LSB} value $\approx$ 0.94 mV for \textbf{Vref\_LSB} = 600~mV}
 			\column{0.5 \textwidth}
 			{\color{blue} Internal DAC configuration}
 			\begin{itemize}
@@ -506,18 +507,18 @@
 				\begin{itemize}
 					\item \textbf{command}
 					\begin{itemize}
-						\item \textbf{11} = write
-						\item \textbf{10} = read
+						\item[$-$] \textbf{11} = write
+						\item[$-$] \textbf{10} = read
 					\end{itemize}
 					\item \textbf{address}
 					\begin{itemize}
-						\item \textbf{5 bit} address from \textbf{0} to \textbf{23} (ch number)
-						\item \textbf{LSB} is Vth$\pm$ (not used for now)
+						\item[$-$] \textbf{5 bit} address from \textbf{0} to \textbf{23} (ch number)
+						\item[$-$] \textbf{LSB} is Vth$\pm$ (not used for now)
 					\end{itemize}
 					\item \textbf{data}
 					\begin{itemize}
-						\item \textbf{2 MSB} not used
-						\item \textbf{6 LSB} data for the internal DAC \newline from \textbf{0} to \textbf{63}
+						\item[$-$] \textbf{2 MSB} not used
+						\item[$-$] \textbf{6 LSB} data for the internal DAC \newline from \textbf{0} to \textbf{63}
 					\end{itemize}
 				\end{itemize} 
 			%aggiungere che il chip è stato simulato in Verilog.
@@ -642,12 +643,12 @@
 			\column{0.4 \textwidth}
 			{\color{blue} \textbf{Logic implemented:}}
 			\begin{itemize}
-				\item \textbf{1 RAM} block for each register
+				\item One \textbf{32 bit RAM} block\\ for each register (Xilinx IP core)
 				\item \textbf{192} registers to be saved
 				\item Control logic:
 				\begin{itemize}
-					\item New firmware \textbf{target}
-					\item New firmware \textbf{commands} for saving and reading data
+					\item[$-$] New firmware \textbf{target}
+					\item[$-$] New firmware \textbf{commands} for saving and reading data
 				\end{itemize}
 			\end{itemize}
 			%\column{0.2 \textwidth}
@@ -664,14 +665,17 @@
 
 	\begin{frame}
 		\frametitle{5) Firmware - timestamp generator}
+		\vspace*{-0.525cm}
 		\begin{itemize}
 			\item In order to calculate the count rate, it is needed to compare two measurements of
-			counts with the time elapsed between two latches
+			counts with the time elapsed between them
 			\item I implemented a \textbf{64 bit} counter running at \textbf{500 MHz}
 			%\item $2 \: ns \cdot \: 64 \: bit \: =\: 2 \: ns \cdot \: 18.44\cdot10^{18} \: = \: 36.6\cdot10^{9} \: s \approx 1170 \: years$
 			%\item Having a counter so long means that a reset command is not necessary
 			\item New commands for reading timestamp data
-			\item 64 bit \textbf{CDC FIFO} and \textbf{RAM} needed for accurate results   
+			%\item 64 bit \textbf{CDC FIFO} and \textbf{RAM} needed for accurate results   
+			\item \textbf{64 bit} \textbf{RAM} used to store timestamp data 
+			\item \textbf{CDC FIFO} used for data transfer to \textbf{125~MHz} main system clock 
 		\end{itemize}
 		\begin{columns}		
 			\column{0.5 \textwidth}
@@ -795,6 +799,7 @@
 		\begin{itemize}
 			%\item New \textbf{FPGA} firmware extensions added for the configuration and readout of the \textbf{ABACUS2} chip
 			%\item \textbf{Successfully} tested with simulations and in laboratory
+			\item FPGA firmware extensions successfully implemented using VHDL and validated with measurements
 			\item The ABACUS2 \textbf{I2C controller} and the \textbf{FPGA} configuration
 			logic for the trimming \textbf{DACs} are working as intended
 			\item From the performed threshold scans it emerged that the ABACUS2
@@ -820,7 +825,7 @@
 		\end{center}	
 	\end{frame}
 
-	\begin{frame}[noframenumbering]
+	\begin{frame}[plain, noframenumbering]
 	\frametitle{References}
 	{\scriptsize 
 	\begin{thebibliography}{00}
@@ -845,7 +850,7 @@
 	\end{center}
 	\end{frame}
 	
-	\begin{frame}[noframenumbering]
+	\begin{frame}[plain, noframenumbering]
 	\frametitle{Additional Graphs}
 	\begin{columns}
 		\column{0.3 \textwidth}
@@ -884,7 +889,7 @@
 	\end{columns}
 		\end{frame}
 	
-		\begin{frame}[noframenumbering]
+		\begin{frame}[plain, noframenumbering]
 		\frametitle{Writing Internal DACs for threshold-tuning}
 		\begin{columns}
 			\column{0.5 \textwidth}
@@ -916,7 +921,7 @@
 		\end{columns}
 		\end{frame}
 	
-	\begin{frame}[noframenumbering]
+	\begin{frame}[plain, noframenumbering]
 		\frametitle{CML}
 		\begin{columns}
 			\column{0.5 \textwidth}
@@ -933,7 +938,7 @@
 		\end{columns}
 	\end{frame}
 
-	\begin{frame}[noframenumbering]
+	\begin{frame}[plain, noframenumbering]
 		\frametitle{I2C}
 		\begin{center}
 			\includegraphics[width=0.8 \textwidth]{IMG/I2C.png}
@@ -941,7 +946,7 @@
 		The Inter-Integrated Circuit (I2C) bus is a two wire serial interface originally developed by the Phillips Corporation for use in consumer products. It is a bi-directional bus that is easily implemented in any IC process (NMOS, CMOS, bipolar) and allows for simple inter-IC communication. Connections are minimized by using a serial data line (SDA), a serial clock line (SCL) and a common ground to carry all communications.
 	\end{frame}
 
-	\begin{frame}[noframenumbering]
+	\begin{frame}[plain, noframenumbering]
 		\frametitle{LVDS}
 		\begin{columns}
 			\column{0.5 \textwidth}
@@ -968,7 +973,7 @@
 	%	\end{columns}
 	%\end{frame}
 
-	\begin{frame}[noframenumbering]
+	\begin{frame}[plain, noframenumbering]
 		\frametitle{UDP}
 		\begin{columns}
 			\column{0.5 \textwidth}
@@ -984,7 +989,7 @@
 		\end{columns}
 	\end{frame}
 
-	\begin{frame}[noframenumbering]
+	\begin{frame}[plain, noframenumbering]
 	\frametitle{Reading Baseline DACs $\rightarrow$ code}
 	\begin{itemize}
 		\item \textbf{reading} procedure for 1 dac consist of \textbf{2 processes}=
@@ -998,7 +1003,7 @@
 	\end{center}
 	\end{frame}
 
-		\begin{frame}[noframenumbering]
+		\begin{frame}[plain, noframenumbering]
 	\frametitle{VHDL}
 	{\LARGE
 		\begin{itemize}
@@ -1014,7 +1019,7 @@
 	}
 \end{frame}
 	
-	\begin{frame}[noframenumbering]
+	\begin{frame}[plain, noframenumbering]
 		\frametitle{FPGA structure}
 		\begin{itemize}
 			\item \textbf{PSM}: \textbf{P}rogrammable \textbf{S}witch \textbf{M}atrix = Whenever a vertical and a horizontal channel intersect, there is a switch box. When a wire enters a switch box there are programmable switches that allow it to connect to other wires in adjacent channel segments
@@ -1023,7 +1028,7 @@
 		\end{itemize}
 	\end{frame}
 
-	\begin{frame}[noframenumbering]
+	\begin{frame}[plain, noframenumbering]
 		\frametitle{More on timestamp generator}
 		\begin{center}
 			\begin{itemize}
@@ -1031,6 +1036,27 @@
 				\item $2 \: ns \cdot \: 64 \: bit \: =\: 2 \: ns \cdot \: 18.44\cdot10^{18} \: = \: 36.6\cdot10^{9} \: s \approx 1170 \: years$
 			\end{itemize}
 		\end{center}
+	\end{frame}
+
+	\begin{frame}[plain, noframenumbering]
+		\frametitle{pileup and signal}
+		\begin{center}
+			\includegraphics[width=0.95 \textwidth]{IMG2/PILEUP}
+		\end{center}
+	\end{frame}
+
+	\begin{frame}[plain, noframenumbering]
+		\frametitle{pileup corrections}
+		\begin{columns}
+			\column{0.5\textwidth}
+			\begin{center}
+				\includegraphics[width=0.5 \textwidth]{IMG2/pileup2}
+			\end{center}
+		\column{0.5\textwidth}
+		\begin{center}
+			\includegraphics[width=0.95 \textwidth]{IMG2/pileup3}
+		\end{center}
+		\end{columns}
 	\end{frame}
 
 		
